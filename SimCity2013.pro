@@ -12,9 +12,9 @@ TARGET = SimCity2013
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        SimCityWindow.cpp
+SOURCES += src/main.cpp\
+           src/SimCityWindow.cpp
 
-HEADERS  += SimCityWindow.h
+HEADERS  += src/SimCityWindow.h
 
-FORMS    += SimCityWindow.ui
+FORMS    += src/SimCityWindow.ui
