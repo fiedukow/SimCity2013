@@ -19,10 +19,12 @@ QMAKE_LFLAGS += -lOgreMain -lOIS
 SOURCES += src/main.cpp\
            src/View/SimCityWindow.cpp \
            src/View/OgreWidget.cpp \
-           src/View/BaseApplication.cpp
+           src/View/BaseApplication.cpp \
+    src/Model/World.cpp
 
 HEADERS  += src/View/SimCityWindow.h \
             src/View/OgreWidget.h \
-            src/View/BaseApplication.h
+            src/View/BaseApplication.h \
+    src/Model/World.h
 
 FORMS    += src/View/SimCityWindow.ui
