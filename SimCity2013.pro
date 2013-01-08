@@ -17,12 +17,12 @@ QMAKE_CXXFLAGS += -std=c++11 -DBOOST_ALL_NO_LIB
 QMAKE_LFLAGS += -lOgreMain -lOIS
 
 SOURCES += src/main.cpp\
-           src/SimCityWindow.cpp \
-           src/OgreWidget.cpp \
-           src/BaseApplication.cpp
+           src/View/SimCityWindow.cpp \
+           src/View/OgreWidget.cpp \
+           src/View/BaseApplication.cpp
 
-HEADERS  += src/SimCityWindow.h \
-            src/OgreWidget.h \
-            src/BaseApplication.h
+HEADERS  += src/View/SimCityWindow.h \
+            src/View/OgreWidget.h \
+            src/View/BaseApplication.h
 
-FORMS    += src/SimCityWindow.ui
+FORMS    += src/View/SimCityWindow.ui

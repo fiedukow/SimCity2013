@@ -1,5 +1,5 @@
 #include <QApplication>
-#include "SimCityWindow.h"
+#include "View/SimCityWindow.h"
 
 int main(int argc, char *argv[])
 {
