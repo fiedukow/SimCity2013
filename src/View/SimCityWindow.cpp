@@ -1,8 +1,13 @@
 #include "SimCityWindow.h"
 #include "ui_SimCityWindow.h"
 #include "OgreWidget.h"
+
 #include <QLine>
+#include <QLabel>
 #include <QTimer>
+#include <QSpinBox>
+
+#include <cmath>
 
 SimCityWindow::SimCityWindow(QWidget *parent) :
   QMainWindow(parent),
@@ -22,15 +27,32 @@ SimCityWindow::SimCityWindow(QWidget *parent) :
   lay->setContentsMargins(0, 0, 0, 0);
   OgreWidget* ogre = new OgreWidget(ui->ogreFrame);
   lay->addWidget(ogre);
-  QTimer* timer = new QTimer(this);
-  timer->setInterval(30);
-  connect(timer, SIGNAL(timeout()), ogre, SLOT(repaint()));
+  ogreSceneTimer = new QTimer(this);
+  connect(ogreSceneTimer, SIGNAL(timeout()), ogre, SLOT(repaint()));
   connect(ui->actionPlay,SIGNAL(triggered()), ogre, SLOT(goForward()));
   connect(ui->actionPause,SIGNAL(triggered()), ogre, SLOT(goBackward()));
-  timer->start();
+  connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(close()));
+  QSpinBox* frameRateSpin = new QSpinBox(this);
+
+  ui->mainToolBar->addWidget(frameRateSpin);
+  frameRateSpin->setRange(1, 120);
+  frameRateSpin->setValue(30);
+  connect(frameRateSpin,
+          SIGNAL(valueChanged(int)),
+          this,
+          SLOT(setFramerate(int)));
+  setFramerate(frameRateSpin->value());
+  ogreSceneTimer->start();
 }
 
 SimCityWindow::~SimCityWindow()
 {
+  ogreSceneTimer->stop();
   delete ui;
+}
+
+void SimCityWindow::setFramerate(int frameRate)
+{
+  int interval = round(1000.0/(double)frameRate);
+  ogreSceneTimer->setInterval(interval);
 }
