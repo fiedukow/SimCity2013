@@ -1,18 +1,37 @@
 #ifndef OGREWIDGET_H
 #define OGREWIDGET_H
 
-#include <QWidget>
+#include <OGRE/Ogre.h>
+#include <QGLWidget>
+#include <QX11Info>
 
-class OgreWidget : public QWidget
+#include "BaseApplication.h"
+
+class OgreWidget : public QGLWidget, public BaseApplication
 {
-  Q_OBJECT
-public:
-  explicit OgreWidget(QWidget *parent = 0);
-  
-signals:
-  
-public slots:
-  
+  Q_OBJECT;
+
+ public:
+  OgreWidget( QWidget *parent=0 );
+
+
+  virtual ~OgreWidget();
+
+  virtual void paintEvent(QPaintEvent *);
+  virtual void resizeEvent(QResizeEvent* event);
+
+ public slots:
+  void goForward();
+  void goBackward();
+
+
+ protected:
+  virtual void bindToWindow(void);
+  virtual void createScene(void);
+
+ private:
+  Ogre::SceneNode* headNode;
+  double xMod;
 };
 
 #endif // OGREWIDGET_H
