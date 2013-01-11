@@ -4,12 +4,13 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>540</x>
-      <y>90</y>
-      <w>330</w>
-      <h>450</h>
+      <x>1120</x>
+      <y>1740</y>
+      <w>400</w>
+      <h>480</h>
     </coordinates>
-    <panel_attributes>*Model::Model*
+    <panel_attributes>bt=*
+*Model::Model*
 --
 + Model()
 + startSimulation()
@@ -19,6 +20,8 @@
 + getMapSnapshot() : MapSnapshot
 + setSimulationSpeed(factor : double)
 + getSimulationSpeed() : double
++ registerObserver(observer : NewStateObserver*)
++ unregisterObserver(observer : NewStateObserver*)
 
 - operator()
 - setMinTimerDelay(delayInMs : uint)
@@ -29,25 +32,24 @@
 - simulationSpeed : double
 - key : World::MasterKey
 - minTimerDelay : uint
-
+- observers : std::list&lt;NewStateObserver*&gt;
 
 _- msPerTick : const double_
 --
 --
 _Description:_
-Access class to the model of application.
-It allows to controll model simulation 
-flow as well as getting informations 
-about current model state.
-Internally it starts simulation thread
-and handle it flow in self operator().</panel_attributes>
+Access class to the model of application. It allows to 
+controll model simulation flow as well as getting
+informations about current model state. Internally it 
+starts simulation thread and handle it flow 
+in self operator().</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>390</x>
-      <y>870</y>
+      <x>970</x>
+      <y>2530</y>
       <w>470</w>
       <h>410</h>
     </coordinates>
@@ -90,20 +92,20 @@ for this puropose.</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>480</x>
-      <y>510</y>
+      <x>1060</x>
+      <y>2190</y>
       <w>192</w>
-      <h>380</h>
+      <h>360</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 *             is part of*</panel_attributes>
-    <additional_attributes>100;30;100;360</additional_attributes>
+    <additional_attributes>100;30;100;340</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>920</x>
-      <y>870</y>
+      <x>1590</x>
+      <y>2530</y>
       <w>330</w>
       <h>340</h>
     </coordinates>
@@ -134,19 +136,19 @@ DBAccessor.</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>830</x>
-      <y>1000</y>
-      <w>110</w>
+      <x>1410</x>
+      <y>2660</y>
+      <w>200</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>90;30;30;30</additional_attributes>
+    <additional_attributes>180;30;30;30</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>740</x>
-      <y>620</y>
+      <x>1320</x>
+      <y>2280</y>
       <w>210</w>
       <h>160</h>
     </coordinates>
@@ -166,21 +168,21 @@ every consecutive tick.</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>810</x>
-      <y>510</y>
+      <x>1390</x>
+      <y>2190</y>
       <w>50</w>
-      <h>130</h>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 m1=   1
 m2=   n</panel_attributes>
-    <additional_attributes>30;30;30;110</additional_attributes>
+    <additional_attributes>30;30;30;90</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>600</x>
-      <y>750</y>
+      <x>1180</x>
+      <y>2410</y>
       <w>180</w>
       <h>140</h>
     </coordinates>
@@ -191,28 +193,30 @@ Implements</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>900</x>
-      <y>750</y>
-      <w>210</w>
+      <x>1480</x>
+      <y>2410</y>
+      <w>300</w>
       <h>140</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 Implements</panel_attributes>
-    <additional_attributes>30;30;190;120</additional_attributes>
+    <additional_attributes>30;30;280;120</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>380</x>
-      <y>1350</y>
+      <x>960</x>
+      <y>3010</y>
       <w>370</w>
-      <h>290</h>
+      <h>340</h>
     </coordinates>
     <panel_attributes>&lt;&lt;abstract&gt;&gt;
 *Model::Observer*
 /{implements: ObjectSnapshotVisitor}/
 --
 /+ accept(world : World&amp;) = 0/
+/+ timePassed(ms : uint)/
+
 + provideObjects(objects : ObjectSnapshots)
 + provideMap(map : MapSnapshot)
 + hasMapProvided() : bool
@@ -234,8 +238,8 @@ old ones which should be enought in most cases.</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>60</x>
-      <y>1880</y>
+      <x>640</x>
+      <y>3630</y>
       <w>250</w>
       <h>120</h>
     </coordinates>
@@ -251,8 +255,8 @@ old ones which should be enought in most cases.</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>820</x>
-      <y>1360</y>
+      <x>1400</x>
+      <y>3010</y>
       <w>340</w>
       <h>240</h>
     </coordinates>
@@ -275,8 +279,8 @@ like ground connection area).</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>510</x>
-      <y>1250</y>
+      <x>1090</x>
+      <y>2910</y>
       <w>50</w>
       <h>120</h>
     </coordinates>
@@ -286,8 +290,8 @@ like ground connection area).</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>380</x>
-      <y>1670</y>
+      <x>960</x>
+      <y>3430</y>
       <w>290</w>
       <h>120</h>
     </coordinates>
@@ -305,8 +309,8 @@ from getConnectedObject()).</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>660</x>
-      <y>1880</y>
+      <x>1240</x>
+      <y>3630</y>
       <w>250</w>
       <h>120</h>
     </coordinates>
@@ -322,8 +326,8 @@ from getConnectedObject()).</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>360</x>
-      <y>1880</y>
+      <x>940</x>
+      <y>3630</y>
       <w>250</w>
       <h>120</h>
     </coordinates>
@@ -339,52 +343,52 @@ from getConnectedObject()).</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>150</x>
-      <y>1760</y>
+      <x>730</x>
+      <y>3520</y>
       <w>290</w>
-      <h>140</h>
+      <h>130</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>270;30;30;120</additional_attributes>
+    <additional_attributes>270;30;30;110</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>510</x>
-      <y>1610</y>
+      <x>1090</x>
+      <y>3320</y>
       <w>50</w>
-      <h>80</h>
+      <h>130</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;30;60</additional_attributes>
+    <additional_attributes>30;30;30;110</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>560</x>
-      <y>1760</y>
+      <x>1140</x>
+      <y>3520</y>
       <w>250</w>
-      <h>140</h>
+      <h>130</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;230;120</additional_attributes>
+    <additional_attributes>30;30;230;110</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>460</x>
-      <y>1760</y>
+      <x>1040</x>
+      <y>3520</y>
       <w>50</w>
-      <h>140</h>
+      <h>130</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;30;120</additional_attributes>
+    <additional_attributes>30;30;30;110</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>800</x>
-      <y>1660</y>
+      <x>1380</x>
+      <y>3420</y>
       <w>280</w>
       <h>180</h>
     </coordinates>
@@ -404,19 +408,19 @@ about at least part of world state.</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>800</x>
-      <y>1250</y>
+      <x>1380</x>
+      <y>2910</y>
       <w>110</w>
-      <h>130</h>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;90;110</additional_attributes>
+    <additional_attributes>30;30;90;100</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1100</x>
-      <y>1660</y>
+      <x>1680</x>
+      <y>3420</y>
       <w>280</w>
       <h>80</h>
     </coordinates>
@@ -430,8 +434,8 @@ about at least part of world state.</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>640</x>
-      <y>1680</y>
+      <x>1220</x>
+      <y>3440</y>
       <w>180</w>
       <h>70</h>
     </coordinates>
@@ -442,30 +446,30 @@ virtual</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>910</x>
-      <y>1570</y>
+      <x>1490</x>
+      <y>3220</y>
       <w>50</w>
-      <h>110</h>
+      <h>220</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;30;90</additional_attributes>
+    <additional_attributes>30;30;30;200</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1090</x>
-      <y>1570</y>
+      <x>1670</x>
+      <y>3220</y>
       <w>50</w>
-      <h>110</h>
+      <h>220</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;30;90</additional_attributes>
+    <additional_attributes>30;30;30;200</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>60</x>
-      <y>2100</y>
+      <x>640</x>
+      <y>3820</y>
       <w>280</w>
       <h>110</h>
     </coordinates>
@@ -482,74 +486,74 @@ virtual</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>140</x>
-      <y>1970</y>
+      <x>720</x>
+      <y>3720</y>
       <w>50</w>
-      <h>150</h>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;30;130</additional_attributes>
+    <additional_attributes>30;30;30;100</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>300</x>
-      <y>1810</y>
+      <x>880</x>
+      <y>3570</y>
       <w>650</w>
-      <h>310</h>
+      <h>270</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>630;30;630;250;30;250;30;290</additional_attributes>
+    <additional_attributes>630;30;630;210;30;210;30;250</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>800</x>
-      <y>1970</y>
+      <x>1380</x>
+      <y>3720</y>
       <w>50</w>
-      <h>150</h>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;30;130</additional_attributes>
+    <additional_attributes>30;30;30;100</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>460</x>
-      <y>1970</y>
+      <x>1040</x>
+      <y>3720</y>
       <w>50</w>
-      <h>150</h>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;30;130</additional_attributes>
+    <additional_attributes>30;30;30;100</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>600</x>
-      <y>1810</y>
+      <x>1180</x>
+      <y>3570</y>
       <w>370</w>
-      <h>310</h>
+      <h>270</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>350;30;350;270;30;270;30;290</additional_attributes>
+    <additional_attributes>350;30;350;230;30;230;30;250</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>940</x>
-      <y>1810</y>
+      <x>1520</x>
+      <y>3570</y>
       <w>50</w>
-      <h>310</h>
+      <h>270</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;30;290</additional_attributes>
+    <additional_attributes>30;30;30;250</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>710</x>
-      <y>2100</y>
+      <x>1290</x>
+      <y>3820</y>
       <w>300</w>
       <h>80</h>
     </coordinates>
@@ -563,8 +567,8 @@ virtual</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>370</x>
-      <y>2100</y>
+      <x>950</x>
+      <y>3820</y>
       <w>280</w>
       <h>80</h>
     </coordinates>
@@ -578,18 +582,16 @@ virtual</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>10</x>
-      <y>1350</y>
-      <w>300</w>
-      <h>190</h>
+      <x>190</x>
+      <y>3000</y>
+      <w>310</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>*Model::Map*
 --
--id: Long {composite}
-_-ClassAttribute: Long_
++ getSnapshot() : MapSnapshot
 --
-#Operation(i: int): int
-/+AbstractOperation()/
+- graph : std::map&lt;Cross, RoadList&gt;
 --
 --
 _Description:_
@@ -602,19 +604,19 @@ It is capeable of creating map snapshots.</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>280</x>
-      <y>1250</y>
-      <w>170</w>
-      <h>120</h>
+      <x>300</x>
+      <y>2910</y>
+      <w>730</w>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>150;30;30;100</additional_attributes>
+    <additional_attributes>710;30;710;60;30;60;30;90</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1790</x>
-      <y>1210</y>
+      <x>2620</x>
+      <y>2180</y>
       <w>320</w>
       <h>240</h>
     </coordinates>
@@ -643,26 +645,22 @@ visit every snapshot type.</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1290</x>
-      <y>1010</y>
-      <w>210</w>
-      <h>100</h>
+      <x>2190</x>
+      <y>2050</y>
+      <w>240</w>
+      <h>50</h>
     </coordinates>
     <panel_attributes>*General::MapSnapshot*
 --
---
-_Description:_
-This is simplyfied and more
-straight forward description
-of roads graph.</panel_attributes>
+{typedef: const Model::Map&amp;}</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1290</x>
-      <y>1210</y>
-      <w>290</w>
+      <x>2190</x>
+      <y>2210</y>
+      <w>300</w>
       <h>190</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
@@ -683,8 +681,8 @@ specyfic information.</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1290</x>
-      <y>1530</y>
+      <x>2190</x>
+      <y>2500</y>
       <w>350</w>
       <h>50</h>
     </coordinates>
@@ -697,8 +695,8 @@ specyfic information.</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1650</x>
-      <y>1530</y>
+      <x>2560</x>
+      <y>2500</y>
       <w>310</w>
       <h>50</h>
     </coordinates>
@@ -710,8 +708,8 @@ specyfic information.</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1970</x>
-      <y>1530</y>
+      <x>2890</x>
+      <y>2500</y>
       <w>310</w>
       <h>50</h>
     </coordinates>
@@ -723,8 +721,8 @@ specyfic information.</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>2290</x>
-      <y>1530</y>
+      <x>3220</x>
+      <y>2500</y>
       <w>310</w>
       <h>50</h>
     </coordinates>
@@ -736,30 +734,30 @@ specyfic information.</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1650</x>
-      <y>1380</y>
+      <x>2230</x>
+      <y>3040</y>
       <w>50</w>
       <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>150;150;150;150</additional_attributes>
+    <additional_attributes>480;-540;480;-540</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1830</x>
-      <y>1380</y>
+      <x>2410</x>
+      <y>3040</y>
       <w>50</w>
       <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>160;150;160;150</additional_attributes>
+    <additional_attributes>500;-540;500;-540</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1290</x>
-      <y>1140</y>
+      <x>2190</x>
+      <y>2120</y>
       <w>390</w>
       <h>40</h>
     </coordinates>
@@ -770,19 +768,19 @@ specyfic information.</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1500</x>
-      <y>1420</y>
-      <w>330</w>
+      <x>2400</x>
+      <y>2390</y>
+      <w>260</w>
       <h>130</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>310;30;310;70;30;70;30;110</additional_attributes>
+    <additional_attributes>240;30;240;70;30;70;30;110</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1810</x>
-      <y>1420</y>
+      <x>2700</x>
+      <y>2390</y>
       <w>50</w>
       <h>130</h>
     </coordinates>
@@ -792,8 +790,8 @@ specyfic information.</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>2000</x>
-      <y>1420</y>
+      <x>2880</x>
+      <y>2390</y>
       <w>50</w>
       <h>130</h>
     </coordinates>
@@ -803,12 +801,428 @@ specyfic information.</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>2050</x>
-      <y>1420</y>
-      <w>400</w>
+      <x>2900</x>
+      <y>2390</y>
+      <w>480</w>
       <h>130</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;30;70;380;70;380;110</additional_attributes>
+    <additional_attributes>30;30;30;70;460;70;460;110</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>80</x>
+      <y>3220</y>
+      <w>230</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>*Model::Cross*
+
+--
+- id : uint
+- position : Position
+--
+--
+_Description:_
+This class describes one cross
+of the map (Vertex of graph).
+It has unique id and knows
+self position.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>360</x>
+      <y>3220</y>
+      <w>300</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>*Model::Road*
+--
+- placment : std::pair&lt;Cross&amp;, Corss&amp;&gt;
+- lanesFS : uint
+- lanesSF : uint
+- sideWalkFS : bool
+- sideWalkSF : bool
+--
+_Description:_
+Map graph edge - single piece of road.
+It describes </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>220</x>
+      <y>3150</y>
+      <w>50</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;70</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>420</x>
+      <y>3150</y>
+      <w>50</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;70</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1230</x>
+      <y>2410</y>
+      <w>280</w>
+      <h>620</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>250;30;260;560;30;560;30;600</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>0</x>
+      <y>1650</y>
+      <w>2080</w>
+      <h>94</h>
+    </coordinates>
+    <panel_attributes>Controler
+Model</panel_attributes>
+    <additional_attributes>30;50;2060;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1970</x>
+      <y>10</y>
+      <w>176</w>
+      <h>3920</h>
+    </coordinates>
+    <panel_attributes>              General</panel_attributes>
+    <additional_attributes>110;30;80;3900</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1120</x>
+      <y>1390</y>
+      <w>340</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>bt=*
+*Controller::Controller*
+--
+/+ newStateNotify()/
++ processEvent(event : Event)
++ operator()
+/* private methods processing events */ 
+/* probably using visitor pattern */ 
+--
+- model : Model&amp;
+- qtunspagethii : QtUnspaghetii&amp;
+- requestQueue : BlockingQueue&lt;Event&gt;
+--
+_Description:_
+This is controller class within the
+meaning of MVC design pattern.
+Operator() has controller main loop
+taking event form requestQueue and
+processing it.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1120</x>
+      <y>1120</y>
+      <w>350</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>Controller::QtUnspaghetti
+/{Q_OBJECT}/
+--
++ setSimulationSpeed(speed : double) / slot
++ more slots ...
++ providedNewObjectState(ObjectState) / signal
+- controller : Controller&amp; 
+- view : View&amp;
+--
+_Description:_
+This is class converting Qt slots
+calls to events pushed into controller queue.
+If controller want to provide View some
+requested data it should </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1240</x>
+      <y>1310</y>
+      <w>50</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;80</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1240</x>
+      <y>1640</y>
+      <w>50</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;100</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>10</x>
+      <y>1010</y>
+      <w>2080</w>
+      <h>94</h>
+    </coordinates>
+    <panel_attributes>View
+Controller</panel_attributes>
+    <additional_attributes>30;50;2060;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1100</x>
+      <y>670</y>
+      <w>410</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>bt=*
+View::View
+/{Q_OBJECT}/
+--
+newObjectsSnapshot(snapshot : ObjectsSnapshot) /slot
+newMapSnapshot(snapshot : MapSnapshot) /slot
+newSimulationSpeed(speed : double) /slot
+operator()
+--
+requestTarget : QtUnspaghetii&amp;
+mainWindow : SimCity2013MainWindow*
+snapshotBuffer : SnapshotBuffer&amp;
+frameTimer : QTimer*
+--
+_Description:_
+This is main view class. It manages Qt and Ogre view.
+It calls QtUnspaghetti slots to send commands and
+provides slots to by called by QtUnspaghetii to get
+requested data from controller.
+operator() has qtApp.exec() call after creating all view
+objects to provide Qt event loop.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1610</x>
+      <y>400</y>
+      <w>350</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>*View::SimCity2013MainWindow*
+/{derived from QMainWindow}/
+/{Q_OBJECT}/
+--
+tryToGetNewSnapshot() /slot
+newMapSnapshot(snapshot : MapSnapshot) /slot
+newSimulationSpeed(speed : double) /slot
+--
+- ogreWidget : OgreWidget*
+- snapshotBuffer : SnapshotBuffer&amp;
+/*other widgets*/ 
+--
+_Description:_
+This class describe UI main interface with
+handling for all events in UI.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1230</x>
+      <y>950</y>
+      <w>50</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;--&gt;&gt;&gt;&gt;</panel_attributes>
+    <additional_attributes>30;30;30;170</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1740</x>
+      <y>590</y>
+      <w>50</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;80</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1610</x>
+      <y>50</y>
+      <w>350</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>*View::OgreWidget*
+/{derived from QGLWidget}/
+/{Q_OBJECT}/
+/{implements: ObjectSnapshotVisitor}/
+--
++ renderFrame(ObjectsSnapshot)
++ renderMap(MapSnapshot)
+/+ visit(CarSnapshot*)/
+/+ visit(PedestrianSnapshot*)/
+/+ visit(SensorSnapshot*)/
+/+ visit(BuildingSnapshot*)/
+--
+--
+_Description:_
+This class connect Qt with ogre providing
+Widget which content is controlled by OGRE.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1740</x>
+      <y>270</y>
+      <w>50</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;130;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>2200</x>
+      <y>1410</y>
+      <w>290</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+*General::NewStateObserver*
+--
+/+ newStateNotify() = 0/
+--
+_Description:_
+This class represent object waiting for
+consecutive snapshots being informed
+if any new arrives.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1430</x>
+      <y>1420</y>
+      <w>790</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>770;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1600</x>
+      <y>670</y>
+      <w>360</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>*View::SnapshotBuffer*
+/{Q_OBJECT}/
+--
++ getNextSnapshot() : ObjectsSnapshot
++ pushSnapshot(snapshot : ObjectsSnapshot)
+--
+- buffer : std::queue&lt;ObjectsSnapshot&gt; //fifo
+_- minSnapshotsToStart : const uint_
+--
+_Description:_
+This class buffers incoming snapshots and
+provide interface allowing to access next frame.
+getNextSnapshot() may throw exception if it 
+has no snapshot to pass or if stopped
+consecutive providing snapshot and there is less
+then minSnapshotsToStart in queue.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1480</x>
+      <y>740</y>
+      <w>140</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;120;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1270</x>
+      <y>460</y>
+      <w>360</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;210;340;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1110</x>
+      <y>220</y>
+      <w>410</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>*View::FrameInterpolator*
+--
+getInterpolation(progress : double) : ObjectsSnapshot
+--
+- snapshotBegin : ObjectsSnapshot
+- snapshotEnd : ObjectsSnapshot
+--
+_Description:_
+This class is capeable of creating snapshots
+for states between those given by model.
+It interpolates lineary position of objects as
+well as their rotation using two snapshots,
+one at the begining and second at the and.
+Method getInterpolation needs progress of 
+state given as argument which is:
+(currentTime - beginTime)/(endTime - beginTime).</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1490</x>
+      <y>410</y>
+      <w>140</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>120;30;30;30</additional_attributes>
   </element>
 </diagram>
