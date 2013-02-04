@@ -68,7 +68,16 @@ COMMENT ON COLUMN Streets.firstNode IS 'One of nodes connected with this edge (n
                                         'this is undirected graph so order of vertexes does not metter';
 COMMENT ON COLUMN Streets.secondNode IS 'One of nodes connected with this edge (note: '
                                         'this is undirected graph so order of vertexes does not metter';
-                                                                                                                         
+                                                                                     
+CREATE TABLE SensorTypes
+(
+  typeId SERIAL,
+  sensorType varchar(255) not null,
+
+  CONSTRAINT pk_IdOfType PRIMARY KEY(typeId)
+);
+
+                                    
 CREATE TABLE Sensors
 (
   sensorId SERIAL,
@@ -76,23 +85,32 @@ CREATE TABLE Sensors
   lat latitude not null,
   mos metersOverSee not null DEFAULT 0.0,
   range numeric(7,2) not null,
-  rotVer angle not null DEFAULT 0.0,
-  rotHor angle not null DEFAULT 0.0,
-  fov angle not null DEFAULT 180.0,
+  typeId integer not null,
   
   CONSTRAINT pk_IdOfSensor PRIMARY KEY(sensorId),
-  CONSTRAINT ck_range CHECK (range > 0)
+  CONSTRAINT fk_sensorType FOREIGN KEY(typeId) REFERENCES SensorTypes(typeId)
 );
 
-COMMENT ON TABLE Sensors IS 'Contains staticly placed sensors with informations about their FOV';
+COMMENT ON TABLE Sensors IS 'Contains staticly placed sensors';
 COMMENT ON COLUMN Sensors.sensorId IS 'Unique ID of sensor used in dynamic DB';
 COMMENT ON COLUMN Sensors.lon IS 'Lontitude of sensor (x position)';
 COMMENT ON COLUMN Sensors.lat IS 'Latitude of sensor (y position)';
 COMMENT ON COLUMN Sensors.mos IS 'Meters over see of sensor (z position)';
-COMMENT ON COLUMN Sensors.range IS 'Range of sensor in meters. How far can sensor see the object';
-COMMENT ON COLUMN Sensors.rotVer IS 'Vertical rotation of sensor. 0 is horizontal. 90 is look directly up';
-COMMENT ON COLUMN Sensors.rotHor IS 'Horizontal rotation of sensor. 0 is North. 90 is East.';
-COMMENT ON COLUMN Sensors.fov IS 'Field of view. Angle in which sensor can see sth.';
+COMMENT ON COLUMN Sensors.sensorType IS 'Type of sensor known for applications working with DB';
+
+CREATE TABLE SensorsDetails
+(
+  sensorId integer not null,
+  key varchar(255) not null,
+  value varchar(255),
+  CONSTRAINT pk_IdOfSensorDetail PRIMARY KEY(sensorId, key),
+  CONSTRAINT fk_sensorId FOREIGN KEY (sensorId) REFERENCES Sensors(sensorId)
+);
+
+comment ON TABLE SensorsDetails IS 'Contains parameters of sensors in db as (key -> value)';
+comment ON COLUMN SensorsDetails.sensorId IS 'Id of sensor which details is row describing';
+comment ON COLUMN SensorsDetails.key IS 'Name of parameter in the row';
+comment ON COLUMN SensorsDetails.value IS 'Value of parameter';
 
 CREATE TABLE Prisms
 (
