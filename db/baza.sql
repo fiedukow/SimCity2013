@@ -66,25 +66,53 @@ COMMENT ON COLUMN Streets.secondNode IS 'One of nodes connected with this edge (
 CREATE TABLE SensorTypes
 (
   typeId SERIAL,
-  sensorType varchar(255) not null,
+  typeName varchar(64) not null,
 
-  CONSTRAINT pk_IdOfType PRIMARY KEY(typeId)
+  CONSTRAINT pk_IdOfType PRIMARY KEY(typeId),
+  CONSTRAINT uq_UniqueTypeName UNIQUE(typeName)
 );
 
-CREATE TABLE SensorTypeParameters
+COMMENT ON TABLE SensorTypes IS 'Contains names of sensor types identifying parameters they are providing';
+COMMENT ON COLUMN SensorTypes.typeId IS 'Unique ID of type of sensor';
+COMMENT ON COLUMN SensorTypes.typeName IS 'Name of type of sensor - human readable';
+
+CREATE TABLE SensorFeatures
+(
+  featureId SERIAL,
+  featureName varchar(64),
+  featureType varchar(32),
+
+  CONSTRAINT pk_IdOfFeature PRIMARY KEY(featureId),
+  CONSTRAINT uq_uniqueFeatureName UNIQUE(featureName)
+);
+
+COMMENT ON TABLE SensorFeatures IS 'Description of features of Sensor. Each row describe one type of information that can be provided by sensor';
+COMMENT ON COLUMN SensorFeatures.featureId IS 'Unique ID of sensor feature';
+COMMENT ON COLUMN SensorFeatures.featureName IS 'The name of feature which identify it from any other feature';
+COMMENT ON COLUMN SensorFeatures.featureType IS 'Identifier of type understandable for application using this db, eg. "STRING", "INT" etc.'; 
+ 
+CREATE TABLE SensorTypesFeatures
 (
   typeId integer not null,
-  
+  featureId integer not null,
+
+  CONSTRAINT pk_SensorTypesFeatures PRIMARY KEY(typeId, featureId),
+  CONSTRAINT fk_IdOfSensorType FOREIGN KEY(typeId) REFERENCES SensorTypes(typeId),
+  CONSTRAINT fk_IdOfFeature FOREIGN KEY(featureId) REFERENCES SensorFeatures(featureId)
 );
-                                    
+
+COMMENT ON TABLE SensorTypesFeatures IS 'Describes connection between types of sensors and features they are providing';
+COMMENT ON COLUMN SensorTypesFeatures.typeId IS 'Id of sensor type connected with feature';
+COMMENT ON COLUMN SensorTypesFeatures.featureId IS 'Id of feature connected with sensor type';
+
 CREATE TABLE Sensors
 (
   sensorId SERIAL,
+  typeId integer not null,
   lon longitude not null,
   lat latitude not null,
   mos metersOverSee not null DEFAULT 0.0,
   range numeric(7,2) not null,
-  typeId integer not null,
   
   CONSTRAINT pk_IdOfSensor PRIMARY KEY(sensorId),
   CONSTRAINT fk_sensorType FOREIGN KEY(typeId) REFERENCES SensorTypes(typeId)
@@ -95,6 +123,7 @@ COMMENT ON COLUMN Sensors.sensorId IS 'Unique ID of sensor used in dynamic DB';
 COMMENT ON COLUMN Sensors.lon IS 'Lontitude of sensor (x position)';
 COMMENT ON COLUMN Sensors.lat IS 'Latitude of sensor (y position)';
 COMMENT ON COLUMN Sensors.mos IS 'Meters over see of sensor (z position)';
+COMMENT ON COLUMN Sensors.range IS 'Range of ';
 COMMENT ON COLUMN Sensors.typeId IS 'Id of type of sensor known for applications working with DB';
 
 CREATE TABLE SensorsDetails
