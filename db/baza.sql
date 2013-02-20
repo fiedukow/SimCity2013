@@ -123,7 +123,7 @@ COMMENT ON COLUMN Sensors.sensorId IS 'Unique ID of sensor used in dynamic DB';
 COMMENT ON COLUMN Sensors.lon IS 'Lontitude of sensor (x position)';
 COMMENT ON COLUMN Sensors.lat IS 'Latitude of sensor (y position)';
 COMMENT ON COLUMN Sensors.mos IS 'Meters over see of sensor (z position)';
-COMMENT ON COLUMN Sensors.range IS 'Range of ';
+COMMENT ON COLUMN Sensors.range IS 'Range of sensor - how far can it see';
 COMMENT ON COLUMN Sensors.typeId IS 'Id of type of sensor known for applications working with DB';
 
 CREATE TABLE SensorsDetails
