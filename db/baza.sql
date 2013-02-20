@@ -71,6 +71,11 @@ CREATE TABLE SensorTypes
   CONSTRAINT pk_IdOfType PRIMARY KEY(typeId)
 );
 
+CREATE TABLE SensorTypeParameters
+(
+  typeId integer not null,
+  
+);
                                     
 CREATE TABLE Sensors
 (
@@ -96,7 +101,7 @@ CREATE TABLE SensorsDetails
 (
   sensorId integer not null,
   key varchar(255) not null,
-  value varchar(255),
+  value varchar(255) not null,
   CONSTRAINT pk_IdOfSensorDetail PRIMARY KEY(sensorId, key),
   CONSTRAINT fk_sensorId FOREIGN KEY (sensorId) REFERENCES Sensors(sensorId)
 );

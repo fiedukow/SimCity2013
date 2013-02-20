@@ -7,6 +7,7 @@
 QT       += core gui opengl
 INCLUDEPATH += /usr/local/include/OGRE
 INCLUDEPATH += /usr/include/ois
+INCLUDEPATH += /usr/include/postgresql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -14,17 +15,21 @@ TARGET = ../bin/SimCity2013
 TEMPLATE = app
 
 QMAKE_CXXFLAGS += -std=c++11 -DBOOST_ALL_NO_LIB
-QMAKE_LFLAGS += -lOgreMain -lOIS
+QMAKE_LFLAGS += -lOgreMain -lOIS -lpq
 
 SOURCES += src/main.cpp\
            src/View/SimCityWindow.cpp \
            src/View/OgreWidget.cpp \
            src/View/BaseApplication.cpp \
-    src/Model/World.cpp
+           src/Model/World.cpp \
+           src/Model/StaticBaseDriver.cpp \
+           src/Model/Exceptions.cpp
 
 HEADERS  += src/View/SimCityWindow.h \
             src/View/OgreWidget.h \
             src/View/BaseApplication.h \
-    src/Model/World.h
+            src/Model/World.h \
+            src/Model/StaticBaseDriver.h \
+            src/Model/Exceptions.h
 
 FORMS    += src/View/SimCityWindow.ui
