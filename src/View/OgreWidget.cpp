@@ -14,7 +14,6 @@ OgreWidget::~OgreWidget()
 
 void OgreWidget::bindToWindow()
 {
-  std::cout << "BINDING" << std::endl;
   glInit();
   create();
   //== Creating and Acquiring Ogre Window ==//
@@ -29,19 +28,11 @@ void OgreWidget::bindToWindow()
   Ogre::String winHandle  = Ogre::StringConverter::toString(winId());
 #else
   // Unix code
-  /*QX11Info info = x11Info();
-  winHandle  = Ogre::StringConverter::toString((unsigned long)(info.display()));
-  winHandle += ":";
-  winHandle += Ogre::StringConverter::toString((unsigned int)(info.screen()));
-  winHandle += ":";
-  winHandle += Ogre::StringConverter::toString((unsigned long)(winId()));*/
   winHandle = Ogre::StringConverter::toString((unsigned long)(this->window()->winId()));
 #endif
 
-
   Ogre::NameValuePairList params;
 #ifndef MACOS
-  std::cout << winHandle << std::endl;
   // code for Windows and Linux
   params["parentWindowHandle"] = winHandle;
   params["externalGLControl"] = "true";
