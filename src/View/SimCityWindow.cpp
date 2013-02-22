@@ -28,8 +28,8 @@ SimCityWindow::SimCityWindow(QWidget *parent) :
   OgreWidget* ogre = new OgreWidget(ui->ogreFrame);
   lay->addWidget(ogre);
   ogreSceneTimer = new QTimer(this);
-  connect(ogreSceneTimer, SIGNAL(timeout()), ogre, SLOT(repaint()));
-  connect(ui->actionPlay,SIGNAL(triggered()), ogre, SLOT(goForward()));
+  connect(ogreSceneTimer, SIGNAL(timeout()),   ogre, SLOT(repaint()));
+  connect(ui->actionPlay, SIGNAL(triggered()), ogre, SLOT(goForward()));
   connect(ui->actionPause,SIGNAL(triggered()), ogre, SLOT(goBackward()));
   connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(close()));
   QSpinBox* frameRateSpin = new QSpinBox(this);
