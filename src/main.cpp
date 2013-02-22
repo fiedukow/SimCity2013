@@ -11,7 +11,9 @@ int main(int argc, char *argv[])
   /*
    * DBConnection
    */
-  StaticBaseDriver dbDriver;
+  StaticBaseDriver dbDriver("dbname=simcity "
+                            "user=simcity "
+                            "password=ssimcity");
 
   return a.exec();
 }
