@@ -15,7 +15,7 @@ TARGET = ../bin/SimCity2013
 TEMPLATE = app
 
 QMAKE_CXXFLAGS += -std=c++11 -DBOOST_ALL_NO_LIB
-QMAKE_LFLAGS += -lOgreMain -lOIS -lpq
+QMAKE_LFLAGS += -lOgreMain -lOIS -lpqxx
 
 SOURCES += src/main.cpp\
            src/View/SimCityWindow.cpp \
