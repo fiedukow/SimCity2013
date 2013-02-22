@@ -1,7 +1,9 @@
 #include "StaticBaseDriver.h"
 #include "Exceptions.h"
 
-#include <libpq-fe.h>
+#include <iostream>
+
+#include <pqxx/pqxx>
 
 StaticBaseDriver::StaticBaseDriver(const char* connectionDetails,
                                    bool persistent)
@@ -14,19 +16,34 @@ StaticBaseDriver::StaticBaseDriver(const char* connectionDetails,
 
 StaticBaseDriver::~StaticBaseDriver()
 {
-  if(persistent_)
-    disconnect();
+  disconnect();
+}
+
+bool StaticBaseDriver::ensureDBConnection()
+{
+  if(connection_ != NULL)
+    return false;
+
+  connect();
+  return true;
 }
 
 void StaticBaseDriver::connect()
 {
-  connection_ = PQconnectdb(connectionDetails_.c_str());
-  if(connection_ == NULL)
-    throw GeneralException("Unable to connect.");
-  //connected
+  try
+  {
+    connection_ = new pqxx::connection(connectionDetails_);
+  }
+  catch(std::exception& e)
+  {
+    std::cerr << "Unable to connect to DB due to the exception:" << std::endl
+              << e.what() << std::endl;
+    connection_ = NULL;
+  }
 }
 
 void StaticBaseDriver::disconnect()
 {
-
+  delete connection_;
+  connection_ = NULL;
 }
