@@ -4,6 +4,9 @@
 #include <Model/ConstrainedNumeric.hpp>
 #include <pqxx/pqxx>
 
+#include <set>
+#include <vector>
+
 namespace SimCity
 {
 namespace Model
@@ -20,6 +23,23 @@ struct StreetNode
   Longitude lon;
   Latitude lat;
   MetersOverSea mos;
+};
+
+struct Street
+{
+  Street(pqxx::result::tuple tableRow,
+         const std::vector<StreetNode>& vertexes); //TODO use std::set here
+
+  const StreetNode* first;
+  const StreetNode* second;
+};
+
+struct Map
+{
+  Map(const std::vector<StreetNode>& vertexes, std::vector<Street>& edges);
+
+  std::vector<StreetNode> vertexes; //TODO use std::set here
+  std::vector<Street>     edges;
 };
 
 }//namespace Model
