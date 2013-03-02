@@ -15,7 +15,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = ../bin/SimCity2013
 TEMPLATE = app
 
-QMAKE_CXXFLAGS += -std=c++11 -DBOOST_ALL_NO_LIB
+QMAKE_CXXFLAGS += -std=c++11 -DBOOST_ALL_NO_LIB -O3
 QMAKE_LFLAGS += -lOgreMain -lOIS -lpqxx
 
 SOURCES += src/main.cpp\

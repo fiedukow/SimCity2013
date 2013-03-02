@@ -18,12 +18,21 @@ int main(int argc, char *argv[])
   StaticBaseDriver dbDriver("dbname=simcity "
                             "user=simcity "
                             "password=simcity");
-  std::vector<StreetNode> nodes = dbDriver.getStreetNodes();
-  for(const StreetNode& node : nodes)
-    std::cout << node.nodeId << " "
-              << node.lat << " "
-              << node.lon << " "
-              << node.mos << std::endl;
+
+  Map map = dbDriver.getMap();
+  for(const Street& street : map.edges)
+  {
+    std::cout << "FROM: ( "
+              << street.first->lat
+              << ", "
+              << street.first->lon
+              << " )    \tTO: ( "
+              << street.second->lat
+              << ", "
+              << street.second->lon
+              << " )" << std::endl;
+  }
 
 //  return a.exec();
+  return 0;
 }
