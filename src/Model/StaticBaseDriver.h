@@ -32,6 +32,7 @@ public:
                    bool persistent = true);
   ~StaticBaseDriver();
   std::vector<StreetNode> getStreetNodes();
+  Map getMap();
 
 private:
   /**
@@ -54,8 +55,6 @@ private:
   const std::string connectionDetails_;
   const bool persistent_;
   pqxx::connection* connection_;
-
-  friend int dupa();
 };
 
 }//namespace Model
