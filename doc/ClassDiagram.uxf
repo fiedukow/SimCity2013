@@ -206,7 +206,7 @@ Implements</panel_attributes>
     <type>com.umlet.element.Class</type>
     <coordinates>
       <x>960</x>
-      <y>3000</y>
+      <y>2990</y>
       <w>370</w>
       <h>340</h>
     </coordinates>
@@ -282,10 +282,10 @@ like ground connection area).</panel_attributes>
       <x>1090</x>
       <y>2900</y>
       <w>50</w>
-      <h>120</h>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;30;100</additional_attributes>
+    <additional_attributes>30;30;30;90</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
@@ -355,12 +355,12 @@ from getConnectedObject()).</panel_attributes>
     <type>com.umlet.element.Relation</type>
     <coordinates>
       <x>1090</x>
-      <y>3310</y>
+      <y>3300</y>
       <w>50</w>
-      <h>130</h>
+      <h>140</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;30;110</additional_attributes>
+    <additional_attributes>30;30;30;120</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
@@ -880,10 +880,10 @@ It describes </panel_attributes>
       <x>1230</x>
       <y>2400</y>
       <w>280</w>
-      <h>620</h>
+      <h>610</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>250;30;260;560;30;560;30;600</additional_attributes>
+    <additional_attributes>250;30;260;560;30;560;30;590</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
