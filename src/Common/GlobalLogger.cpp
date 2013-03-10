@@ -3,6 +3,11 @@
 #include <ctime>
 #include <cassert>
 
+namespace SimCity
+{
+namespace Common
+{
+
 void GlobalLogger::log(const std::string& type,
                        const std::string& module,
                        const std::string& text)
@@ -32,3 +37,14 @@ GlobalLogger& GlobalLogger::operator=(const GlobalLogger&)
   assert(false);
   return *this;
 }
+
+
+void globLog(const std::string& type,
+             const std::string& module,
+             const std::string& text)
+{
+  GlobalLogger::logger().log(type, module, text);
+}
+
+}//Common
+}//SimCity
