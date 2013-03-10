@@ -16,7 +16,7 @@ TARGET = ../bin/SimCity2013
 TEMPLATE = app
 
 QMAKE_CXXFLAGS += -std=c++11 -DBOOST_ALL_NO_LIB -O3
-QMAKE_LFLAGS += -lOgreMain -lOIS -lpqxx
+QMAKE_LFLAGS += -lOgreMain -lOIS -lpqxx -lboost_thread
 
 SOURCES += src/main.cpp\
            src/View/SimCityWindow.cpp \
@@ -25,7 +25,9 @@ SOURCES += src/main.cpp\
            src/Model/World.cpp \
            src/Model/StaticBaseDriver.cpp \
            src/Model/Exceptions.cpp \
-           src/Model/DBDataStructures.cpp
+           src/Model/DBDataStructures.cpp \
+    src/Model/Model.cpp \
+    src/Common/GlobalLogger.cpp
 
 HEADERS  += src/View/SimCityWindow.h \
             src/View/OgreWidget.h \
@@ -34,6 +36,10 @@ HEADERS  += src/View/SimCityWindow.h \
             src/Model/StaticBaseDriver.h \
             src/Model/Exceptions.h \
             src/Model/DBDataStructures.h \
-            src/Model/ConstrainedNumeric.hpp
+            src/Model/ConstrainedNumeric.hpp \
+    src/Model/Model.h \
+    src/Model/SimulationPart.h \
+    src/Common/GeneralTypes.h \
+    src/Common/GlobalLogger.h
 
 FORMS    += src/View/SimCityWindow.ui
