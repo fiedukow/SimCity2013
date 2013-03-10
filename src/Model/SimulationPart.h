@@ -2,6 +2,7 @@
 #define SIMULATIONPART_H
 
 #include <Common/GeneralTypes.h>
+#include <memory>
 
 namespace SimCity
 {
@@ -18,7 +19,8 @@ namespace Model
 class SimulationPart
 {
 public:
-  virtual ~SimulationPart();
+  virtual ~SimulationPart(){}
+
   /**
    * @brief timePassed virtual method which call causes to do action connected
    * with passed time period
@@ -26,6 +28,8 @@ public:
    */
   virtual void timePassed(uint ms) = 0;
 };
+
+typedef std::shared_ptr<SimulationPart> SimulationPartPtr;
 
 }//namespace SimCity
 }//namespace Model
