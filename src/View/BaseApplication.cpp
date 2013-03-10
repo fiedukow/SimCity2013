@@ -44,7 +44,7 @@ BaseApplication::~BaseApplication(void)
 
     //Remove ourself as a Window listener
     if(mRoot) delete mRoot;
-    GlobalLogger::logger().log("DBG", "View", "~BaseApplication()");
+    SimCity::Common::globLog("DBG", "View", "~BaseApplication()");
 }
 
 //-------------------------------------------------------------------------------------

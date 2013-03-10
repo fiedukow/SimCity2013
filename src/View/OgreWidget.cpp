@@ -11,7 +11,7 @@ OgreWidget::OgreWidget(QWidget* parent)
 
 OgreWidget::~OgreWidget()
 {
-  GlobalLogger::logger().log("DBG", "View", "~OgreWidget()");
+  SimCity::Common::globLog("DBG", "View", "~OgreWidget()");
 }
 
 void OgreWidget::bindToWindow()
