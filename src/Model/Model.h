@@ -2,24 +2,40 @@
 #define MODEL_H
 #include <Common/GeneralTypes.h>
 #include <Model/SimulationPart.h>
-#include <vector>
+#include <list>
+#include <memory>
 
 namespace SimCity
 {
 namespace Model
 {
 
+typedef std::list<SimulationPartPtr> SimParts;
+
 class Model
 {
 public:
   Model();
+
+  /**
+   * @brief operator() starts simulation thread
+   */
   void operator()();
+
+  /**
+   * @brief Model::addSimulationPart - adds new element to simulations
+   * @param newSimPart - part of simulation to add to the simulation
+   * @warning Dont try to call this method if simulation thread is already
+   *          running
+   */
+  void addSimulationPart(SimulationPartPtr newSimPart);
+
+  /**
+   * @brief stopAllThreads - stops simulation thread(s)
+   */
   void stopAllThreads();
 
 private:
-
-  ptime lastTickTime;
-
   /**
    * @brief minTimerDelay - minimal time between ticks
    * This is minimal time between two ticks controlled by timer.
@@ -45,6 +61,21 @@ private:
    * If it is set every thread in model should be stopped as soon as possible.
    */
   bool stopThreads_;
+
+  /**
+   * @brief threadRunning_ - will be set when thread is running
+   * @note use this to determine if some methods can be invoked in given context
+   */
+  bool threadRunning_;
+
+  /**
+   * @brief simParts_ parts of simulation collection
+   * In this collection there are all elements that are part of simulation
+   * like world, object manager etc.
+   * Every element of this collection will be informed about time passing
+   * in simulation but none of those will now nothing about real time flow.
+   */
+  SimParts simParts_;
 };
 
 }//namespace SimCity

@@ -1,6 +1,7 @@
 #include "Model.h"
 #include <boost/thread/thread.hpp>
 #include <Common/GlobalLogger.h>
+#include <Model/Exceptions.h>
 
 namespace SimCity
 {
@@ -8,16 +9,18 @@ namespace Model
 {
 
 Model::Model()
-  : lastTickTime(MClock::local_time()),
-    minTimerDelay(200),
+  : minTimerDelay(200),
     simulationSpeed(2.0),
     pollingPeriod(50),
-    stopThreads_(false)
+    stopThreads_(false),
+    threadRunning_(false)
 {
 }
 
 void Model::operator()()
 {
+  threadRunning_ = true;
+  ptime lastTickTime = MClock::local_time();
   while(!stopThreads_)
   {
     ptime current;
@@ -32,11 +35,26 @@ void Model::operator()()
     lastTickTime = current;
     Time::time_duration time = Time::milliseconds(durr.total_milliseconds()
                                                   * simulationSpeed);
+    int passed = time.total_milliseconds();
+
     std::stringstream ss;
-    ss << "Passed " << time.total_milliseconds();
-    GlobalLogger::logger().log("NOT", "Model", ss.str());
-    //TODO timePassed
+    ss << "Passed " << passed;
+    Common::globLog("NOT", "Model", ss.str());
+
+    /**
+     * Loop through all simulation parts.and move them
+     */
+    for(SimulationPartPtr& simPart : simParts_)
+      simPart->timePassed(passed);
   }
+}
+
+void Model::addSimulationPart(SimulationPartPtr newSimPart)
+{
+  if(threadRunning_)
+    throw GeneralException("Trying to add simulation part while simulation has"
+                           " already started.");
+  simParts_.push_back(newSimPart);
 }
 
 void Model::stopAllThreads()
