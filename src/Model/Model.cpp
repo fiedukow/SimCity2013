@@ -1,5 +1,6 @@
 #include "Model.h"
 #include <boost/thread/thread.hpp>
+#include <Common/GlobalLogger.h>
 
 namespace SimCity
 {
@@ -8,15 +9,16 @@ namespace Model
 
 Model::Model()
   : lastTickTime(MClock::local_time()),
-    minTimerDelay(100),
-    simulationSpeed(0.1),
-    pollingPeriod(50)
+    minTimerDelay(200),
+    simulationSpeed(2.0),
+    pollingPeriod(50),
+    stopThreads_(false)
 {
 }
 
 void Model::operator()()
 {
-  while(true)
+  while(!stopThreads_)
   {
     ptime current;
     Time::time_duration durr;
@@ -30,9 +32,16 @@ void Model::operator()()
     lastTickTime = current;
     Time::time_duration time = Time::milliseconds(durr.total_milliseconds()
                                                   * simulationSpeed);
-    std::cout << "Passed " << time.total_milliseconds() << std::endl;
+    std::stringstream ss;
+    ss << "Passed " << time.total_milliseconds();
+    GlobalLogger::logger().log("NOT", "Model", ss.str());
     //TODO timePassed
   }
+}
+
+void Model::stopAllThreads()
+{
+  stopThreads_ = true;
 }
 
 }//namespace SimCity

@@ -14,6 +14,7 @@ class Model
 public:
   Model();
   void operator()();
+  void stopAllThreads();
 
 private:
 
@@ -38,6 +39,12 @@ private:
    * @brief pollingPeriod - sleep in ms between checking if minTimerDelay is up
    */
   const double pollingPeriod;
+
+  /**
+   * @brief stopThreads_
+   * If it is set every thread in model should be stopped as soon as possible.
+   */
+  bool stopThreads_;
 };
 
 }//namespace SimCity
