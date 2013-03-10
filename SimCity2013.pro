@@ -27,7 +27,8 @@ SOURCES += src/main.cpp\
            src/Model/Exceptions.cpp \
            src/Model/DBDataStructures.cpp \
     src/Model/Model.cpp \
-    src/Common/GlobalLogger.cpp
+    src/Common/GlobalLogger.cpp \
+    src/Model/ObjectManager.cpp
 
 HEADERS  += src/View/SimCityWindow.h \
             src/View/OgreWidget.h \
@@ -40,6 +41,7 @@ HEADERS  += src/View/SimCityWindow.h \
     src/Model/Model.h \
     src/Model/SimulationPart.h \
     src/Common/GeneralTypes.h \
-    src/Common/GlobalLogger.h
+    src/Common/GlobalLogger.h \
+    src/Model/ObjectManager.h
 
 FORMS    += src/View/SimCityWindow.ui
