@@ -6,6 +6,8 @@
 #include "View/SimCityWindow.h"
 #include "Model/StaticBaseDriver.h"
 #include "Model/Model.h"
+#include "Model/World.h"
+#include "Model/ObjectManager.h"
 
 using namespace SimCity::Model;
 
@@ -14,12 +16,6 @@ int main(int argc, char *argv[])
   QApplication a(argc, argv);
   SimCityWindow w;
   w.show();
-  /*
-   * DBConnection
-   */
-//  StaticBaseDriver dbDriver("dbname=simcity "
-//                            "user=simcity "
-//                            "password=simcity");
 
 //  Map map = dbDriver.getMap();
 //  for(const Street& street : map.edges)
@@ -36,6 +32,10 @@ int main(int argc, char *argv[])
 //  }
 
   Model m;
+  m.addSimulationPart(SimulationPartPtr(new World("simcity",
+                                                  "simcity",
+                                                  "simcity")));
+  m.addSimulationPart(SimulationPartPtr(new ObjectManager()));
   boost::thread th(boost::ref(m));
 
   int result = a.exec();
