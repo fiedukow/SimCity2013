@@ -16,6 +16,7 @@ This source file is part of the
 */
 #include "BaseApplication.h"
 #include <ctime>
+#include <Common/GlobalLogger.h>
 //-------------------------------------------------------------------------------------
 BaseApplication::BaseApplication(void)
     : mRoot(0),
@@ -42,9 +43,8 @@ BaseApplication::~BaseApplication(void)
     if (mCameraMan) delete mCameraMan;
 
     //Remove ourself as a Window listener
-    Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
-    windowClosed(mWindow);
-    delete mRoot;
+    if(mRoot) delete mRoot;
+    GlobalLogger::logger().log("DBG", "View", "~BaseApplication()");
 }
 
 //-------------------------------------------------------------------------------------

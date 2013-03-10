@@ -1,5 +1,6 @@
 #include "OgreWidget.h"
 #include <iostream>
+#include <Common/GlobalLogger.h>
 
 OgreWidget::OgreWidget(QWidget* parent)
   : QGLWidget(parent),
@@ -10,6 +11,7 @@ OgreWidget::OgreWidget(QWidget* parent)
 
 OgreWidget::~OgreWidget()
 {
+  GlobalLogger::logger().log("DBG", "View", "~OgreWidget()");
 }
 
 void OgreWidget::bindToWindow()
@@ -67,6 +69,13 @@ void OgreWidget::bindToWindow()
   setAttribute( Qt::WA_NoSystemBackground );
   setAttribute( Qt::WA_NoBackground );
   setAttribute( Qt::WA_NativeWindow );
+}
+
+void OgreWidget::invalidateWindow()
+{
+  Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
+  windowClosed(mWindow);
+  mWindow = NULL;
 }
 
 void OgreWidget::paintEvent(QPaintEvent* event)

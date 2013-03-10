@@ -25,7 +25,7 @@ SimCityWindow::SimCityWindow(QWidget *parent) :
   QLayout* lay = new QHBoxLayout(ui->ogreFrame);
   ui->ogreFrame->setLayout(lay);
   lay->setContentsMargins(0, 0, 0, 0);
-  OgreWidget* ogre = new OgreWidget(ui->ogreFrame);
+  ogre = new OgreWidget(ui->ogreFrame);
   lay->addWidget(ogre);
   ogreSceneTimer = new QTimer(this);
   connect(ogreSceneTimer, SIGNAL(timeout()),   ogre, SLOT(repaint()));
@@ -47,6 +47,7 @@ SimCityWindow::SimCityWindow(QWidget *parent) :
 
 SimCityWindow::~SimCityWindow()
 {
+  ogre->invalidateWindow();
   ogreSceneTimer->stop();
   delete ui;
 }

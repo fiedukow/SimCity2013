@@ -19,11 +19,11 @@ class OgreWidget : public QGLWidget, public BaseApplication
 
   virtual void paintEvent(QPaintEvent *);
   virtual void resizeEvent(QResizeEvent* event);
+  void invalidateWindow();
 
  public slots:
   void goForward();
   void goBackward();
-
 
  protected:
   virtual void bindToWindow(void);
