@@ -26,9 +26,10 @@ SOURCES += src/main.cpp\
            src/Model/StaticBaseDriver.cpp \
            src/Model/Exceptions.cpp \
            src/Model/DBDataStructures.cpp \
-    src/Model/Model.cpp \
-    src/Common/GlobalLogger.cpp \
-    src/Model/ObjectManager.cpp
+           src/Model/Model.cpp \
+           src/Common/GlobalLogger.cpp \
+           src/Model/ObjectManager.cpp \
+           src/Model/Physics/NewtonsDynamics.cpp
 
 HEADERS  += src/View/SimCityWindow.h \
             src/View/OgreWidget.h \
@@ -38,10 +39,12 @@ HEADERS  += src/View/SimCityWindow.h \
             src/Model/Exceptions.h \
             src/Model/DBDataStructures.h \
             src/Model/ConstrainedNumeric.hpp \
-    src/Model/Model.h \
-    src/Model/SimulationPart.h \
-    src/Common/GeneralTypes.h \
-    src/Common/GlobalLogger.h \
-    src/Model/ObjectManager.h
+            src/Model/Model.h \
+            src/Model/SimulationPart.h \
+            src/Common/GeneralTypes.h \
+            src/Common/GlobalLogger.h \
+            src/Model/ObjectManager.h \
+            src/Model/Object.h \
+            src/Model/Physics/NewtonsDynamics.h
 
 FORMS    += src/View/SimCityWindow.ui
