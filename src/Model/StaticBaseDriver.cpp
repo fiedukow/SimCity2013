@@ -6,6 +6,8 @@
 
 #include <pqxx/pqxx>
 
+#include <Common/GlobalLogger.h>
+
 namespace SimCity
 {
 namespace Model
@@ -27,6 +29,7 @@ StaticBaseDriver::~StaticBaseDriver()
 
 std::vector<StreetNode> StaticBaseDriver::getStreetNodes()
 {
+  Common::globLog("NOT", "DBDri", "Reading nodes from DB...");
   ensureDBConnection();
   std::vector<StreetNode> result;
   std::string query("SELECT streetNodeId, lon, lat, mos FROM StreetNodes");
@@ -36,11 +39,13 @@ std::vector<StreetNode> StaticBaseDriver::getStreetNodes()
     result.push_back(StreetNode(node));
 
   disconnectIfNecessary();
+  Common::globLog("NOT", "DBDri", "Finished reading nodes.");
   return result;
 }
 
 Map StaticBaseDriver::getMap()
 {
+  Common::globLog("NOT", "DBDri", "Reading whole map from DB...");
   ensureDBConnection();
   std::vector<StreetNode> vertexes = getStreetNodes();
   std::vector<Street> edges;
@@ -52,6 +57,7 @@ Map StaticBaseDriver::getMap()
 
   Map result(vertexes, edges);
   disconnectIfNecessary();
+  Common::globLog("NOT", "DBDri", "Finished reading whole map.");
   return result;
 }
 
@@ -75,23 +81,27 @@ bool StaticBaseDriver::disconnectIfNecessary()
 
 void StaticBaseDriver::connect()
 {
+  Common::globLog("NOT", "DBDri", "Trying to connect to DB...");
   try
   {
     connection_ = new pqxx::connection(connectionDetails_);
   }
   catch(std::exception& e)
   {
-    std::cerr << "Unable to connect to DB due to the exception:" << std::endl
-              << e.what() << std::endl;
+    std::stringstream ss;
+    ss << "Unable to connect to DB due to the exception:" << std::endl
+       << e.what();
+    Common::globLog("ERR", "DBDri", ss.str());
     connection_ = NULL;
-    //TODO throw my exception class.
   }
+  Common::globLog("NOT", "DBDri", "Connected to DB.");
 }
 
 void StaticBaseDriver::disconnect()
 {
   delete connection_;
   connection_ = NULL;
+  Common::globLog("NOT", "DBDri", "Disconnected from DB.");
 }
 
 }//namespace Model
