@@ -30,7 +30,7 @@ SOURCES += src/main.cpp\
            src/Common/GlobalLogger.cpp \
            src/Model/ObjectManager.cpp \
            src/Model/Physics/NewtonsDynamics.cpp \
-           src/Model/ObjectSnapshot.cpp \
+           src/Model/Objects/ObjectSnapshot.cpp \
            src/Model/Physics/Positioning.cpp
 
 HEADERS  += src/View/SimCityWindow.h \
@@ -46,9 +46,9 @@ HEADERS  += src/View/SimCityWindow.h \
             src/Common/GeneralTypes.h \
             src/Common/GlobalLogger.h \
             src/Model/ObjectManager.h \
-            src/Model/Object.h \
+            src/Model/Objects/Object.h \
             src/Model/Physics/NewtonsDynamics.h \
-            src/Model/ObjectSnapshot.h \
+            src/Model/Objects/ObjectSnapshot.h \
             src/Model/Physics/Positioning.h
 
 FORMS    += src/View/SimCityWindow.ui
