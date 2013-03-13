@@ -29,7 +29,9 @@ SOURCES += src/main.cpp\
            src/Model/Model.cpp \
            src/Common/GlobalLogger.cpp \
            src/Model/ObjectManager.cpp \
-           src/Model/Physics/NewtonsDynamics.cpp
+           src/Model/Physics/NewtonsDynamics.cpp \
+           src/Model/ObjectSnapshot.cpp \
+           src/Model/Physics/Positioning.cpp
 
 HEADERS  += src/View/SimCityWindow.h \
             src/View/OgreWidget.h \
@@ -45,6 +47,8 @@ HEADERS  += src/View/SimCityWindow.h \
             src/Common/GlobalLogger.h \
             src/Model/ObjectManager.h \
             src/Model/Object.h \
-            src/Model/Physics/NewtonsDynamics.h
+            src/Model/Physics/NewtonsDynamics.h \
+            src/Model/ObjectSnapshot.h \
+            src/Model/Physics/Positioning.h
 
 FORMS    += src/View/SimCityWindow.ui
