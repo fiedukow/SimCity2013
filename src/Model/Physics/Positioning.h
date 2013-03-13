@@ -27,6 +27,19 @@ struct Position
   const static double mPerLatDegree;
 };
 
+class Angle
+{
+public:
+  Angle(double radians);
+  Angle operator+(const Angle& toAdd);
+
+private:
+  void normalize();
+
+private:
+  double radians;
+};
+
 struct GeoCoords
 {
   GeoCoords(double lon, double lat, double mos = 0);

@@ -27,6 +27,17 @@ Position Position::operator+(const Shift& shift) const
                   z + shift.value.z);
 }
 
+Angle::Angle(double radians)
+  : radians(radians)
+{
+  normalize();
+}
+
+Angle::operator+(const Angle& toAdd)
+{
+  return Angle(radians + toAdd.radians);
+}
+
 GeoCoords::GeoCoords(double lon, double lat, double mos)
   : lon(lon), lat(lat), mos(mos)
 {}
