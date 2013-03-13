@@ -31,7 +31,7 @@ class Angle
 {
 public:
   Angle(double radians);
-  Angle operator+(const Angle& toAdd);
+  Angle operator+(const Angle& toAdd) const;
 
 private:
   void normalize();

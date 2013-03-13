@@ -33,9 +33,18 @@ Angle::Angle(double radians)
   normalize();
 }
 
-Angle::operator+(const Angle& toAdd)
+Angle Angle::operator+(const Angle& toAdd) const
 {
   return Angle(radians + toAdd.radians);
+}
+
+void Angle::normalize()
+{
+  while(radians > 2*3.14) // TODO better PI definition
+    radians -= 2*3.14;
+
+  while(radians < 0)
+    radians += 2*3.14;
 }
 
 GeoCoords::GeoCoords(double lon, double lat, double mos)
