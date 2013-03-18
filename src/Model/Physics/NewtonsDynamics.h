@@ -92,9 +92,12 @@ struct TimeDuration
 struct Velocity
 {
   Velocity(const Vector3 value);
+  Velocity(double x, double y, double z);
+  Velocity(Acceleration acc, TimeDuration dt);
 
   Shift operator*(const TimeDuration& dt) const;
   TimeDuration operator/(const Acceleration& acc) const;
+  Velocity operator+(const Velocity& shift) const;
 
   Vector3 value;
 };
@@ -102,9 +105,13 @@ struct Velocity
 struct Shift
 {
   Shift(const Vector3 value);
+  Shift(double x, double y, double z);
+  Shift(Acceleration acc, TimeDuration dt);
+  Shift(Velocity v, TimeDuration dt);
 
   Velocity operator/(const TimeDuration& dt) const;
   TimeDuration operator/(const Velocity& dt) const;
+  Shift operator+(const Shift& shift) const;
 
   Vector3 value;
 };
