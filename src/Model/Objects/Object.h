@@ -36,11 +36,11 @@ public:
   ObjectPtr getObjectPtr() const;
   Physics::Position getPosition() const;
   Physics::Velocity getVelocity() const;
-  void dtMove(Physics::TimeDuration dt);
+  void dtMove(const Physics::TimeDuration& dt);
 
 private:
-  void dtUpdatePosition();
-  void dtUpdateVelocity();
+  void dtUpdatePosition(const Physics::TimeDuration& dt);
+  void dtUpdateVelocity(const Physics::TimeDuration& dt);
 
 private:
   ObjectPtr obj;

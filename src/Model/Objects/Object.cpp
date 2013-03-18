@@ -34,23 +34,25 @@ Physics::Velocity PlacedObject::getVelocity() const
   return v;
 }
 
-void PlacedObject::dtMove() const
+void PlacedObject::dtMove(const Physics::TimeDuration& dt)
 {
-  dtUpdatePosition();
-  dtUpdateSpeed();
+  //FIXME Only World should be able to call this.
+  dtUpdatePosition(dt);
+  dtUpdateVelocity(dt);
 }
 
-void PlacedObject::dtUpdatePosition() const
+void PlacedObject::dtUpdatePosition(const Physics::TimeDuration& dt)
 {
-  //FIXME implement this
-  //shift = (at^2)/2
-  //pos = pos + shift
+  Physics::Acceleration acc = obj->getCurrentForce() / obj->getCurrentMass();
+  Physics::Shift shift = Physics::Shift(acc, dt)
+                       + Physics::Shift(v, dt);
+  pos = pos + shift;
 }
 
-void PlacedObject::dtUpdateVelocity() const
+void PlacedObject::dtUpdateVelocity(const Physics::TimeDuration& dt)
 {
-  //FIXME implement this
-  //v = v + at
+  Physics::Acceleration acc = obj->getCurrentForce() / obj->getCurrentMass();
+  v = v + Physics::Velocity(acc*dt);
 }
 
 }//namespace Objects
