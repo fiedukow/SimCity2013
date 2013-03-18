@@ -8,22 +8,22 @@ namespace Model
 namespace Physics
 {
 
+Vector3::Vector3(const double x, const double y, const double z)
+  : x(x), y(y), z(z)
+{}
+
 Vector3 Vector3::operator*(double scalar) const
 {
-  Vector3 result;
-  result.x = x * scalar;
-  result.y = y * scalar;
-  result.z = z * scalar;
-  return result;
+  return Vector3(x * scalar,
+                 y * scalar,
+                 z * scalar);
 }
 
 Vector3 Vector3::operator/(double scalar) const
 {
-  Vector3 result;
-  result.x = x / scalar;
-  result.y = y / scalar;
-  result.z = z / scalar;
-  return result;
+  return Vector3(x / scalar,
+                 y / scalar,
+                 z / scalar);
 }
 
 double Vector3::length() const
@@ -33,33 +33,83 @@ double Vector3::length() const
   return result;
 }
 
+Mass::Mass(const double value)
+  : value(value)
+{}
 
 Force Mass::operator*(const Acceleration& acc) const
 {
-  Force result;
-  result.value = acc.value * value;
-  return result;
+  return Force(acc.value * value);
 }
+
+Force::Force(const Vector3 value)
+  : value(value)
+{}
 
 Acceleration Force::operator/(const Mass& mass) const
 {
-  Acceleration result;
-  result.value = value / mass.value;
-  return result;
+  return Acceleration(value / mass.value);
 }
 
 Mass Force::operator/(const Acceleration& acc) const
 {
-  Mass result;
-  result.value = value.length()/acc.value.length();
-  return result;
+  return Mass(value.length() / acc.value.length());
 }
+
+Acceleration::Acceleration(const Vector3 value)
+  : value(value)
+{}
 
 Force Acceleration::operator*(const Mass& mass) const
 {
-  Force result;
-  result.value = value * mass.value;
-  return result;
+  return Force(value * mass.value);
+}
+
+Velocity Acceleration::operator*(const TimeDuration& dt) const
+{
+  return Velocity(value * dt.value);
+}
+
+TimeDuration::TimeDuration(const double value)
+  : value(value)
+{}
+
+Shift TimeDuration::operator*(const Velocity& dt) const
+{
+  return Shift(dt.value * value);
+}
+
+Velocity TimeDuration::operator*(const Acceleration& acc) const
+{
+  return Velocity(acc.value * value);
+}
+
+Velocity::Velocity(const Vector3 value)
+  : value(value)
+{}
+
+Shift::Shift(const Vector3 value)
+  : value(value)
+{}
+
+Shift Velocity::operator*(const TimeDuration& dt) const
+{
+  return Shift(value * dt.value);
+}
+
+TimeDuration Velocity::operator/(const Acceleration& acc) const
+{
+  return TimeDuration(value.length() / acc.value.length());
+}
+
+Velocity Shift::operator/(const TimeDuration& dt) const
+{
+  return Velocity(value / dt.value);
+}
+
+TimeDuration Shift::operator/(const Velocity& dt) const
+{
+  return TimeDuration(value.length() / dt.value.length());
 }
 
 }//namespace Physics

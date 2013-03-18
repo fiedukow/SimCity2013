@@ -35,6 +35,8 @@ struct Velocity;
 
 struct Vector3
 {
+  Vector3(const double x, const double y, const double z);
+
   Vector3 operator*(double scalar) const;
   Vector3 operator/(double scalar) const;
   double length() const;
@@ -44,6 +46,8 @@ struct Vector3
 
 struct Mass
 {
+  Mass(const double value);
+
   Force operator*(const Acceleration& acc) const;
 
   double value;
@@ -51,6 +55,8 @@ struct Mass
 
 struct Force
 {
+  Force(const Vector3 value);
+
   Acceleration operator/(const Mass& mass) const;
   Mass operator/(const Acceleration& acc) const;
 
@@ -59,6 +65,8 @@ struct Force
 
 struct Acceleration
 {
+  Acceleration(const Vector3 value);
+
   /**
    * @brief operator* F = ma => F = a*m
    * @param Mass
@@ -73,6 +81,8 @@ struct Acceleration
 
 struct TimeDuration
 {
+  TimeDuration(const double value);
+
   Shift operator*(const Velocity& dt) const;
   Velocity operator*(const Acceleration& acc) const;
 
@@ -81,14 +91,18 @@ struct TimeDuration
 
 struct Velocity
 {
+  Velocity(const Vector3 value);
+
   Shift operator*(const TimeDuration& dt) const;
   TimeDuration operator/(const Acceleration& acc) const;
 
-  double value;
+  Vector3 value;
 };
 
 struct Shift
 {
+  Shift(const Vector3 value);
+
   Velocity operator/(const TimeDuration& dt) const;
   TimeDuration operator/(const Velocity& dt) const;
 
