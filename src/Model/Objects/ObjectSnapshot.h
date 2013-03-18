@@ -5,6 +5,8 @@ namespace SimCity
 {
 namespace Model
 {
+namespace Objects
+{
 
 class ObjectSnapshot
 {
@@ -12,6 +14,7 @@ public:
   ObjectSnapshot();
 };
 
+}//namesapce Objects
 }//namespace SimCity
 }//namespace Model
 
