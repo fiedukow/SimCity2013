@@ -3,11 +3,17 @@
 
 #include <Model/SimulationPart.h>
 #include <Model/DBDataStructures.h>
+#include <Model/Objects/Object.h>
+
+#include <list>
 
 namespace SimCity
 {
 namespace Model
 {
+
+using namespace Objects;
+typedef std::list<PlacedObject> PlacedObjects;
 
 class World : public SimulationPart
 {
@@ -24,6 +30,7 @@ public:
 
 private:
   Map map_;
+  PlacedObjects objects_;
 };
 
 }//namespace Model
