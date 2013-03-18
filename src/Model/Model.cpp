@@ -9,9 +9,9 @@ namespace Model
 {
 
 Model::Model()
-  : minTimerDelay(200),
-    simulationSpeed(2.0),
-    pollingPeriod(50),
+  : minTimerDelay(100),
+    simulationSpeed(1.0),
+    pollingPeriod(20),
     stopThreads_(false),
     threadRunning_(false)
 {

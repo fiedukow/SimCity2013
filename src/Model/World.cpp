@@ -2,6 +2,7 @@
 #include <Common/GlobalLogger.h>
 #include <Model/StaticBaseDriver.h>
 #include <Model/Objects/Objects.h>
+#include <Model/Objects/Object.h>
 #include <sstream>
 
 namespace SimCity
@@ -15,7 +16,8 @@ World::World(const std::string& dbName,
   : map_(readMapFromDB(dbName, dbUser, dbPassword))
 {
   PlacedObject myBall(ObjectPtr(new PowerBall()),
-                      Physics::Position(0, 0, 0));
+                      Physics::Position(0, 0, 0),
+                      Physics::Velocity(0, 0, 0));
   objects_.push_back(myBall);
 }
 
@@ -35,19 +37,16 @@ void World::timePassed(uint ms)
   {
     std::stringstream ss;
     ss << "Moving the object from place ("
-       << placedObject.pos.x << ", "
-       << placedObject.pos.y << ", "
-       << placedObject.pos.z << ") ";
+       << placedObject.getPosition().x << ", "
+       << placedObject.getPosition().y << ", "
+       << placedObject.getPosition().z << ") ";
 
-    ObjectPtr obj = placedObject.obj;
-    Physics::Acceleration acc = obj->getCurrentForce() / obj->getCurrentMass();
-    Physics::Shift shift = acc * dt * dt + v * dt;
-    placedObject.pos = placedObject.pos + shift;
+    placedObject.dtMove(dt);
 
     ss << "to place ("
-       << placedObject.pos.x << ", "
-       << placedObject.pos.y << ", "
-       << placedObject.pos.z << ") ";
+       << placedObject.getPosition().x << ", "
+       << placedObject.getPosition().y << ", "
+       << placedObject.getPosition().z << ") ";
     Common::globLog("DBG", "World", ss.str());
   }
   return;

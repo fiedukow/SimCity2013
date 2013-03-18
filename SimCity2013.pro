@@ -32,8 +32,8 @@ SOURCES += src/main.cpp\
            src/Model/Physics/NewtonsDynamics.cpp \
            src/Model/Objects/ObjectSnapshot.cpp \
            src/Model/Physics/Positioning.cpp \
-    src/Model/Objects/Objects.cpp \
-    src/Model/Objects/Object.cpp
+           src/Model/Objects/Objects.cpp \
+           src/Model/Objects/Object.cpp
 
 HEADERS  += src/View/SimCityWindow.h \
             src/View/OgreWidget.h \
@@ -52,6 +52,6 @@ HEADERS  += src/View/SimCityWindow.h \
             src/Model/Physics/NewtonsDynamics.h \
             src/Model/Objects/ObjectSnapshot.h \
             src/Model/Physics/Positioning.h \
-    src/Model/Objects/Objects.h
+            src/Model/Objects/Objects.h
 
 FORMS    += src/View/SimCityWindow.ui
