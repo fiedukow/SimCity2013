@@ -1,6 +1,7 @@
 #ifndef OBJECTS_H
 #define OBJECTS_H
 #include <Model/Objects/Object.h>
+#include <Model/Objects/ObjectSnapshot.h>
 
 namespace SimCity
 {
@@ -11,7 +12,8 @@ namespace Objects
 
 class PowerBall : public Object
 {
-  virtual void getSnapshot() const;
+public:
+  virtual SnapshotPtr getSnapshot(const PlacedObject&) const;
   virtual Physics::Mass getCurrentMass() const;
   virtual Physics::Force getCurrentForce() const;
 };
