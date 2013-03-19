@@ -41,6 +41,11 @@ void PlacedObject::dtMove(const Physics::TimeDuration& dt)
   dtUpdateVelocity(dt);
 }
 
+SnapshotPtr PlacedObject::getSnapshot() const
+{
+  return obj->getSnapshot(*this);
+}
+
 void PlacedObject::dtUpdatePosition(const Physics::TimeDuration& dt)
 {
   Physics::Acceleration acc = obj->getCurrentForce() / obj->getCurrentMass();

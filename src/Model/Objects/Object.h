@@ -11,13 +11,17 @@ namespace Model
 namespace Objects
 {
 
+class Snapshot;
+class PlacedObject;
+typedef std::shared_ptr<Snapshot> SnapshotPtr;
+
 class Object
 {
 public:
   Object();
   virtual ~Object();
 
-  virtual void getSnapshot() const = 0; //TODO it is no void returning
+  virtual SnapshotPtr getSnapshot(const PlacedObject&) const = 0;
   virtual Physics::Mass getCurrentMass() const = 0;   //Argh...
                                                       //Heisenberg would kill me
                                                       // for this const here...
@@ -38,6 +42,8 @@ public:
   Physics::Velocity getVelocity() const;
   void dtMove(const Physics::TimeDuration& dt);
 
+  SnapshotPtr getSnapshot() const;
+
 private:
   void dtUpdatePosition(const Physics::TimeDuration& dt);
   void dtUpdateVelocity(const Physics::TimeDuration& dt);
@@ -47,6 +53,8 @@ private:
   Physics::Position pos;
   Physics::Velocity v;
 };
+
+typedef std::shared_ptr<PlacedObject> PlacedObjectPtr;
 
 }//namespace Objects
 }//namespace SimCity
