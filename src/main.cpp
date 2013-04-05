@@ -17,20 +17,6 @@ int main(int argc, char *argv[])
   SimCityWindow w;
   w.show();
 
-//  Map map = dbDriver.getMap();
-//  for(const Street& street : map.edges)
-//  {
-//    std::cout << "FROM: ( "
-//              << street.first->lat
-//              << ", "
-//              << street.first->lon
-//              << " )    \tTO: ( "
-//              << street.second->lat
-//              << ", "
-//              << street.second->lon
-//              << " )" << std::endl;
-//  }
-
   Model m;
   m.addSimulationPart(SimulationPartPtr(new World("simcity",
                                                   "simcity",
