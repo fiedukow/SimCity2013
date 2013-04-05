@@ -10,11 +10,15 @@ namespace Objects
 
 Observer::Observer(const Map& map)
   : map_(map)
-{
-}
+{}
 
 Observer::~Observer()
 {}
+
+void Observer::provideObjects(const ObjectSnapshots& obj)
+{
+  objects_ = obj;
+}
 
 }//namesapce Objects
 }//namespace SimCity

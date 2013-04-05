@@ -22,10 +22,9 @@ public:
   virtual ~Observer();
 
   virtual void accept(World& w) = 0;
-  virtual void provideObjects(const ObjectSnapshots& obj) = 0;
-  virtual void provideNewMap(const Map& map) = 0;
+  virtual void provideObjects(const ObjectSnapshots& obj);
 
-  /**
+  /**`
    * @brief timePassed - derived from SimulationPart
    * @see SimulationPart::timePassed
    */
