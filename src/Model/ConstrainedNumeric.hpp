@@ -19,25 +19,25 @@ public:
   }
 
   ConstrainedNumeric<min,max,Type>
-    operator+(const ConstrainedNumeric<min,max,Type>& toAdd)
+    operator+(const ConstrainedNumeric<min,max,Type>& toAdd) const
   {
     return ConstrainedNumeric<min,max,Type>(v_ + toAdd.v_);
   }
 
   ConstrainedNumeric<min,max,Type>
-    operator-(const ConstrainedNumeric<min,max,Type>& toAdd)
+    operator-(const ConstrainedNumeric<min,max,Type>& toAdd) const
   {
     return ConstrainedNumeric<min,max,Type>(v_ - toAdd.v_);
   }
 
   ConstrainedNumeric<min,max,Type>
-    operator*(const ConstrainedNumeric<min,max,Type>& toAdd)
+    operator*(const ConstrainedNumeric<min,max,Type>& toAdd) const
   {
     return ConstrainedNumeric<min,max,Type>(v_ * toAdd.v_);
   }
 
   ConstrainedNumeric<min,max,Type>
-    operator/(const ConstrainedNumeric<min,max,Type>& toAdd)
+    operator/(const ConstrainedNumeric<min,max,Type>& toAdd) const
   {
     return ConstrainedNumeric<min,max,Type>(v_ / toAdd.v_);
   }
@@ -46,6 +46,11 @@ public:
   {
     if(v_ < min || v_ > max)
       throw OutOfBoundValueException<Type>(v_, min, max);
+  }
+
+  Type get() const
+  {
+    return v_;
   }
 
 private:
