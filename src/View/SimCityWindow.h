@@ -28,7 +28,6 @@ private:
   QLabel* speedCounter_;
   QTimer* ogreSceneTimer;
   uint currentFrameInterval;
-  OgreWidget* ogre;
 };
 
 #endif // SIMCITYWINDOW_H
