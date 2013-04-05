@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QTimer>
 #include <QSpinBox>
+#include <QGraphicsView>
 
 #include <cmath>
 
@@ -22,11 +23,6 @@ SimCityWindow::SimCityWindow(QWidget *parent) :
   statusBar()->addWidget(new QLabel("  |  ", this));
   statusBar()->addWidget(new QLabel("Speed: ", this));
   statusBar()->addWidget(speedCounter_);
-  QLayout* lay = new QHBoxLayout(ui->ogreFrame);
-  ui->ogreFrame->setLayout(lay);
-  lay->setContentsMargins(0, 0, 0, 0);
-  ogre = new OgreWidget(ui->ogreFrame);
-  lay->addWidget(ogre);
   ogreSceneTimer = new QTimer(this);
   connect(ogreSceneTimer, SIGNAL(timeout()),   ogre, SLOT(repaint()));
   connect(ui->actionPlay, SIGNAL(triggered()), ogre, SLOT(goForward()));

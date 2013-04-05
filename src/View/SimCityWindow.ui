@@ -46,6 +46,11 @@
            <property name="frameShadow">
             <enum>QFrame::Raised</enum>
            </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QGraphicsView" name="view2D"/>
+            </item>
+           </layout>
           </widget>
          </item>
          <item>
@@ -300,7 +305,7 @@
      <x>0</x>
      <y>0</y>
      <width>851</width>
-     <height>25</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
