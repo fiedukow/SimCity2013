@@ -2,6 +2,7 @@
 #define OBJECTSNAPSHOT_H
 
 #include <memory>
+#include <vector>
 #include <Model/Physics/NewtonsDynamics.h>
 #include <Model/Physics/Positioning.h>
 
@@ -16,6 +17,7 @@ class Snapshot;
 class SnapshotVisitor;
 class PlacedObject;
 typedef std::shared_ptr<Snapshot> SnapshotPtr;
+typedef std::vector<SnapshotPtr> ObjectSnapshots;
 
 class Snapshot
 {

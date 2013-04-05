@@ -17,7 +17,7 @@ World::World(const std::string& dbName,
 {
   PlacedObject myBall(ObjectPtr(new PowerBall()),
                       Physics::Position(0, 0, 0),
-                      Physics::Velocity(0, 0, 0));
+                      Physics::Velocity(-5.0, 1.0, 1.0));
   objects_.push_back(myBall);
 }
 
@@ -33,22 +33,26 @@ void World::timePassed(uint ms)
 
   Physics::TimeDuration dt(ms/1000.0);
 
-  for(PlacedObject& placedObject : objects_)
-  {
-    std::stringstream ss;
-    ss << "Moving the object from place ("
-       << placedObject.getPosition().x << ", "
-       << placedObject.getPosition().y << ", "
-       << placedObject.getPosition().z << ") ";
 
+
+  /**
+   * Create snapshot of current state
+   */
+  ObjectSnapshots objectsSnapshot;
+  for(PlacedObject& placedObject : objects_)
+    objectsSnapshot.push_back(placedObject.getSnapshot());
+
+  /**
+   * Loop through all observer and tell them whats going on
+   */
+  //TODO
+
+  /**
+   * Loop through all object and move them using force and mass they're providin
+   */
+  for(PlacedObject& placedObject : objects_)
     placedObject.dtMove(dt);
 
-    ss << "to place ("
-       << placedObject.getPosition().x << ", "
-       << placedObject.getPosition().y << ", "
-       << placedObject.getPosition().z << ") ";
-    Common::globLog("DBG", "World", ss.str());
-  }
   return;
 }
 
