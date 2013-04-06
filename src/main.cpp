@@ -22,10 +22,9 @@ int main(int argc, char *argv[])
                                                   "simcity",
                                                   "simcity")));
   m.addSimulationPart(SimulationPartPtr(new ObjectManager()));
-  boost::thread th(boost::ref(m));
+  m.start();
 
   int result = a.exec();
-  m.stopAllThreads();
-  th.join();
+  m.stop();
   return result;
 }

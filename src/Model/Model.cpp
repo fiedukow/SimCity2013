@@ -13,8 +13,46 @@ Model::Model()
     simulationSpeed(1.0),
     pollingPeriod(20),
     stopThreads_(false),
-    threadRunning_(false)
+    threadRunning_(false),
+    thread_(NULL)
 {
+}
+
+void Model::registerNewStateObserver(Common::NewStateObserver* obs)
+{
+  newStateObservers_.push_back(obs);
+}
+
+void Model::unregisterNewStateObserver(Common::NewStateObserver* obs)
+{
+  newStateObservers_.remove(obs);
+}
+
+void Model::notifyNewStateObservers()
+{
+  for(Common::NewStateObserver* observer : newStateObservers_)
+    observer->notifyNewState();
+}
+
+void Model::start()
+{
+  if(thread_ == NULL)
+    thread_ = new boost::thread(boost::ref(*this));
+  else
+    pauseMutex_.unlock();
+}
+
+void Model::stop()
+{
+  stopThreads_ = true;
+  thread_->join();
+  delete thread_;
+  thread_ = NULL;
+}
+
+void Model::pause()
+{
+  pauseMutex_.lock();
 }
 
 void Model::operator()()
@@ -23,6 +61,7 @@ void Model::operator()()
   ptime lastTickTime = MClock::local_time();
   while(!stopThreads_)
   {
+    boost::mutex::scoped_lock lock(pauseMutex_);
     ptime current;
     Time::time_duration durr;
     while(durr.total_milliseconds() < minTimerDelay)
@@ -55,11 +94,6 @@ void Model::addSimulationPart(SimulationPartPtr newSimPart)
     throw GeneralException("Trying to add simulation part while simulation has"
                            " already started.");
   simParts_.push_back(newSimPart);
-}
-
-void Model::stopAllThreads()
-{
-  stopThreads_ = true;
 }
 
 }//namespace SimCity

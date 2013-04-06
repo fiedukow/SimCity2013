@@ -1,9 +1,17 @@
 #ifndef MODEL_H
 #define MODEL_H
 #include <Common/GeneralTypes.h>
+#include <Common/NewStateObserver.h>
 #include <Model/SimulationPart.h>
 #include <list>
 #include <memory>
+
+#include <boost/thread/mutex.hpp>
+
+namespace boost
+{
+class thread;
+}
 
 namespace SimCity
 {
@@ -11,6 +19,7 @@ namespace Model
 {
 
 typedef std::list<SimulationPartPtr> SimParts;
+typedef std::list<Common::NewStateObserver*> ObserversList;
 
 class Model
 {
@@ -18,9 +27,38 @@ public:
   Model();
 
   /**
-   * @brief operator() starts simulation thread
+   * @brief registerNewStateObserver - allows to add new observer of model state
+   * @param obs - pointer to the observer you want to inform about changes
+   * @warning If object under pointer will be deleted you must call
+   *          unregisterNewStateObserver to avoid calling methods on dead object
+   * @see unregisterNewStateObserver()
    */
-  void operator()();
+  void registerNewStateObserver(Common::NewStateObserver* obs);
+
+  /**
+   * @brief unregisterNewStateObserver - allows to remove state observer
+   * @param obs - pointer to observer you want to remove from observers
+   * @see registerNewStateObserver()
+   */
+  void unregisterNewStateObserver(Common::NewStateObserver* obs);
+
+  /**
+   * @brief start - starts simulation from scrach or continue if it was paused
+   */
+  void start();
+
+  /**
+   * @brief stop - stops simulation removing current state
+   * @note it's impossible to continue this simulation after calling stop()
+   */
+  void stop();
+
+  /**
+   * @brief pause - pauses model run but renumbers current state of simulation
+   * @note this will only stops processing until start() will be called
+   * @see start()
+   */
+  void pause();
 
   /**
    * @brief Model::addSimulationPart - adds new element to simulations
@@ -31,9 +69,18 @@ public:
   void addSimulationPart(SimulationPartPtr newSimPart);
 
   /**
-   * @brief stopAllThreads - stops simulation thread(s)
+   * @brief operator() starts simulation thread
+   * @see start()
+   * @see stop()
+   * @see pause()
    */
-  void stopAllThreads();
+  void operator()();
+
+protected:
+  /**
+   * @brief notifyNewStateObservers - calls notify on all registred observers
+   */
+  void notifyNewStateObservers();
 
 private:
   /**
@@ -76,6 +123,24 @@ private:
    * in simulation but none of those will now nothing about real time flow.
    */
   SimParts simParts_;
+
+  /**
+   * @brief newStateObservers_ - list of new state observers to be informed
+   *        about changes
+   */
+  ObserversList newStateObservers_;
+
+  /**
+   * @brief thread_ - pointer to current thread of model if it exists or NULL
+   */
+  boost::thread* thread_;
+
+  /**
+   * @brief pauseMutex_ - mutex checked on every loop cycle in model thread
+   * Locking this mutex causes thread to pause on next loop cycle.
+   * @see pause()
+   */
+  boost::mutex pauseMutex_;
 };
 
 }//namespace SimCity

@@ -22,7 +22,7 @@ SimCityWindow::SimCityWindow(QWidget *parent) :
   statusBar()->addWidget(new QLabel("  |  ", this));
   statusBar()->addWidget(new QLabel("Speed: ", this));
   statusBar()->addWidget(speedCounter_);
-  ogreSceneTimer = new QTimer(this);
+  sceneTimer = new QTimer(this);
   //connect(ogreSceneTimer, SIGNAL(timeout()),   ogre, SLOT(repaint()));
   connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(close()));
   QSpinBox* frameRateSpin = new QSpinBox(this);
@@ -35,17 +35,17 @@ SimCityWindow::SimCityWindow(QWidget *parent) :
           this,
           SLOT(setFramerate(int)));
   setFramerate(frameRateSpin->value());
-  ogreSceneTimer->start();
+  sceneTimer->start();
 }
 
 SimCityWindow::~SimCityWindow()
 {
-  ogreSceneTimer->stop();
+  sceneTimer->stop();
   delete ui;
 }
 
 void SimCityWindow::setFramerate(int frameRate)
 {
   int interval = round(1000.0/(double)frameRate);
-  ogreSceneTimer->setInterval(interval);
+  sceneTimer->setInterval(interval);
 }
