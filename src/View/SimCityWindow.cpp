@@ -1,6 +1,5 @@
 #include "SimCityWindow.h"
 #include "ui_SimCityWindow.h"
-#include "OgreWidget.h"
 
 #include <QLine>
 #include <QLabel>
@@ -25,8 +24,6 @@ SimCityWindow::SimCityWindow(QWidget *parent) :
   statusBar()->addWidget(speedCounter_);
   ogreSceneTimer = new QTimer(this);
   //connect(ogreSceneTimer, SIGNAL(timeout()),   ogre, SLOT(repaint()));
-  //connect(ui->actionPlay, SIGNAL(triggered()), ogre, SLOT(goForward()));
-  //connect(ui->actionPause,SIGNAL(triggered()), ogre, SLOT(goBackward()));
   connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(close()));
   QSpinBox* frameRateSpin = new QSpinBox(this);
 

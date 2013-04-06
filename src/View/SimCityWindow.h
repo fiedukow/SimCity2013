@@ -2,7 +2,6 @@
 #define SIMCITYWINDOW_H
 
 #include <QMainWindow>
-#include <View/OgreWidget.h>
 
 namespace Ui {
 class SimCityWindow;
@@ -26,7 +25,7 @@ private:
   Ui::SimCityWindow *ui;
   QLabel* fpsCounter_;
   QLabel* speedCounter_;
-  QTimer* ogreSceneTimer;
+  QTimer* sceneTimer;
   uint currentFrameInterval;
 };
 

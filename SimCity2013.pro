@@ -20,8 +20,6 @@ QMAKE_LFLAGS += -lOgreMain -lOIS -lpqxx -lboost_thread
 
 SOURCES += src/main.cpp\
            src/View/SimCityWindow.cpp \
-           src/View/OgreWidget.cpp \
-           src/View/BaseApplication.cpp \
            src/Model/World.cpp \
            src/Model/StaticBaseDriver.cpp \
            src/Model/Exceptions.cpp \
@@ -38,8 +36,6 @@ SOURCES += src/main.cpp\
            src/Model/Objects/Observer.cpp
 
 HEADERS  += src/View/SimCityWindow.h \
-            src/View/OgreWidget.h \
-            src/View/BaseApplication.h \
             src/Model/World.h \
             src/Model/StaticBaseDriver.h \
             src/Model/Exceptions.h \
