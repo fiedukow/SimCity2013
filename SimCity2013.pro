@@ -35,7 +35,7 @@ SOURCES += src/main.cpp\
            src/Model/Objects/Objects.cpp \
            src/Model/Objects/Object.cpp \
            src/Model/Objects/ObjectsSnapshots.cpp \
-    src/Model/Objects/Observer.cpp
+           src/Model/Objects/Observer.cpp
 
 HEADERS  += src/View/SimCityWindow.h \
             src/View/OgreWidget.h \
@@ -56,6 +56,6 @@ HEADERS  += src/View/SimCityWindow.h \
             src/Model/Physics/Positioning.h \
             src/Model/Objects/Objects.h \
             src/Model/Objects/ObjectsSnapshots.h \
-    src/Model/Objects/Observer.h
+            src/Model/Objects/Observer.h
 
 FORMS    += src/View/SimCityWindow.ui
