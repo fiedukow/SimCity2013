@@ -1,6 +1,7 @@
 #include "SimCityWindow.h"
 #include "ui_SimCityWindow.h"
 #include <Controller/QtUnspaghetti.h>
+#include <View/MapScene.h>
 
 #include <QLine>
 #include <QLabel>
@@ -9,7 +10,11 @@
 #include <QGraphicsView>
 
 #include <cmath>
+#include <iostream>
+
 namespace SimCity
+{
+namespace View
 {
 
 SimCityWindow::SimCityWindow(Controller::QtUnspaghetti& qtUnspaghetti,
@@ -33,6 +38,10 @@ SimCityWindow::SimCityWindow(Controller::QtUnspaghetti& qtUnspaghetti,
   connect(ui->actionStop, SIGNAL(triggered()), &qtUnspaghetti_, SLOT(stop()));
   connect(ui->actionPause, SIGNAL(triggered()), &qtUnspaghetti_, SLOT(pause()));
   connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(close()));
+  connect(this, SIGNAL(requestNewMapSnapshot()),
+          &qtUnspaghetti_, SLOT(requestNewMapSnapshot()));
+  connect(&qtUnspaghetti_, SIGNAL(updateMap()),
+          this, SLOT(drawMap()));
   QSpinBox* frameRateSpin = new QSpinBox(this);
 
   ui->mainToolBar->addWidget(frameRateSpin);
@@ -44,6 +53,7 @@ SimCityWindow::SimCityWindow(Controller::QtUnspaghetti& qtUnspaghetti,
           SLOT(setFramerate(int)));
   setFramerate(frameRateSpin->value());
   sceneTimer->start();
+  emit requestNewMapSnapshot();
 }
 
 SimCityWindow::~SimCityWindow()
@@ -58,4 +68,12 @@ void SimCityWindow::setFramerate(int frameRate)
   sceneTimer->setInterval(interval);
 }
 
+void SimCityWindow::drawMap()
+{
+  Model::MapPtr map = qtUnspaghetti_.getMapSnapshot();
+  QGraphicsScene* scene = new MapScene(map, ui->view2D);
+  ui->view2D->setScene(scene);
+}
+
+}//namespace View
 }//namespace SimCity

@@ -2,6 +2,7 @@
 #define SIMCITYWINDOW_H
 
 #include <QMainWindow>
+#include <Model/DBDataStructures.h>
 
 namespace Ui {
 class SimCityWindow;
@@ -18,6 +19,9 @@ namespace Controller
 class QtUnspaghetti;
 }
 
+namespace View
+{
+
 class SimCityWindow : public QMainWindow
 {
   Q_OBJECT
@@ -29,6 +33,10 @@ public:
 
 public slots:
   void setFramerate(int frameRate);
+  void drawMap();
+
+signals:
+  void requestNewMapSnapshot();
 
 private:
   Ui::SimCityWindow *ui;
@@ -39,6 +47,7 @@ private:
   Controller::QtUnspaghetti& qtUnspaghetti_;
 };
 
+}//namespace View
 }//namespace SimCity
 
 #endif // SIMCITYWINDOW_H
