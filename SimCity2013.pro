@@ -41,7 +41,9 @@ SOURCES += src/main.cpp\
            src/Controller/Events/EventStop.cpp \
            src/Controller/Events/EventStart.cpp \
            src/Controller/Events/EventPause.cpp \
-    src/Controller/Events/EventInterrput.cpp
+    src/Controller/Events/EventInterrput.cpp \
+    src/Controller/Events/EventNewMapRequest.cpp \
+    src/View/MapScene.cpp
 
 HEADERS  += src/View/SimCityWindow.h \
             src/Model/World.h \
@@ -70,6 +72,8 @@ HEADERS  += src/View/SimCityWindow.h \
             src/Controller/Events/EventStart.h \
             src/Controller/Events/EventPause.h \
             src/Controller/Events/AllEvents.h \
-    src/Controller/Events/EventInterrput.h
+    src/Controller/Events/EventInterrput.h \
+    src/Controller/Events/EventNewMapRequest.h \
+    src/View/MapScene.h
 
 FORMS    += src/View/SimCityWindow.ui

@@ -16,17 +16,19 @@ using namespace SimCity;
 int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
-  Model::Model model;
+  Model::WorldPtr world(new Model::World("simcity",
+                                         "simcity",
+                                         "simcity"));
+  Model::Model model(world);
   Controller::Events::EventQueue eq;
   Controller::QtUnspaghetti qtUn(eq);
   Controller::Controller controller(qtUn, eq, model);
-  SimCityWindow w(qtUn);
-  w.show();
 
-  model.addSimulationPart(Model::SimulationPartPtr(new Model::World("simcity",
-                                                                    "simcity",
-                                                                    "simcity")));
+  model.addSimulationPart(std::dynamic_pointer_cast<Model::SimulationPart>(world));
   model.addSimulationPart(Model::SimulationPartPtr(new Model::ObjectManager()));
+
+  View::SimCityWindow w(qtUn);
+  w.show();
 
   int result = a.exec();
   model.stop();
