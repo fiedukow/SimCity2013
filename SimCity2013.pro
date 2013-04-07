@@ -34,7 +34,14 @@ SOURCES += src/main.cpp\
            src/Model/Objects/Object.cpp \
            src/Model/Objects/ObjectsSnapshots.cpp \
            src/Model/Objects/Observer.cpp \
-    src/Common/NewStateObserver.cpp
+           src/Common/NewStateObserver.cpp \
+           src/Controller/Controller.cpp \
+           src/Controller/Events/EventBase.cpp \
+           src/Controller/QtUnspaghetti.cpp \
+           src/Controller/Events/EventStop.cpp \
+           src/Controller/Events/EventStart.cpp \
+           src/Controller/Events/EventPause.cpp \
+    src/Controller/Events/EventInterrput.cpp
 
 HEADERS  += src/View/SimCityWindow.h \
             src/Model/World.h \
@@ -54,6 +61,15 @@ HEADERS  += src/View/SimCityWindow.h \
             src/Model/Objects/Objects.h \
             src/Model/Objects/ObjectsSnapshots.h \
             src/Model/Objects/Observer.h \
-    src/Common/NewStateObserver.h
+            src/Common/NewStateObserver.h \
+            src/Controller/Controller.h \
+            src/Utils/BlockingQueue.hpp \
+            src/Controller/Events/EventBase.h \
+            src/Controller/QtUnspaghetti.h \
+            src/Controller/Events/EventStop.h \
+            src/Controller/Events/EventStart.h \
+            src/Controller/Events/EventPause.h \
+            src/Controller/Events/AllEvents.h \
+    src/Controller/Events/EventInterrput.h
 
 FORMS    += src/View/SimCityWindow.ui
