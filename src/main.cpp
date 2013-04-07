@@ -8,23 +8,27 @@
 #include "Model/Model.h"
 #include "Model/World.h"
 #include "Model/ObjectManager.h"
+#include "Controller/QtUnspaghetti.h"
+#include "Controller/Controller.h"
 
-using namespace SimCity::Model;
+using namespace SimCity;
 
 int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
-  SimCityWindow w;
+  Model::Model model;
+  Controller::Events::EventQueue eq;
+  Controller::QtUnspaghetti qtUn(eq);
+  Controller::Controller controller(qtUn, eq, model);
+  SimCityWindow w(qtUn);
   w.show();
 
-  Model m;
-  m.addSimulationPart(SimulationPartPtr(new World("simcity",
-                                                  "simcity",
-                                                  "simcity")));
-  m.addSimulationPart(SimulationPartPtr(new ObjectManager()));
-  m.start();
+  model.addSimulationPart(Model::SimulationPartPtr(new Model::World("simcity",
+                                                                    "simcity",
+                                                                    "simcity")));
+  model.addSimulationPart(Model::SimulationPartPtr(new Model::ObjectManager()));
 
   int result = a.exec();
-  m.stop();
+  model.stop();
   return result;
 }
