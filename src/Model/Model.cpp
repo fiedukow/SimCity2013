@@ -2,19 +2,21 @@
 #include <boost/thread/thread.hpp>
 #include <Common/GlobalLogger.h>
 #include <Model/Exceptions.h>
+#include <Model/World.h>
 
 namespace SimCity
 {
 namespace Model
 {
 
-Model::Model()
+Model::Model(const WorldPtr world)
   : minTimerDelay(100),
     simulationSpeed(1.0),
     pollingPeriod(20),
     stopThreads_(false),
     paused_(false),
     threadRunning_(false),
+    world_(world),
     thread_(NULL)
 {
 }
@@ -66,6 +68,11 @@ void Model::pause()
 
   if(pauseMutex_.try_lock())
     paused_ = true;
+}
+
+MapPtr Model::getMapSnapshot()
+{
+  return world_->getMapSnapshot();
 }
 
 void Model::operator()()

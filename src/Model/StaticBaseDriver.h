@@ -32,7 +32,7 @@ public:
                    bool persistent = true);
   ~StaticBaseDriver();
   std::vector<StreetNode> getStreetNodes();
-  Map getMap();
+  MapPtr getMap();
 
 private:
   /**

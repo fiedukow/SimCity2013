@@ -3,6 +3,7 @@
 #include <Common/GeneralTypes.h>
 #include <Common/NewStateObserver.h>
 #include <Model/SimulationPart.h>
+#include <Model/DBDataStructures.h>
 #include <list>
 #include <memory>
 
@@ -18,13 +19,15 @@ namespace SimCity
 namespace Model
 {
 
+class World;
 typedef std::list<SimulationPartPtr> SimParts;
 typedef std::list<Common::NewStateObserver*> ObserversList;
+typedef std::shared_ptr<World> WorldPtr;
 
 class Model
 {
 public:
-  Model();
+  Model(const WorldPtr world);
 
   /**
    * @brief registerNewStateObserver - allows to add new observer of model state
@@ -59,6 +62,12 @@ public:
    * @see start()
    */
   void pause();
+
+  /**
+   * @brief getMapSnapshot - gets current map snapshot as shared pointer
+   * @returns MapPtr -shared pointer to current map state.
+   */
+  MapPtr getMapSnapshot();
 
   /**
    * @brief Model::addSimulationPart - adds new element to simulations
@@ -109,6 +118,9 @@ private:
    */
   bool stopThreads_;
 
+  /**
+   * @brief paused_ - is set to true when the thread is in pause state
+   */
   bool paused_;
 
   /**
@@ -125,6 +137,14 @@ private:
    * in simulation but none of those will now nothing about real time flow.
    */
   SimParts simParts_;
+
+  /**
+   * @brief world_ - this is special simulation part having access to state
+   *                 that will be presented to user.
+   * @note It is keept in simParts_ collection too
+   * @see Model::simParts_
+   */
+  const WorldPtr world_;
 
   /**
    * @brief newStateObservers_ - list of new state observers to be informed

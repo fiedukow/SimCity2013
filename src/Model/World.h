@@ -6,6 +6,7 @@
 #include <Model/Objects/Object.h>
 
 #include <list>
+#include <memory>
 
 namespace SimCity
 {
@@ -24,12 +25,14 @@ public:
   virtual ~World();
   virtual void timePassed(uint ms);
 
-  static Map readMapFromDB(const std::string& dbName,
-                           const std::string& dbUser,
-                           const std::string& dbPassword);
+  MapPtr getMapSnapshot();
+
+  static MapPtr readMapFromDB(const std::string& dbName,
+                              const std::string& dbUser,
+                              const std::string& dbPassword);
 
 private:
-  Map map_;
+  MapPtr map_;
   PlacedObjects objects_;
 };
 

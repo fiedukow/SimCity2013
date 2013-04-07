@@ -6,6 +6,7 @@
 
 #include <set>
 #include <vector>
+#include <memory>
 
 namespace SimCity
 {
@@ -41,6 +42,8 @@ struct Map
   std::vector<StreetNode> vertexes; //TODO use std::set here
   std::vector<Street>     edges;
 };
+
+typedef std::shared_ptr<Map> MapPtr;
 
 }//namespace Model
 }//namespace SimCity

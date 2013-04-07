@@ -56,9 +56,14 @@ void World::timePassed(uint ms)
   return;
 }
 
-Map World::readMapFromDB(const std::string& dbName,
-                         const std::string& dbUser,
-                         const std::string& dbPassword)
+MapPtr World::getMapSnapshot()
+{
+  return map_;
+}
+
+MapPtr World::readMapFromDB(const std::string& dbName,
+                            const std::string& dbUser,
+                            const std::string& dbPassword)
 {
   StaticBaseDriver dbDriver(std::string("dbname=" + dbName +
                                         " user=" + dbUser +
