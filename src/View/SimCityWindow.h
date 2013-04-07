@@ -10,12 +10,21 @@ class SimCityWindow;
 class QTimer;
 class QLabel;
 
+namespace SimCity
+{
+
+namespace Controller
+{
+class QtUnspaghetti;
+}
+
 class SimCityWindow : public QMainWindow
 {
   Q_OBJECT
 
 public:
-  explicit SimCityWindow(QWidget *parent = 0);
+  explicit SimCityWindow(Controller::QtUnspaghetti& qtUnspaghetti,
+                         QWidget *parent = 0);
   ~SimCityWindow();
 
 public slots:
@@ -27,6 +36,9 @@ private:
   QLabel* speedCounter_;
   QTimer* sceneTimer;
   uint currentFrameInterval;
+  Controller::QtUnspaghetti& qtUnspaghetti_;
 };
+
+}//namespace SimCity
 
 #endif // SIMCITYWINDOW_H

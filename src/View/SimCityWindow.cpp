@@ -1,5 +1,6 @@
 #include "SimCityWindow.h"
 #include "ui_SimCityWindow.h"
+#include <Controller/QtUnspaghetti.h>
 
 #include <QLine>
 #include <QLabel>
@@ -8,10 +9,14 @@
 #include <QGraphicsView>
 
 #include <cmath>
+namespace SimCity
+{
 
-SimCityWindow::SimCityWindow(QWidget *parent) :
-  QMainWindow(parent),
-  ui(new Ui::SimCityWindow)
+SimCityWindow::SimCityWindow(Controller::QtUnspaghetti& qtUnspaghetti,
+                             QWidget *parent)
+  : QMainWindow(parent),
+    ui(new Ui::SimCityWindow),
+    qtUnspaghetti_(qtUnspaghetti)
 {
   ui->setupUi(this);
   fpsCounter_ = new QLabel("0");
@@ -24,6 +29,9 @@ SimCityWindow::SimCityWindow(QWidget *parent) :
   statusBar()->addWidget(speedCounter_);
   sceneTimer = new QTimer(this);
   //connect(ogreSceneTimer, SIGNAL(timeout()),   ogre, SLOT(repaint()));
+  connect(ui->actionPlay, SIGNAL(triggered()), &qtUnspaghetti_, SLOT(start()));
+  connect(ui->actionStop, SIGNAL(triggered()), &qtUnspaghetti_, SLOT(stop()));
+  connect(ui->actionPause, SIGNAL(triggered()), &qtUnspaghetti_, SLOT(pause()));
   connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(close()));
   QSpinBox* frameRateSpin = new QSpinBox(this);
 
@@ -49,3 +57,5 @@ void SimCityWindow::setFramerate(int frameRate)
   int interval = round(1000.0/(double)frameRate);
   sceneTimer->setInterval(interval);
 }
+
+}//namespace SimCity
