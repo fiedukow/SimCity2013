@@ -37,24 +37,22 @@ void Model::notifyNewStateObservers()
 
 void Model::start()
 {
-  Common::GlobalLogger::logger().log("DBG", "Model", "START()");
+  paused_ = false;
+  pauseMutex_.unlock();
+
   if(!thread_)
   {
     thread_ = new boost::thread(boost::ref(*this));
     stopThreads_ = false;
-    return;
   }
-
-  paused_ = false;
-  pauseMutex_.unlock();
 }
 
 void Model::stop()
 {
-  Common::GlobalLogger::logger().log("DBG", "Model", "STOP()");
   if(!thread_)
     return;
 
+  start(); //Unpause if it was paused
   stopThreads_ = true;
   thread_->join();
   delete thread_;
@@ -66,8 +64,8 @@ void Model::pause()
   if(!thread_)
     return;
 
-  paused_ = true;
-  pauseMutex_.lock();
+  if(pauseMutex_.try_lock())
+    paused_ = true;
 }
 
 void Model::operator()()
@@ -104,7 +102,7 @@ void Model::operator()()
     if(paused_)
     {
       Common::GlobalLogger::logger().log("DBG", "Model", "PAUSED");
-      pauseMutex_.lock();
+      boost::mutex::scoped_lock lock(pauseMutex_);
     }
   }
 }

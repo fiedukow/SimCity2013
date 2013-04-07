@@ -142,7 +142,7 @@ private:
    * Locking this mutex causes thread to pause on next loop cycle.
    * @see pause()
    */
-  boost::shared_mutex pauseMutex_;
+  boost::mutex pauseMutex_;
 };
 
 }//namespace SimCity
