@@ -6,7 +6,7 @@
 #include <list>
 #include <memory>
 
-#include <boost/thread/mutex.hpp>
+#include <boost/thread/shared_mutex.hpp>
 
 namespace boost
 {
@@ -109,6 +109,8 @@ private:
    */
   bool stopThreads_;
 
+  bool paused_;
+
   /**
    * @brief threadRunning_ - will be set when thread is running
    * @note use this to determine if some methods can be invoked in given context
@@ -140,7 +142,7 @@ private:
    * Locking this mutex causes thread to pause on next loop cycle.
    * @see pause()
    */
-  boost::mutex pauseMutex_;
+  boost::shared_mutex pauseMutex_;
 };
 
 }//namespace SimCity

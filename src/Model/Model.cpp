@@ -13,6 +13,7 @@ Model::Model()
     simulationSpeed(1.0),
     pollingPeriod(20),
     stopThreads_(false),
+    paused_(false),
     threadRunning_(false),
     thread_(NULL)
 {
@@ -36,14 +37,24 @@ void Model::notifyNewStateObservers()
 
 void Model::start()
 {
-  if(thread_ == NULL)
+  Common::GlobalLogger::logger().log("DBG", "Model", "START()");
+  if(!thread_)
+  {
     thread_ = new boost::thread(boost::ref(*this));
-  else
-    pauseMutex_.unlock();
+    stopThreads_ = false;
+    return;
+  }
+
+  paused_ = false;
+  pauseMutex_.unlock();
 }
 
 void Model::stop()
 {
+  Common::GlobalLogger::logger().log("DBG", "Model", "STOP()");
+  if(!thread_)
+    return;
+
   stopThreads_ = true;
   thread_->join();
   delete thread_;
@@ -52,6 +63,10 @@ void Model::stop()
 
 void Model::pause()
 {
+  if(!thread_)
+    return;
+
+  paused_ = true;
   pauseMutex_.lock();
 }
 
@@ -61,7 +76,7 @@ void Model::operator()()
   ptime lastTickTime = MClock::local_time();
   while(!stopThreads_)
   {
-    boost::mutex::scoped_lock lock(pauseMutex_);
+    std::cout << &pauseMutex_ << "lck loop" << std::endl;
     ptime current;
     Time::time_duration durr;
     while(durr.total_milliseconds() < minTimerDelay)
@@ -85,6 +100,12 @@ void Model::operator()()
      */
     for(SimulationPartPtr& simPart : simParts_)
       simPart->timePassed(passed);
+
+    if(paused_)
+    {
+      Common::GlobalLogger::logger().log("DBG", "Model", "PAUSED");
+      pauseMutex_.lock();
+    }
   }
 }
 
