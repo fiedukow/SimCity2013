@@ -13,6 +13,11 @@ QtUnspaghetti::QtUnspaghetti(EventQueue& eventQueue)
 QtUnspaghetti::~QtUnspaghetti()
 {}
 
+Model::MapPtr QtUnspaghetti::getMapSnapshot()
+{
+  return currentMapPtr_;
+}
+
 void QtUnspaghetti::start()
 {
   eventQueue_.push(EventBasePtr(new EventStart()));
@@ -28,9 +33,15 @@ void QtUnspaghetti::pause()
   eventQueue_.push(EventBasePtr(new EventPause()));
 }
 
-void QtUnspaghetti::emitUpdateMap(const Model::Map* map)
+void QtUnspaghetti::requestNewMapSnapshot()
 {
-  emit updateMap(map);
+  eventQueue_.push(EventBasePtr(new EventNewMapRequest()));
+}
+
+void QtUnspaghetti::emitUpdateMap(const Model::MapPtr map)
+{
+  currentMapPtr_ = map;
+  emit updateMap();
 }
 
 }//namespace Controller

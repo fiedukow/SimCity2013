@@ -60,6 +60,11 @@ void Controller::visit(EventInterrupt&)
   //noop
 }
 
+void Controller::visit(EventNewMapRequest&)
+{
+  qtControll_.emitUpdateMap(model_.getMapSnapshot());
+}
+
 void Controller::startThread()
 {
   if(thread_)
