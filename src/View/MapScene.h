@@ -18,7 +18,12 @@ public:
 signals:
 
 public slots:
+  void scalePlus();
+  void scaleMinus();
 
+private:
+  QGraphicsItemGroup* mapSurface_;
+  QGraphicsRectItem* mapRect_;
 };
 
 }//namespace View
