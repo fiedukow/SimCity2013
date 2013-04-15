@@ -33,7 +33,8 @@ SimCityWindow::SimCityWindow(Controller::QtUnspaghetti& qtUnspaghetti,
   statusBar()->addWidget(new QLabel("Speed: ", this));
   statusBar()->addWidget(speedCounter_);
   sceneTimer = new QTimer(this);
-  //connect(ogreSceneTimer, SIGNAL(timeout()),   ogre, SLOT(repaint()));
+  connect(sceneTimer, SIGNAL(timeout()), &qtUnspaghetti_, SLOT(requestSnapshot()));
+  connect(&qtUnspaghetti_, SIGNAL(updateState()), this, SLOT(updateMoveable()));
   connect(ui->actionPlay, SIGNAL(triggered()), &qtUnspaghetti_, SLOT(start()));
   connect(ui->actionStop, SIGNAL(triggered()), &qtUnspaghetti_, SLOT(stop()));
   connect(ui->actionPause, SIGNAL(triggered()), &qtUnspaghetti_, SLOT(pause()));
@@ -83,6 +84,14 @@ void SimCityWindow::drawMap()
   ui->view2D->setRenderHints(QPainter::Antialiasing
                              | QPainter::SmoothPixmapTransform);
   ui->view2D->setScene(scene);
+}
+
+void SimCityWindow::updateMoveable()
+{
+  MapScene* scene = dynamic_cast<MapScene*>(ui->view2D->scene());
+  if(!scene)
+    return;
+  scene->showNewMovable(qtUnspaghetti_.getSnapshots());
 }
 
 }//namespace View
