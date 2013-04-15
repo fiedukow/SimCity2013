@@ -15,7 +15,7 @@ Observer::Observer(const Map& map)
 Observer::~Observer()
 {}
 
-void Observer::provideObjects(const ObjectSnapshots& obj)
+void Observer::provideObjects(const Snapshots& obj)
 {
   objects_ = obj;
 }

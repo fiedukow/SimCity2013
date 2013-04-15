@@ -22,7 +22,7 @@ public:
   virtual ~Observer();
 
   virtual void accept(World& w) = 0;
-  virtual void provideObjects(const ObjectSnapshots& obj);
+  virtual void provideObjects(const Objects::Snapshots& obj);
 
   /**`
    * @brief timePassed - derived from SimulationPart
@@ -32,7 +32,7 @@ public:
 
 protected:
   const Map& map_;
-  ObjectSnapshots objects_;
+  Objects::Snapshots objects_;
 };
 
 }//namesapce Objects
