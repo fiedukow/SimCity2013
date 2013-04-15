@@ -6,6 +6,8 @@
 #include "EventStop.h"
 #include "EventInterrput.h"
 #include "EventNewMapRequest.h"
+#include "EventNewSnapshotRequest.h"
+
 using namespace SimCity::Controller::Events;
 
 #endif // ALLEVENTS_H
