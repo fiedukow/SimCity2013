@@ -75,6 +75,11 @@ MapPtr Model::getMapSnapshot()
   return world_->getMapSnapshot();
 }
 
+Objects::Snapshots Model::getObjectSnapshots()
+{
+  return world_->getObjectSnapshots();
+}
+
 void Model::operator()()
 {
   threadRunning_ = true;

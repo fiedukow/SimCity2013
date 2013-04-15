@@ -4,6 +4,7 @@
 #include <Common/NewStateObserver.h>
 #include <Model/SimulationPart.h>
 #include <Model/DBDataStructures.h>
+#include <Model/Objects/ObjectSnapshot.h>
 #include <list>
 #include <memory>
 
@@ -68,6 +69,12 @@ public:
    * @returns MapPtr -shared pointer to current map state.
    */
   MapPtr getMapSnapshot();
+
+  /**
+   * @brief getObjectSnapshots
+   * @return - container with snapshots of all objects in world
+   */
+  Objects::Snapshots getObjectSnapshots();
 
   /**
    * @brief Model::addSimulationPart - adds new element to simulations
@@ -144,7 +151,7 @@ private:
    * @note It is keept in simParts_ collection too
    * @see Model::simParts_
    */
-  const WorldPtr world_;
+  WorldPtr world_;
 
   /**
    * @brief newStateObservers_ - list of new state observers to be informed
