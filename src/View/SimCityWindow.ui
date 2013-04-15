@@ -347,6 +347,8 @@
    <addaction name="actionPause"/>
    <addaction name="actionStop"/>
    <addaction name="separator"/>
+   <addaction name="actionMapScaleMinus"/>
+   <addaction name="actionMapScalePlus"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionPlay">
@@ -411,6 +413,28 @@
   <action name="actionSa_ve_state">
    <property name="text">
     <string>&amp;Save state</string>
+   </property>
+  </action>
+  <action name="actionMapScaleMinus">
+   <property name="text">
+    <string>-</string>
+   </property>
+   <property name="toolTip">
+    <string>Zoom out the map.</string>
+   </property>
+   <property name="shortcut">
+    <string>-</string>
+   </property>
+  </action>
+  <action name="actionMapScalePlus">
+   <property name="text">
+    <string>+</string>
+   </property>
+   <property name="toolTip">
+    <string>Zoom in the map</string>
+   </property>
+   <property name="shortcut">
+    <string>+</string>
    </property>
   </action>
  </widget>

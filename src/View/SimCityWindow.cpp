@@ -72,6 +72,16 @@ void SimCityWindow::drawMap()
 {
   Model::MapPtr map = qtUnspaghetti_.getMapSnapshot();
   QGraphicsScene* scene = new MapScene(map, ui->view2D);
+  connect(ui->actionMapScalePlus,
+          SIGNAL(triggered()),
+          scene,
+          SLOT(scalePlus()));
+  connect(ui->actionMapScaleMinus,
+          SIGNAL(triggered()),
+          scene,
+          SLOT(scaleMinus()));
+  ui->view2D->setRenderHints(QPainter::Antialiasing
+                             | QPainter::SmoothPixmapTransform);
   ui->view2D->setScene(scene);
 }
 
