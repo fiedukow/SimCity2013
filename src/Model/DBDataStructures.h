@@ -26,21 +26,28 @@ struct StreetNode
   MetersOverSea mos;
 };
 
+typedef std::shared_ptr<StreetNode> StreetNodePtr;
+typedef std::vector<StreetNodePtr> StreetNodes;
+
 struct Street
 {
   Street(pqxx::result::tuple tableRow,
-         const std::vector<StreetNode>& vertexes); //TODO use std::set here
+         const StreetNodes& vertexes); //TODO use std::set here
 
-  const StreetNode* first;
-  const StreetNode* second;
+  StreetNodePtr first;
+  StreetNodePtr second;
 };
+
+typedef std::shared_ptr<Street> StreetPtr;
+typedef std::vector<StreetPtr> Streets;
 
 struct Map
 {
-  Map(const std::vector<StreetNode>& vertexes, std::vector<Street>& edges);
+  Map(const StreetNodes& vertexes, Streets& edges);
 
-  std::vector<StreetNode> vertexes; //TODO use std::set here
-  std::vector<Street>     edges;
+  StreetNodes vertexes;
+  Streets     edges;
+  double      normalizationVector[2];
 };
 
 typedef std::shared_ptr<Map> MapPtr;

@@ -16,32 +16,40 @@ StreetNode::StreetNode(pqxx::result::tuple tableRow)
 }
 
 Street::Street(pqxx::result::tuple tableRow,
-               const std::vector<StreetNode>& vertexes)
+               const StreetNodes& vertexes)
   : first(NULL),
     second(NULL)
 {
   int id[2] = { tableRow["firstNode" ].as<int>(),
                 tableRow["secondNode"].as<int>() };
 
-  first = &*std::find_if(vertexes.begin(),
-                         vertexes.end(),
-                         [&id](const StreetNode& ref) -> bool
-                         {
-                           return ref.nodeId == id[0];
-                         });
+  first = *std::find_if(vertexes.begin(),
+                        vertexes.end(),
+                        [&id](const StreetNodePtr& ref) -> bool
+                        {
+                          return ref->nodeId == id[0];
+                        });
 
-  second = &*std::find_if(vertexes.begin(),
-                          vertexes.end(),
-                          [&id](const StreetNode& ref) -> bool
-                          {
-                            return ref.nodeId == id[1];
-                          });
+  second = *std::find_if(vertexes.begin(),
+                         vertexes.end(),
+                         [&id](const StreetNodePtr& ref) -> bool
+                         {
+                           return ref->nodeId == id[1];
+                         });
 }
 
-Map::Map(const std::vector<StreetNode>& vertexes, std::vector<Street>& edges)
+Map::Map(const StreetNodes &vertexes, Streets &edges)
   : vertexes(vertexes),
     edges(edges)
 {
+  double minX = 360, minY = 360;
+  for(StreetNodePtr& node : this->vertexes)
+  {
+    minX = std::min(node->lon.get(), minX);
+    minY = std::min(node->lat.get(), minY);
+  }
+  normalizationVector[0] = minX;
+  normalizationVector[1] = minY;
 }
 
 }//namespace Model
