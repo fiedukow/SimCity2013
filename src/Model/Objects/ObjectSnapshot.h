@@ -17,7 +17,7 @@ class Snapshot;
 class SnapshotVisitor;
 class PlacedObject;
 typedef std::shared_ptr<Snapshot> SnapshotPtr;
-typedef std::vector<SnapshotPtr> ObjectSnapshots;
+typedef std::vector<SnapshotPtr> Snapshots;
 
 class Snapshot
 {

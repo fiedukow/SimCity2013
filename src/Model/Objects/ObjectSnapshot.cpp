@@ -13,6 +13,15 @@ Snapshot::Snapshot(const PlacedObject &base)
     v(base.getVelocity())
 {}
 
+Physics::Position Snapshot::getPosition() const
+{
+  return pos;
+}
+Physics::Velocity Snapshot::getVelocity() const
+{
+  return v;
+}
+
 Snapshot::~Snapshot()
 {}
 
