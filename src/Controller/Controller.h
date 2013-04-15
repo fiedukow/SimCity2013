@@ -32,6 +32,7 @@ public:
   void visit(EventPause&);
   void visit(EventInterrupt&);
   void visit(EventNewMapRequest&);
+  void visit(EventNewSnapshotRequest&);
 
 private:
   void startThread();

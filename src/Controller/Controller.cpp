@@ -65,6 +65,11 @@ void Controller::visit(EventNewMapRequest&)
   qtControll_.emitUpdateMap(model_.getMapSnapshot());
 }
 
+void Controller::visit(EventNewSnapshotRequest&)
+{
+  qtControll_.emitUpdateSnapshot(model_.getObjectSnapshots());
+}
+
 void Controller::startThread()
 {
   if(thread_)
