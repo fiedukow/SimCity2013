@@ -4,6 +4,7 @@
 #include <Model/SimulationPart.h>
 #include <Model/DBDataStructures.h>
 #include <Model/Objects/Object.h>
+#include <Model/Objects/ObjectSnapshot.h>
 
 #include <list>
 #include <memory>
@@ -26,6 +27,7 @@ public:
   virtual void timePassed(uint ms);
 
   MapPtr getMapSnapshot();
+  Snapshots getObjectSnapshots();
 
   static MapPtr readMapFromDB(const std::string& dbName,
                               const std::string& dbUser,

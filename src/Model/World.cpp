@@ -16,7 +16,7 @@ World::World(const std::string& dbName,
   : map_(readMapFromDB(dbName, dbUser, dbPassword))
 {
   PlacedObject myBall(ObjectPtr(new PowerBall()),
-                      Physics::Position(0, 0, 0),
+                      Physics::Position(20906.3, 5834.48, 0),
                       Physics::Velocity(-5.0, 1.0, 1.0));
   objects_.push_back(myBall);
 }
@@ -33,14 +33,12 @@ void World::timePassed(uint ms)
 
   Physics::TimeDuration dt(ms/1000.0);
 
-
-
   /**
    * Create snapshot of current state
    */
-  ObjectSnapshots objectsSnapshot;
-  for(PlacedObject& placedObject : objects_)
-    objectsSnapshot.push_back(placedObject.getSnapshot());
+//  Snapshots objectsSnapshot;
+//  for(PlacedObject& placedObject : objects_)
+//    objectsSnapshot.push_back(placedObject.getSnapshot());
 
   /**
    * Loop through all observer and tell them whats going on
@@ -51,7 +49,10 @@ void World::timePassed(uint ms)
    * Loop through all object and move them using force and mass they're providin
    */
   for(PlacedObject& placedObject : objects_)
+  {
     placedObject.dtMove(dt);
+    std::cout << "Position " << placedObject.getPosition().x << std::endl;
+  }
 
   return;
 }
@@ -60,6 +61,15 @@ MapPtr World::getMapSnapshot()
 {
   return map_;
 }
+
+Snapshots World::getObjectSnapshots()
+{
+  Snapshots result;
+  for(PlacedObject& placedObject : objects_)
+    result.push_back(placedObject.getSnapshot());
+  return result;
+}
+
 
 MapPtr World::readMapFromDB(const std::string& dbName,
                             const std::string& dbUser,
