@@ -16,6 +16,9 @@ public:
   Road(const Model::StreetPtr& street,
        const double* normalization,
        QGraphicsItem* parent = NULL);
+
+protected:
+  void mousePressEvent(QGraphicsSceneMouseEvent* event);
 };
 
 }//namespace GraphicsElements

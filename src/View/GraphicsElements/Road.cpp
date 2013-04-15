@@ -3,6 +3,8 @@
 
 #include <QBrush>
 #include <QColor>
+#include <Common/GlobalLogger.h>
+#include <sstream>
 
 namespace SimCity
 {
@@ -27,6 +29,15 @@ Road::Road(const Model::StreetPtr& street,
   setRotation((rotation * 360) / (2 * M_PI));
   setPos(x[0], y[0]);
   setBrush(QBrush(Qt::gray));
+}
+
+void Road::mousePressEvent(QGraphicsSceneMouseEvent* event)
+{
+  std::stringstream ss;
+  ss << "Bounding rect is in " << boundingRect().x()
+     << ", " << boundingRect().y();
+  Common::globLog("NOT", "VIEW", ss.str());
+  QGraphicsRectItem::mousePressEvent(event);
 }
 
 }//namespace GraphicsElements
