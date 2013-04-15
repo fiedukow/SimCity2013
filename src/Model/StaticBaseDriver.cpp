@@ -27,16 +27,16 @@ StaticBaseDriver::~StaticBaseDriver()
   disconnect();
 }
 
-std::vector<StreetNode> StaticBaseDriver::getStreetNodes()
+StreetNodes StaticBaseDriver::getStreetNodes()
 {
   Common::globLog("NOT", "DBDri", "Reading nodes from DB...");
   ensureDBConnection();
-  std::vector<StreetNode> result;
+  StreetNodes result;
   std::string query("SELECT streetNodeId, lon, lat, mos FROM StreetNodes");
   pqxx::work t(*connection_);
   pqxx::result nodes = t.exec(query);
   for(const auto& node : nodes)
-    result.push_back(StreetNode(node));
+    result.push_back(StreetNodePtr(new StreetNode(node)));
 
   disconnectIfNecessary();
   Common::globLog("NOT", "DBDri", "Finished reading nodes.");
@@ -47,13 +47,13 @@ MapPtr StaticBaseDriver::getMap()
 {
   Common::globLog("NOT", "DBDri", "Reading whole map from DB...");
   ensureDBConnection();
-  std::vector<StreetNode> vertexes = getStreetNodes();
-  std::vector<Street> edges; //TODO move getEdges to separedted method
+  StreetNodes vertexes = getStreetNodes();
+  Streets edges; //TODO move getEdges to separedted method
   std::string query("SELECT firstNode, secondNode FROM Streets");
   pqxx::work t(*connection_);
   pqxx::result streets = t.exec(query);
   for(const auto& street : streets)
-    edges.push_back(Street(street, vertexes));
+    edges.push_back(StreetPtr(new Street(street, vertexes)));
 
   MapPtr result(new Map(vertexes, edges));
   disconnectIfNecessary();

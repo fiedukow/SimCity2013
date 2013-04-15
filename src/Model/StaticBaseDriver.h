@@ -31,7 +31,7 @@ public:
   StaticBaseDriver(const char* connectionDetails = "",
                    bool persistent = true);
   ~StaticBaseDriver();
-  std::vector<StreetNode> getStreetNodes();
+  StreetNodes getStreetNodes();
   MapPtr getMap();
 
 private:
