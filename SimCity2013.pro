@@ -43,7 +43,8 @@ SOURCES += src/main.cpp\
            src/Controller/Events/EventPause.cpp \
     src/Controller/Events/EventInterrput.cpp \
     src/Controller/Events/EventNewMapRequest.cpp \
-    src/View/MapScene.cpp
+    src/View/MapScene.cpp \
+    src/View/GraphicsElements/Road.cpp
 
 HEADERS  += src/View/SimCityWindow.h \
             src/Model/World.h \
@@ -74,6 +75,7 @@ HEADERS  += src/View/SimCityWindow.h \
             src/Controller/Events/AllEvents.h \
     src/Controller/Events/EventInterrput.h \
     src/Controller/Events/EventNewMapRequest.h \
-    src/View/MapScene.h
+    src/View/MapScene.h \
+    src/View/GraphicsElements/Road.h
 
 FORMS    += src/View/SimCityWindow.ui
