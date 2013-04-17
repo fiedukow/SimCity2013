@@ -36,13 +36,22 @@ void ObjectManager::timePassed(uint ms)
                                                   startNode->lat.get()));
     Physics::Position endPos(Physics::GeoCoords(endNode->lon.get(),
                                                 endNode->lat.get()));
-    Physics::Velocity startV((endPos-startPos)/Physics::TimeDuration(15.0));
+
+    bool isQuick = (rand()%10 == 0);
+
+    double randTime = 5.0 + (rand()%100)/10.0;
+    randTime /= 3.0;
+    if(isQuick)
+      randTime /= 2.0;
+
+    Physics::Velocity startV((endPos-startPos)/Physics::TimeDuration(randTime));
 
     LiveObjectPtr newObject(new Car(map,
                                     startPos,
                                     startV,
                                     startStreet,
-                                    startDirection));
+                                    startDirection,
+                                    isQuick));
     objects_.push_back(newObject);
     world_->addObserver(std::dynamic_pointer_cast<Observer>(newObject));
     world_->addPlacedObject(std::dynamic_pointer_cast<PlacedObject>(newObject));
