@@ -10,9 +10,9 @@ namespace Model
 {
 
 Model::Model(const WorldPtr world)
-  : minTimerDelay(100),
-    simulationSpeed(1.0),
-    pollingPeriod(20),
+  : minTimerDelay(1),
+    simulationSpeed(1.00),
+    pollingPeriod(0),
     stopThreads_(false),
     paused_(false),
     threadRunning_(false),
