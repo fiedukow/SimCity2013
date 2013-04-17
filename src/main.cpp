@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
   Controller::Controller controller(qtUn, eq, model);
 
   model.addSimulationPart(std::dynamic_pointer_cast<Model::SimulationPart>(world));
-  model.addSimulationPart(Model::SimulationPartPtr(new Model::ObjectManager()));
+  model.addSimulationPart(Model::SimulationPartPtr(new Model::ObjectManager(world)));
 
   View::SimCityWindow w(qtUn);
   w.show();
