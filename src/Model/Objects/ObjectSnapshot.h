@@ -36,13 +36,15 @@ private:
 };
 
 class CarSnapshot;
+class SensorSnapshot;
 
 class SnapshotVisitor
 {
 public:
   virtual ~SnapshotVisitor();
 
-  virtual void visit(CarSnapshot& powerBall) = 0;
+  virtual void visit(CarSnapshot& car) = 0;
+  virtual void visit(SensorSnapshot& sensor) = 0;
 };
 
 }//namesapce Objects
