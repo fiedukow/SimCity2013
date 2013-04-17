@@ -29,7 +29,7 @@ public:
    * @brief timePassed - derived from SimulationPart
    * @see SimulationPart::timePassed
    */
-  virtual void timePassed(int ms) = 0;
+  //virtual void timePassed(int ms) = 0;
 
 protected:
   const MapPtr map_;
