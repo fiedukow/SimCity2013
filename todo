@@ -1,0 +1,8 @@
+- Widok nie powinien dostawac dostępu do modelowej mapy - zerwanie niezależności i możliwość
+  rozjechania się modelu z powodu błędu w widoku.
+- Rozwiązać problem końca drogi - nie powinny zdarzac się wyjazdy poza mapę.
+- Wczytywanie sensorów z bazy z uwzględnieniem zasięgu.
+- Zaimplementować FOV w sensorach.
+- Rozwiązać problem pojawiający się przy zwolnionym tępie.
+- Dodać mozliwośc wyznaczania trasy dla niektórych pojazdow/pieszych.
+
