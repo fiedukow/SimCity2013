@@ -13,16 +13,10 @@ Object::Object()
 Object::~Object()
 {}
 
-PlacedObject::PlacedObject(const ObjectPtr& obj,
-                           const Physics::Position& pos,
+PlacedObject::PlacedObject(const Physics::Position& pos,
                            const Physics::Velocity& v)
-  : obj(obj), pos(pos), v(v)
+  : pos(pos), v(v)
 {}
-
-ObjectPtr PlacedObject::getObjectPtr() const
-{
-  return obj;
-}
 
 Physics::Position PlacedObject::getPosition() const
 {
@@ -41,14 +35,9 @@ void PlacedObject::dtMove(const Physics::TimeDuration& dt)
   dtUpdateVelocity(dt);
 }
 
-SnapshotPtr PlacedObject::getSnapshot() const
-{
-  return obj->getSnapshot(*this);
-}
-
 void PlacedObject::dtUpdatePosition(const Physics::TimeDuration& dt)
 {
-  Physics::Acceleration acc = obj->getCurrentForce() / obj->getCurrentMass();
+  Physics::Acceleration acc = getCurrentForce() / getCurrentMass();
   Physics::Shift shift = Physics::Shift(acc, dt)
                        + Physics::Shift(v, dt);
   pos = pos + shift;
@@ -56,7 +45,7 @@ void PlacedObject::dtUpdatePosition(const Physics::TimeDuration& dt)
 
 void PlacedObject::dtUpdateVelocity(const Physics::TimeDuration& dt)
 {
-  Physics::Acceleration acc = obj->getCurrentForce() / obj->getCurrentMass();
+  Physics::Acceleration acc = getCurrentForce() / getCurrentMass();
   v = v + Physics::Velocity(acc*dt);
 }
 

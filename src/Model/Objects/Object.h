@@ -21,7 +21,6 @@ public:
   Object();
   virtual ~Object();
 
-  virtual SnapshotPtr getSnapshot(const PlacedObject&) const = 0;
   virtual Physics::Mass getCurrentMass() const = 0;   //Argh...
                                                       //Heisenberg would kill me
                                                       // for this const here...
@@ -30,26 +29,23 @@ public:
 
 typedef std::shared_ptr<Object> ObjectPtr;
 
-class PlacedObject
+class PlacedObject : public Object
 {
 public:
-  PlacedObject(const ObjectPtr& obj,
-               const Physics::Position& pos,
+  PlacedObject(const Physics::Position& pos,
                const Physics::Velocity& v);
 
-  ObjectPtr getObjectPtr() const;
   Physics::Position getPosition() const;
   Physics::Velocity getVelocity() const;
   void dtMove(const Physics::TimeDuration& dt);
 
-  SnapshotPtr getSnapshot() const;
+  virtual SnapshotPtr getSnapshot() const = 0;
 
 private:
   void dtUpdatePosition(const Physics::TimeDuration& dt);
   void dtUpdateVelocity(const Physics::TimeDuration& dt);
 
 private:
-  ObjectPtr obj;
   Physics::Position pos;
   Physics::Velocity v;
 };
