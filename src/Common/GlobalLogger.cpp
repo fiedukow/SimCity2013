@@ -12,6 +12,7 @@ void GlobalLogger::log(const std::string& type,
                        const std::string& module,
                        const std::string& text)
 {
+#ifdef LOG
   time_t rawtime;
   time(&rawtime);
   std::string time = asctime(localtime(&rawtime));
@@ -20,6 +21,7 @@ void GlobalLogger::log(const std::string& type,
             << " [" << type << "] "
             << module << ": "
             << text << std::endl;
+#endif
 }
 
 GlobalLogger& GlobalLogger::logger()
