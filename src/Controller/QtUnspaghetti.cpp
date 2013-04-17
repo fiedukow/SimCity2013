@@ -53,6 +53,11 @@ void QtUnspaghetti::requestSnapshot()
   eventQueue_.push(EventBasePtr(new EventNewSnapshotRequest()));
 }
 
+void QtUnspaghetti::setSimulationSpeed(double speed)
+{
+  eventQueue_.push(EventBasePtr(new EventSetSimulationSpeed(speed)));
+}
+
 void QtUnspaghetti::emitUpdateMap(const Model::MapPtr map)
 {
   oneWayLock_.lock();

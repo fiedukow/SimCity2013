@@ -30,6 +30,7 @@ public slots:
   void pause();
   void requestNewMapSnapshot();
   void requestSnapshot();
+  void setSimulationSpeed(double speed);
 
 signals:
   void updateMap();
