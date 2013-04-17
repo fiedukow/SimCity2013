@@ -19,6 +19,24 @@ void CarSnapshot::accept(SnapshotVisitor& visitor)
   visitor.visit(*this);
 }
 
+SensorSnapshot::SensorSnapshot(const Sensor& object)
+  : Snapshot(object),
+    range_(object.getRange())
+{}
+
+SensorSnapshot::~SensorSnapshot()
+{}
+
+double SensorSnapshot::getRange() const
+{
+  return range_;
+}
+
+void SensorSnapshot::accept(SnapshotVisitor& visitor)
+{
+  visitor.visit(*this);
+}
+
 }//namesapce Objects
 }//namespace SimCity
 }//namespace Model

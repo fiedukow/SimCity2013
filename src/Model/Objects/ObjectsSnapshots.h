@@ -1,6 +1,7 @@
 #ifndef OBJECTSSNAPSHOTS_H
 #define OBJECTSSNAPSHOTS_H
 #include <Model/Objects/ObjectSnapshot.h>
+#include <Model/Objects/Objects.h>
 
 namespace SimCity
 {
@@ -18,6 +19,20 @@ public:
   virtual ~CarSnapshot();
 
   virtual void accept(SnapshotVisitor& visitor);
+};
+
+class SensorSnapshot : public Snapshot
+{
+public:
+  SensorSnapshot(const Sensor& object);
+  virtual ~SensorSnapshot();
+
+  double getRange() const;
+
+  virtual void accept(SnapshotVisitor& visitor);
+
+private:
+  double range_;
 };
 
 }//namesapce Objects
