@@ -44,6 +44,33 @@ private:
   bool isQuick_;
 };
 
+class Sensor : public LiveObject,
+               public SensorObserver
+{
+public:
+  Sensor(const MapPtr& map,
+         const Physics::Position& pos,
+         const Physics::Angle& fov,
+         const double range);
+  virtual ~Sensor();
+
+  void timePassed(uint ms);
+
+  virtual SnapshotPtr getSnapshot() const;
+  virtual Physics::Mass getCurrentMass() const;
+  virtual Physics::Force getCurrentForce() const;
+
+  void visit(CarSnapshot& car);
+  void visit(SensorSnapshot& snapshot);
+
+  double getRange() const;
+
+private:
+  Physics::Angle fov_;
+  double range_;
+  uint timeCounter_;
+};
+
 }//namesapce Objects
 }//namespace SimCity
 }//namespace Model

@@ -52,7 +52,7 @@ void Car::timePassed(uint)
                                               endNode->lat.get()));
   double randTime = 5.0 + (rand()%100)/10.0;
   if(isQuick_)
-    randTime /= 5.0;
+    randTime /= 3.0;
   Physics::Velocity startV((endPos-startPos)/Physics::TimeDuration(randTime));
 
   v = startV;
@@ -97,6 +97,102 @@ bool Car::isRoadFinished()
 
   lastDistance_ = std::numeric_limits<double>::infinity();
   return true;
+}
+
+
+
+Sensor::Sensor(const MapPtr& map,
+               const Physics::Position& pos,
+               const Physics::Angle& fov,
+               const double range)
+  : Observer(map),
+    LiveObject(map, pos, Physics::Velocity(Physics::Vector3(0,0,0))),
+    SensorObserver(map),
+    fov_(fov),
+    range_(range),
+    timeCounter_(0)
+{
+}
+
+Sensor::~Sensor()
+{}
+
+void Sensor::timePassed(uint ms)
+{
+  timeCounter_ += ms;
+  if(timeCounter_ < 1000) //TODO parameterizable
+    return;
+
+  timeCounter_ = 0;
+  for(SnapshotPtr snapshot : objects_)
+    snapshot->accept(*this);
+}
+
+SnapshotPtr Sensor::getSnapshot() const
+{
+  return SnapshotPtr(new SensorSnapshot(*this));
+}
+
+Physics::Mass Sensor::getCurrentMass() const
+{
+  return Physics::Mass(1.0);
+}
+
+Physics::Force Sensor::getCurrentForce() const
+{
+  return Physics::Force(Physics::Vector3(0, 0, 0));
+}
+
+
+void Sensor::visit(CarSnapshot& car)
+{
+  double dist = car.getPosition().distance(pos);
+  if(dist > range_
+     || dist < 0.01) //TODO remove this magic const
+    return;
+
+  Physics::GeoCoords geo(car.getPosition());
+  Physics::GeoCoords myGeo(pos);
+
+  std::cout << "My position is: "
+            << myGeo.lon << ", "
+            << myGeo.lat << ", "
+            << myGeo.mos << "."
+            << std::endl;
+
+  std::cout << "I see car in: "
+            << geo.lon << ", "
+            << geo.lat << ", "
+            << geo.mos << "."
+            << std::endl;
+}
+
+void Sensor::visit(SensorSnapshot& snapshot)
+{
+  double dist = snapshot.getPosition().distance(pos);
+  if(snapshot.getPosition().distance(pos) > range_
+     || dist < 0.01) //TODO remove this magic const
+    return;
+
+  Physics::GeoCoords geo(snapshot.getPosition());
+  Physics::GeoCoords myGeo(pos);
+
+  std::cout << "My position is: "
+            << myGeo.lon << ", "
+            << myGeo.lat << ", "
+            << myGeo.mos << "."
+            << std::endl;
+
+  std::cout << "I see camera in: "
+            << geo.lon << ", "
+            << geo.lat << ", "
+            << geo.mos << "."
+            << std::endl;
+}
+
+double Sensor::getRange() const
+{
+  return range_;
 }
 
 }//namesapce Objects
