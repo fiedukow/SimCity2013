@@ -86,7 +86,6 @@ void Model::operator()()
   ptime lastTickTime = MClock::local_time();
   while(!stopThreads_)
   {
-    std::cout << &pauseMutex_ << "lck loop" << std::endl;
     ptime current;
     Time::time_duration durr;
     while(durr.total_milliseconds() < minTimerDelay)
@@ -115,6 +114,7 @@ void Model::operator()()
     {
       Common::GlobalLogger::logger().log("DBG", "Model", "PAUSED");
       boost::mutex::scoped_lock lock(pauseMutex_);
+      lastTickTime = MClock::local_time();
     }
   }
 }
