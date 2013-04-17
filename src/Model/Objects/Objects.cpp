@@ -11,12 +11,23 @@ namespace Objects
 
 Car::Car(const MapPtr map,
          const Physics::Position& pos,
-         const Physics::Velocity& v)
-  : LiveObject(map, pos, v)
+         const Physics::Velocity& v,
+         const StreetPtr street,
+         const Direction direction)
+  : Observer(map),
+    CarObserver(map),
+    LiveObject(map, pos, v),
+    street_(street),
+    direction_(direction)
 {}
 
 Car::~Car()
 {}
+
+void Car::timePassed(uint)
+{
+  //TODO change street when in place?
+}
 
 SnapshotPtr Car::getSnapshot() const
 {
@@ -30,7 +41,7 @@ Physics::Mass Car::getCurrentMass() const
 
 Physics::Force Car::getCurrentForce() const
 {
-  return Physics::Force(Physics::Vector3(1.0, 0.0, 0.0));
+  return Physics::Force(Physics::Vector3(0.0, 0.0, 0.0));
 }
 
 }//namesapce Objects
