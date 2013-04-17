@@ -47,7 +47,7 @@ private:
   void dtUpdatePosition(const Physics::TimeDuration& dt);
   void dtUpdateVelocity(const Physics::TimeDuration& dt);
 
-private:
+protected:
   Physics::Position pos;
   Physics::Velocity v;
 };
