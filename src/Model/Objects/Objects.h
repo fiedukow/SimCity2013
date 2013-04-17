@@ -23,7 +23,8 @@ public:
       const Physics::Position& pos,
       const Physics::Velocity& v,
       const StreetPtr street,
-      const Direction direction);
+      const Direction direction,
+      const bool isQuick);
   virtual ~Car();
 
   void timePassed(uint ms);
@@ -32,9 +33,15 @@ public:
   virtual Physics::Mass getCurrentMass() const;
   virtual Physics::Force getCurrentForce() const;
 
+  StreetNodePtr getStartNode() const;
+  StreetNodePtr getDesitinationNode() const;
+  bool isRoadFinished();
+
 private:
   StreetPtr street_;
   Direction direction_;
+  double lastDistance_;
+  bool isQuick_;
 };
 
 }//namesapce Objects
