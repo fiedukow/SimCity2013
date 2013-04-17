@@ -27,7 +27,7 @@ Car::Car(const Model::Objects::SnapshotPtr obj,
   ss << "X: " << x << " Y: " << y;
   Common::globLog("DBG", "VIEW", ss.str());
   setBrush(QBrush(Qt::red));
-  double size = 5;
+  double size = 200;
   setRect(0, 0, size, size); //TODO avoid magic const
   setPos(x-size/2,y-size/2);
 }
