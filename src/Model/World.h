@@ -11,6 +11,8 @@
 #include <list>
 #include <memory>
 
+#include <boost/thread/shared_mutex.hpp>
+
 namespace SimCity
 {
 namespace Model
@@ -51,6 +53,13 @@ private:
   PlacedObjects objects_;
   Observers observers_;
   Snapshots snapshot_;
+
+  /**
+   * @brief snapshotMutex_ - locked when cotroller is accessing model
+   *        structures
+   * @todo use monitor to access anything in Model instead
+   */
+  boost::mutex snapshotMutex_;
 };
 
 }//namespace Model

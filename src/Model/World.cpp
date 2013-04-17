@@ -62,11 +62,13 @@ MapPtr World::getMapSnapshot()
 
 Snapshots World::getObjectSnapshots()
 {
+  boost::mutex::scoped_lock lock(snapshotMutex_);
   return snapshot_;
 }
 
 void World::updateObjectSnapshots()
 {
+  boost::mutex::scoped_lock lock(snapshotMutex_);
   snapshot_.clear();
   for(PlacedObjectPtr& placedObject : objects_)
     snapshot_.push_back(placedObject->getSnapshot());
