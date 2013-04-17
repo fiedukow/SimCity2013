@@ -46,6 +46,7 @@ void MapScene::scalePlus()
 {
   double newScale = mapSurface_->scale() * 1.2;
   mapSurface_->setScale(newScale);
+  moveableGroup_->setScale(newScale);
   std::stringstream ss;
   ss << "Setting (-) new scale to " << mapSurface_->scale();
   Common::globLog("INF", "VIEW", ss.str());
@@ -63,6 +64,7 @@ void MapScene::scaleMinus()
 
   std::stringstream ss;
   mapSurface_->setScale(newScale);
+  moveableGroup_->setScale(newScale);
   ss << "Setting (-) new scale to " << mapSurface_->scale();
   Common::globLog("INF", "VIEW", ss.str());
   setSceneRect(0,
