@@ -11,11 +11,11 @@ namespace Objects
 
 class SnapshotVisitor;
 
-class PowerBallSnapshot : public Snapshot
+class CarSnapshot : public Snapshot
 {
 public:
-  PowerBallSnapshot(const PlacedObject &object);
-  virtual ~PowerBallSnapshot();
+  CarSnapshot(const PlacedObject &object);
+  virtual ~CarSnapshot();
 
   virtual void accept(SnapshotVisitor& visitor);
 };

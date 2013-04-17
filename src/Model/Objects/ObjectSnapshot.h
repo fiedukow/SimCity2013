@@ -35,14 +35,14 @@ private:
   Physics::Velocity v;
 };
 
-class PowerBallSnapshot;
+class CarSnapshot;
 
 class SnapshotVisitor
 {
 public:
   virtual ~SnapshotVisitor();
 
-  virtual void visit(PowerBallSnapshot& powerBall) = 0;
+  virtual void visit(CarSnapshot& powerBall) = 0;
 };
 
 }//namesapce Objects

@@ -7,14 +7,14 @@ namespace Model
 namespace Objects
 {
 
-PowerBallSnapshot::PowerBallSnapshot(const PlacedObject& object)
+CarSnapshot::CarSnapshot(const PlacedObject& object)
   : Snapshot(object)
 {}
 
-PowerBallSnapshot::~PowerBallSnapshot()
+CarSnapshot::~CarSnapshot()
 {}
 
-void PowerBallSnapshot::accept(SnapshotVisitor& visitor)
+void CarSnapshot::accept(SnapshotVisitor& visitor)
 {
   visitor.visit(*this);
 }
