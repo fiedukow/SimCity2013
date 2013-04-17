@@ -4,6 +4,9 @@
 #include <limits>
 #include <iostream>
 
+#define SNAPSHOT_PERIOD 3000
+//TODO ^^ avoid define please.
+
 namespace SimCity
 {
 namespace Model
@@ -110,7 +113,7 @@ Sensor::Sensor(const MapPtr& map,
     SensorObserver(map),
     fov_(fov),
     range_(range),
-    timeCounter_(0)
+    timeCounter_(rand()%SNAPSHOT_PERIOD)
 {
 }
 
@@ -120,10 +123,10 @@ Sensor::~Sensor()
 void Sensor::timePassed(uint ms)
 {
   timeCounter_ += ms;
-  if(timeCounter_ < 1000) //TODO parameterizable
+  if(timeCounter_ < SNAPSHOT_PERIOD)
     return;
 
-  timeCounter_ = 0;
+  timeCounter_ -= SNAPSHOT_PERIOD;
   for(SnapshotPtr snapshot : objects_)
     snapshot->accept(*this);
 }
