@@ -10,7 +10,7 @@ namespace Model
 {
 
 Model::Model(const WorldPtr world)
-  : minTimerDelay_(1),
+  : minTimerDelay_(32),
     simulationSpeed_(1.00),
     pollingPeriod_(0),
     stopThreads_(false),
@@ -101,9 +101,7 @@ void Model::operator()()
     }
 
     lastTickTime = current;
-    Time::time_duration time = Time::milliseconds(durr.total_milliseconds()
-                                                  * simulationSpeed_);
-    int passed = time.total_milliseconds();
+    int passed = durr.total_milliseconds()*simulationSpeed_;
 
     std::stringstream ss;
     ss << "Passed " << passed;
