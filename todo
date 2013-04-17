@@ -3,6 +3,8 @@
 - Rozwiązać problem końca drogi - nie powinny zdarzac się wyjazdy poza mapę.
 - Wczytywanie sensorów z bazy z uwzględnieniem zasięgu.
 - Zaimplementować FOV w sensorach.
-- Rozwiązać problem pojawiający się przy zwolnionym tępie.
++ Rozwiązać problem pojawiający się przy zwolnionym tępie.
 - Dodać mozliwośc wyznaczania trasy dla niektórych pojazdow/pieszych.
++ Rozsynchronizować kamery.
+- Rozwiązwiązac problem "nieskończonej" prędkości.
 
