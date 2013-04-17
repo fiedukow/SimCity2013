@@ -2,6 +2,7 @@
 #define OBSERVER_H
 #include <Model/Objects/ObjectSnapshot.h>
 #include <Model/SimulationPart.h>
+#include <Model/DBDataStructures.h>
 
 namespace SimCity
 {
@@ -18,7 +19,7 @@ class Observer : public SnapshotVisitor,
                  public SimulationPart
 {
 public:
-  Observer(const Map& map);
+  Observer(const MapPtr map);
   virtual ~Observer();
 
   virtual void accept(World& w) = 0;
@@ -31,9 +32,11 @@ public:
   virtual void timePassed(int ms) = 0;
 
 protected:
-  const Map& map_;
+  const MapPtr map_;
   Objects::Snapshots objects_;
 };
+
+typedef std::shared_ptr<Observer> ObserverPtr;
 
 }//namesapce Objects
 }//namespace SimCity

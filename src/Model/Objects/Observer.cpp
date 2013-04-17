@@ -8,7 +8,7 @@ namespace Model
 namespace Objects
 {
 
-Observer::Observer(const Map& map)
+Observer::Observer(const MapPtr map)
   : map_(map)
 {}
 
