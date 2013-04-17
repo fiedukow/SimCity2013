@@ -35,8 +35,10 @@ public:
   PlacedObject(const Physics::Position& pos,
                const Physics::Velocity& v);
 
-  Physics::Position getPosition() const;
-  Physics::Velocity getVelocity() const;
+  void timePassed(uint ms);
+
+  virtual Physics::Position getPosition() const;
+  virtual Physics::Velocity getVelocity() const;
   void dtMove(const Physics::TimeDuration& dt);
 
   virtual SnapshotPtr getSnapshot() const = 0;
