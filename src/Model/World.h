@@ -6,6 +6,7 @@
 #include <Model/Objects/Object.h>
 #include <Model/Objects/Observer.h>
 #include <Model/Objects/ObjectSnapshot.h>
+#include <Model/Objects/Observers.h>
 
 #include <list>
 #include <memory>
@@ -31,6 +32,16 @@ public:
   MapPtr getMapSnapshot();
   Snapshots getObjectSnapshots();
 
+  void updateObjectSnapshots();
+
+  void visit(CarObserver& car);
+
+  void addPlacedObject(PlacedObjectPtr obj);
+  void removePlacedObject(PlacedObjectPtr obj);
+
+  void addObserver(ObserverPtr obs);
+  void removeObserver(ObserverPtr obs);
+
   static MapPtr readMapFromDB(const std::string& dbName,
                               const std::string& dbUser,
                               const std::string& dbPassword);
@@ -39,6 +50,7 @@ private:
   MapPtr map_;
   PlacedObjects objects_;
   Observers observers_;
+  Snapshots snapshot_;
 };
 
 }//namespace Model

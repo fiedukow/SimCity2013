@@ -15,10 +15,6 @@ World::World(const std::string& dbName,
              const std::string& dbPassword)
   : map_(readMapFromDB(dbName, dbUser, dbPassword))
 {
-//  PlacedObject myBall(ObjectPtr(new Car()),
-//                      Physics::Position(20906.3, 5834.48, 0),
-//                      Physics::Velocity(-5.0, 1.0, 1.0));
-//  objects_.push_back(myBall);
 }
 
 World::~World()
@@ -36,14 +32,14 @@ void World::timePassed(uint ms)
   /**
    * Create snapshot of current state
    */
-  Snapshots snapshot = getObjectSnapshots();
+  updateObjectSnapshots();
 
   /**
    * Loop through all observer and tell them whats going on
    */
   for(ObserverPtr& observer : observers_)
   {
-    observer->provideObjects(snapshot);
+    observer->accept(*this);
     observer->timePassed(ms);
   }
 
@@ -66,12 +62,40 @@ MapPtr World::getMapSnapshot()
 
 Snapshots World::getObjectSnapshots()
 {
-  Snapshots result;
-  for(PlacedObjectPtr& placedObject : objects_)
-    result.push_back(placedObject->getSnapshot());
-  return result;
+  return snapshot_;
 }
 
+void World::updateObjectSnapshots()
+{
+  snapshot_.clear();
+  for(PlacedObjectPtr& placedObject : objects_)
+    snapshot_.push_back(placedObject->getSnapshot());
+}
+
+void World::visit(CarObserver& car)
+{
+  car.provideObjects(snapshot_);
+}
+
+void World::addPlacedObject(PlacedObjectPtr obj)
+{
+  objects_.push_back(obj);
+}
+
+void World::removePlacedObject(PlacedObjectPtr obj)
+{
+  objects_.remove(obj);
+}
+
+void World::addObserver(ObserverPtr obs)
+{
+  observers_.push_back(obs);
+}
+
+void World::removeObserver(ObserverPtr obs)
+{
+  observers_.remove(obs);
+}
 
 MapPtr World::readMapFromDB(const std::string& dbName,
                             const std::string& dbUser,
