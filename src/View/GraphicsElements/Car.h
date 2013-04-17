@@ -13,7 +13,7 @@ namespace GraphicsElements
 class Car : public QGraphicsEllipseItem
 {
 public:
-  Car(const Model::Objects::SnapshotPtr snapshot,
+  Car(const Model::Objects::CarSnapshot& snapshot,
       const double* normalization,
       QGraphicsItem* parent = NULL);
 };
