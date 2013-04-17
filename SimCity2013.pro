@@ -49,7 +49,8 @@ SOURCES += src/main.cpp\
     src/View/GraphicsElements/Car.cpp \
     src/Model/Objects/LiveObject.cpp \
     src/Model/Objects/Observers.cpp \
-    src/View/GraphicsElements/Sensor.cpp
+    src/View/GraphicsElements/Sensor.cpp \
+    src/Controller/Events/EventSetSimulationSpeed.cpp
 
 HEADERS  += src/View/SimCityWindow.h \
             src/Model/World.h \
@@ -86,6 +87,7 @@ HEADERS  += src/View/SimCityWindow.h \
     src/View/GraphicsElements/Car.h \
     src/Model/Objects/LiveObject.h \
     src/Model/Objects/Observers.h \
-    src/View/GraphicsElements/Sensor.h
+    src/View/GraphicsElements/Sensor.h \
+    src/Controller/Events/EventSetSimulationSpeed.h
 
 FORMS    += src/View/SimCityWindow.ui
