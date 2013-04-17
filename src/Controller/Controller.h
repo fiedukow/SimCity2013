@@ -33,6 +33,7 @@ public:
   void visit(EventInterrupt&);
   void visit(EventNewMapRequest&);
   void visit(EventNewSnapshotRequest&);
+  void visit(EventSetSimulationSpeed&);
 
 private:
   void startThread();

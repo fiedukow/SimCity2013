@@ -70,6 +70,11 @@ void Controller::visit(EventNewSnapshotRequest&)
   qtControll_.emitUpdateSnapshot(model_.getObjectSnapshots());
 }
 
+void Controller::visit(EventSetSimulationSpeed& event)
+{
+  model_.setSimulationSpeed(event.getSpeed());
+}
+
 void Controller::startThread()
 {
   if(thread_)
