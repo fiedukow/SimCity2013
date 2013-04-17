@@ -15,7 +15,7 @@ namespace GraphicsElements
 {
 
 Car::Car(const Model::Objects::SnapshotPtr obj,
-         const double* normalization,
+         const double*,
          QGraphicsItem* parent)
   : QGraphicsEllipseItem(parent)
 {
@@ -27,8 +27,8 @@ Car::Car(const Model::Objects::SnapshotPtr obj,
   ss << "X: " << x << " Y: " << y;
   Common::globLog("DBG", "VIEW", ss.str());
   setBrush(QBrush(Qt::red));
-  setRect(0, 0, 2000, 2000);
-  setPos(x,y);
+  setRect(0, 0, 3, 3);
+  setPos(x-1.5,y-1.5);
 
   /*double length = sqrt(pow(x[0]-x[1], 2) + pow(y[0]-y[1], 2));
   double rotation = atan((y[0] - y[1]) / (x[0] - x[1]));
