@@ -12,7 +12,17 @@ namespace Model
 ObjectManager::ObjectManager(WorldPtr world, uint limit)
   : world_(world),
     limit_(limit)
-{}
+{
+  MapPtr map = world_->getMapSnapshot();
+  for(StreetNodePtr& node : map->vertexes)
+  {
+    Physics::Position pos(Physics::GeoCoords(node->lon.get(),
+                                             node->lat.get()));
+    LiveObjectPtr newSensor(new Sensor(map, pos, 360.0, 100.0));
+    world_->addObserver(std::dynamic_pointer_cast<Observer>(newSensor));
+    world_->addPlacedObject(std::dynamic_pointer_cast<PlacedObject>(newSensor));
+  }
+}
 
 ObjectManager::~ObjectManager()
 {}
@@ -40,9 +50,8 @@ void ObjectManager::timePassed(uint ms)
     bool isQuick = (rand()%10 == 0);
 
     double randTime = 5.0 + (rand()%100)/10.0;
-    randTime /= 3.0;
     if(isQuick)
-      randTime /= 2.0;
+      randTime /= 3.0;
 
     Physics::Velocity startV((endPos-startPos)/Physics::TimeDuration(randTime));
 
