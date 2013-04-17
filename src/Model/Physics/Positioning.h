@@ -48,6 +48,7 @@ private:
 struct GeoCoords
 {
   GeoCoords(double lon, double lat, double mos = 0);
+  GeoCoords(const Position& pos);
 
   double lon;
   double lat;

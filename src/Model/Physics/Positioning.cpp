@@ -14,7 +14,8 @@ const double Position::mPerLatDegree = 111132.94444444445;
 
 Position::Position(const GeoCoords &coords)
   : x(coords.lon * mPerLonDegree),
-    y(coords.lat * mPerLatDegree)
+    y(coords.lat * mPerLatDegree),
+    z(coords.mos)
 {}
 
 Position::Position(double x, double y, double z)
@@ -67,6 +68,12 @@ void Angle::normalize()
 
 GeoCoords::GeoCoords(double lon, double lat, double mos)
   : lon(lon), lat(lat), mos(mos)
+{}
+
+GeoCoords::GeoCoords(const Position& pos)
+  : lon(pos.x / Position::mPerLonDegree),
+    lat(pos.y / Position::mPerLatDegree),
+    mos(pos.z)
 {}
 
 }//namespace Model
