@@ -49,7 +49,6 @@ void World::timePassed(uint ms)
   for(PlacedObjectPtr& placedObject : objects_)
   {
     placedObject->dtMove(dt);
-    std::cout << "Position " << placedObject->getPosition().x << std::endl;
   }
 
   return;
