@@ -22,6 +22,8 @@ struct Position
   Position operator+(const Shift& shift) const;
   Shift operator-(const Position& pos) const;
 
+  double distance(const Position& pos) const;
+
   double x;
   double y;
   double z;

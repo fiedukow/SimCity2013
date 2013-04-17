@@ -35,6 +35,15 @@ Shift Position::operator-(const Position& pos) const
                z - pos.z);
 }
 
+double Position::distance(const Position& pos) const
+{
+  double dx = std::abs(x - pos.x);
+  double dy = std::abs(y - pos.y);
+  double dz = std::abs(z - pos.z);
+  double xy = sqrt(std::pow(dx, 2) + std::pow(dy, 2));
+
+  return sqrt(std::pow(xy, 2) + std::pow(dz, 2));
+}
 
 Angle::Angle(double radians)
   : radians(radians)
