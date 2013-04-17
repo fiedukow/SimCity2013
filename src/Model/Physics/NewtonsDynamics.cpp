@@ -146,6 +146,13 @@ Shift Shift::operator+(const Shift& shift) const
                value.z + shift.value.z);
 }
 
+Shift Shift::operator-(const Shift& shift) const
+{
+  return Shift(value.x - shift.value.x,
+               value.y - shift.value.y,
+               value.z - shift.value.z);
+}
+
 }//namespace Physics
 }//namespace Model
 }//namespace SimCity

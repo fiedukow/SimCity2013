@@ -112,6 +112,7 @@ struct Shift
   Velocity operator/(const TimeDuration& dt) const;
   TimeDuration operator/(const Velocity& dt) const;
   Shift operator+(const Shift& shift) const;
+  Shift operator-(const Shift& shift) const;
 
   Vector3 value;
 };

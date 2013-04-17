@@ -1,5 +1,6 @@
 #include "Positioning.h"
 #include <Model/Physics/NewtonsDynamics.h>
+#include <cmath>
 
 namespace SimCity
 {
@@ -27,6 +28,14 @@ Position Position::operator+(const Shift& shift) const
                   z + shift.value.z);
 }
 
+Shift Position::operator-(const Position& pos) const
+{
+  return Shift(x - pos.x,
+               y - pos.y,
+               z - pos.z);
+}
+
+
 Angle::Angle(double radians)
   : radians(radians)
 {
@@ -40,11 +49,11 @@ Angle Angle::operator+(const Angle& toAdd) const
 
 void Angle::normalize()
 {
-  while(radians > 2*3.14) // TODO better PI definition
-    radians -= 2*3.14;
+  while(radians > 2*M_PI)
+    radians -= 2*M_PI;
 
   while(radians < 0)
-    radians += 2*3.14;
+    radians += 2*M_PI;
 }
 
 GeoCoords::GeoCoords(double lon, double lat, double mos)

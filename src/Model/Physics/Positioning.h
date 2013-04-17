@@ -2,6 +2,8 @@
 #define POSITIONING_H
 #include <Model/Physics/NewtonsDynamics.h>
 
+typedef unsigned int uint;
+
 namespace SimCity
 {
 namespace Model
@@ -18,6 +20,7 @@ struct Position
   Position(double x, double y, double z = 0);
 
   Position operator+(const Shift& shift) const;
+  Shift operator-(const Position& pos) const;
 
   double x;
   double y;
