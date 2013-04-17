@@ -7,6 +7,7 @@
 #include "EventInterrput.h"
 #include "EventNewMapRequest.h"
 #include "EventNewSnapshotRequest.h"
+#include "EventSetSimulationSpeed.h"
 
 using namespace SimCity::Controller::Events;
 
