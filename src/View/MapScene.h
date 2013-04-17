@@ -10,12 +10,19 @@ namespace SimCity
 namespace View
 {
 
-class MapScene : public QGraphicsScene
+using namespace Model::Objects;
+
+class MapScene : public QGraphicsScene,
+                 public SnapshotVisitor
 {
   Q_OBJECT
 public:
   explicit MapScene(Model::MapPtr map, QObject *parent = 0);
+  virtual ~MapScene();
   void showNewMovable(Model::Objects::Snapshots snapshot);
+
+  void visit(CarSnapshot& car);
+  void visit(SensorSnapshot& sensor);
 
 signals:
 

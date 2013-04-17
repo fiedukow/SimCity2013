@@ -1,6 +1,7 @@
 #include "MapScene.h"
 #include <View/GraphicsElements/Road.h>
 #include <View/GraphicsElements/Car.h>
+#include <View/GraphicsElements/Sensor.h>
 #include <Common/GlobalLogger.h>
 #include <sstream>
 
@@ -28,18 +29,34 @@ MapScene::MapScene(Model::MapPtr map, QObject *parent) :
                mapSurface_->boundingRect().height() * 0.1);
 }
 
+MapScene::~MapScene()
+{}
+
 void MapScene::showNewMovable(Model::Objects::Snapshots snapshots)
 {
   if(moveableGroup_)
     removeItem(moveableGroup_);
+  delete moveableGroup_;
+
   moveableGroup_ = new QGraphicsItemGroup();
 
   for(Model::Objects::SnapshotPtr& snapshot : snapshots)
-    moveableGroup_->addToGroup(new Car(snapshot, normVect_, moveableGroup_));
+    snapshot->accept(*this);
 
   moveableGroup_->setScale(mapSurface_->scale());
   addItem(moveableGroup_);
   Common::globLog("INF", "VIEW", "END");
+}
+
+
+void MapScene::visit(CarSnapshot& car)
+{
+  moveableGroup_->addToGroup(new Car(car, normVect_, moveableGroup_));
+}
+
+void MapScene::visit(SensorSnapshot& sensor)
+{
+  moveableGroup_->addToGroup(new Sensor(sensor, normVect_, moveableGroup_));
 }
 
 void MapScene::scalePlus()
