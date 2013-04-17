@@ -27,15 +27,9 @@ Car::Car(const Model::Objects::SnapshotPtr obj,
   ss << "X: " << x << " Y: " << y;
   Common::globLog("DBG", "VIEW", ss.str());
   setBrush(QBrush(Qt::red));
-  setRect(0, 0, 3, 3); //TODO avoid magic const
-  setPos(x-1.5,y-1.5);
-
-  /*double length = sqrt(pow(x[0]-x[1], 2) + pow(y[0]-y[1], 2));
-  double rotation = atan((y[0] - y[1]) / (x[0] - x[1]));
-  setRect(0, 0, length, 2.5);
-  setRotation((rotation * 360) / (2 * M_PI));
-  setPos(x[0], y[0]);
-  setBrush(QBrush(Qt::gray));*/
+  double size = 5;
+  setRect(0, 0, size, size); //TODO avoid magic const
+  setPos(x-size/2,y-size/2);
 }
 
 }//namespace GraphicsElements
