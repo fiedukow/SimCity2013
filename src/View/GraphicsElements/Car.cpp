@@ -15,19 +15,19 @@ namespace GraphicsElements
 {
 
 Car::Car(const Model::Objects::SnapshotPtr obj,
-         const double*,
+         const double* normalization,
          QGraphicsItem* parent)
   : QGraphicsEllipseItem(parent)
 {
   Model::Physics::Position pos = obj->getPosition();
-  double x = pos.x;// - (normalization[0] * 111322.22222222222);
-  double y = pos.y;// - (normalization[1] * 111132.94444444445);
+  double x = pos.x - (normalization[0] * 111322.22222222222);
+  double y = pos.y - (normalization[1] * 111132.94444444445);
 
   std::stringstream ss;
   ss << "X: " << x << " Y: " << y;
   Common::globLog("DBG", "VIEW", ss.str());
   setBrush(QBrush(Qt::red));
-  setRect(0, 0, 3, 3);
+  setRect(0, 0, 3, 3); //TODO avoid magic const
   setPos(x-1.5,y-1.5);
 
   /*double length = sqrt(pow(x[0]-x[1], 2) + pow(y[0]-y[1], 2));
