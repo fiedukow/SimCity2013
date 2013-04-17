@@ -10,9 +10,9 @@ namespace Model
 {
 
 Model::Model(const WorldPtr world)
-  : minTimerDelay(1),
-    simulationSpeed(1.00),
-    pollingPeriod(0),
+  : minTimerDelay_(1),
+    simulationSpeed_(1.00),
+    pollingPeriod_(0),
     stopThreads_(false),
     paused_(false),
     threadRunning_(false),
@@ -70,6 +70,11 @@ void Model::pause()
     paused_ = true;
 }
 
+void Model::setSimulationSpeed(double speed)
+{
+  simulationSpeed_ = speed;
+}
+
 MapPtr Model::getMapSnapshot()
 {
   return world_->getMapSnapshot();
@@ -88,16 +93,16 @@ void Model::operator()()
   {
     ptime current;
     Time::time_duration durr;
-    while(durr.total_milliseconds() < minTimerDelay)
+    while(durr.total_milliseconds() < minTimerDelay_)
     {
       current = MClock::local_time();
       durr = (current - lastTickTime);
-      boost::this_thread::sleep(Time::milliseconds(pollingPeriod));
+      boost::this_thread::sleep(Time::milliseconds(pollingPeriod_));
     }
 
     lastTickTime = current;
     Time::time_duration time = Time::milliseconds(durr.total_milliseconds()
-                                                  * simulationSpeed);
+                                                  * simulationSpeed_);
     int passed = time.total_milliseconds();
 
     std::stringstream ss;

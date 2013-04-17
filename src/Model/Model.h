@@ -65,6 +65,14 @@ public:
   void pause();
 
   /**
+   * @brief setSimulationSpeed - allows to change speed of simulation even
+   *                             in progress
+   * @param speed - speed relative to real (eg. 1.0 is natural speed, 0.5 is
+   *                two times slower).
+   */
+  void setSimulationSpeed(double speed);
+
+  /**
    * @brief getMapSnapshot - gets current map snapshot as shared pointer
    * @returns MapPtr -shared pointer to current map state.
    */
@@ -104,7 +112,7 @@ private:
    * This is minimal time between two ticks controlled by timer.
    * The real time of tick is measured by deltas between two ticks triggers.
    */
-  uint minTimerDelay;
+  uint minTimerDelay_;
 
   /**
    * @brief simulationSpeed - speed of simulation
@@ -112,12 +120,12 @@ private:
    * eg. 1.0 means 1s in real time is 1s in simulation
    *     2.0 means 1s in real time is 2s in simulation
    */
-  double simulationSpeed;
+  double simulationSpeed_;
 
   /**
    * @brief pollingPeriod - sleep in ms between checking if minTimerDelay is up
    */
-  const double pollingPeriod;
+  const double pollingPeriod_;
 
   /**
    * @brief stopThreads_
