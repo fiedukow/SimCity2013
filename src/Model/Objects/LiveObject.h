@@ -12,7 +12,7 @@ namespace Objects
 {
 
 class LiveObject : public PlacedObject,
-                   public Observer
+                   virtual public Observer
 {
 public:
   LiveObject(const MapPtr map,

@@ -10,8 +10,8 @@ namespace Objects
 LiveObject::LiveObject(const MapPtr map,
                        const Physics::Position& pos,
                        const Physics::Velocity& v)
-  : PlacedObject(pos, v),
-    Observer(map)
+  : Observer(map),
+    PlacedObject(pos, v)
 {}
 
 LiveObject::~LiveObject()
