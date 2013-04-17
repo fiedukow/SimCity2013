@@ -55,7 +55,7 @@ SimCityWindow::SimCityWindow(Controller::QtUnspaghetti& qtUnspaghetti,
   ui->mainToolBar->addWidget(speedSlider);
   connect(speedSlider, SIGNAL(valueChanged(int)), this, SLOT(setSpeed(int)));
   frameRateSpin->setRange(1, 100);
-  frameRateSpin->setValue(1);
+  frameRateSpin->setValue(30);
   connect(frameRateSpin,
           SIGNAL(valueChanged(int)),
           this,
@@ -108,10 +108,8 @@ void SimCityWindow::setSpeed(int speed)
   double endSpeed;
   if(speed < 5)
     endSpeed = 1/pow(2.0, 5.0-speed);
-  else if(speed < 99)
-    endSpeed = speed-4;
   else
-    endSpeed = std::numeric_limits<double>::infinity();
+    endSpeed = speed-4;
 
   QString text = QString("x") + QString::number(endSpeed);
   speedCounter_->setText(text);
