@@ -4,6 +4,7 @@
 #include <Model/SimulationPart.h>
 #include <Model/DBDataStructures.h>
 #include <Model/Objects/Object.h>
+#include <Model/Objects/Observer.h>
 #include <Model/Objects/ObjectSnapshot.h>
 
 #include <list>
@@ -15,7 +16,8 @@ namespace Model
 {
 
 using namespace Objects;
-typedef std::list<PlacedObject> PlacedObjects;
+typedef std::list<PlacedObjectPtr> PlacedObjects;
+typedef std::list<ObserverPtr> Observers;
 
 class World : public SimulationPart
 {
@@ -36,6 +38,7 @@ public:
 private:
   MapPtr map_;
   PlacedObjects objects_;
+  Observers observers_;
 };
 
 }//namespace Model
