@@ -12,7 +12,7 @@ namespace Objects
 {
 
 class Car : public LiveObject,
-            virtual public CarObserver
+            public CarObserver
 {
 public:
   enum Direction { FS = 0, /*from first node to second node*/

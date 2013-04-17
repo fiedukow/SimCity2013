@@ -15,8 +15,8 @@ Car::Car(const MapPtr map,
          const StreetPtr street,
          const Direction direction)
   : Observer(map),
-    CarObserver(map),
     LiveObject(map, pos, v),
+    CarObserver(map),
     street_(street),
     direction_(direction)
 {}
