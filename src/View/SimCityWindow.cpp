@@ -46,8 +46,8 @@ SimCityWindow::SimCityWindow(Controller::QtUnspaghetti& qtUnspaghetti,
   QSpinBox* frameRateSpin = new QSpinBox(this);
 
   ui->mainToolBar->addWidget(frameRateSpin);
-  frameRateSpin->setRange(1, 120);
-  frameRateSpin->setValue(30);
+  frameRateSpin->setRange(1, 10);
+  frameRateSpin->setValue(1);
   connect(frameRateSpin,
           SIGNAL(valueChanged(int)),
           this,
