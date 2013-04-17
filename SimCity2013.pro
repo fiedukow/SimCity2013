@@ -47,7 +47,8 @@ SOURCES += src/main.cpp\
     src/View/GraphicsElements/Road.cpp \
     src/Controller/Events/EventNewSnapshotRequest.cpp \
     src/View/GraphicsElements/Car.cpp \
-    src/Model/Objects/LiveObject.cpp
+    src/Model/Objects/LiveObject.cpp \
+    src/Model/Objects/Observers.cpp
 
 HEADERS  += src/View/SimCityWindow.h \
             src/Model/World.h \
@@ -82,6 +83,7 @@ HEADERS  += src/View/SimCityWindow.h \
     src/View/GraphicsElements/Road.h \
     src/Controller/Events/EventNewSnapshotRequest.h \
     src/View/GraphicsElements/Car.h \
-    src/Model/Objects/LiveObject.h
+    src/Model/Objects/LiveObject.h \
+    src/Model/Objects/Observers.h
 
 FORMS    += src/View/SimCityWindow.ui
