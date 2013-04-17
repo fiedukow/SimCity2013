@@ -78,6 +78,12 @@ void World::visit(CarObserver& car)
   car.provideObjects(snapshot_);
 }
 
+void World::visit(SensorObserver& sensor)
+{
+  sensor.provideObjects(snapshot_);
+}
+
+
 void World::addPlacedObject(PlacedObjectPtr obj)
 {
   objects_.push_back(obj);
