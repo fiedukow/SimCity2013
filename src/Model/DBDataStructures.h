@@ -44,6 +44,7 @@ typedef std::vector<StreetPtr> Streets;
 struct Map
 {
   Map(const StreetNodes& vertexes, Streets& edges);
+  Streets streetsInVertex(StreetNodePtr vertex);
 
   StreetNodes vertexes;
   Streets     edges;

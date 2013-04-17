@@ -52,6 +52,16 @@ Map::Map(const StreetNodes &vertexes, Streets &edges)
   normalizationVector[1] = minY;
 }
 
+Streets Map::streetsInVertex(StreetNodePtr vertex)
+{
+  Streets result;
+  for(const StreetPtr& street : edges)
+    if(street->first == vertex || street->second == vertex)
+      result.push_back(street);
+
+  return result;
+}
+
 }//namespace Model
 }//namespace SimCity
 
