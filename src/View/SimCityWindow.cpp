@@ -8,6 +8,7 @@
 #include <QTimer>
 #include <QSpinBox>
 #include <QGraphicsView>
+#include <QSlider>
 
 #include <cmath>
 #include <iostream>
@@ -43,9 +44,16 @@ SimCityWindow::SimCityWindow(Controller::QtUnspaghetti& qtUnspaghetti,
           &qtUnspaghetti_, SLOT(requestNewMapSnapshot()));
   connect(&qtUnspaghetti_, SIGNAL(updateMap()),
           this, SLOT(drawMap()));
+  QLabel* speedLabel = new QLabel("Simulation Speed: ", this);
   QSpinBox* frameRateSpin = new QSpinBox(this);
+  QSlider* speedSlider = new QSlider(Qt::Horizontal, this);
+  speedSlider->setValue(5);
 
   ui->mainToolBar->addWidget(frameRateSpin);
+  ui->mainToolBar->addSeparator();
+  ui->mainToolBar->addWidget(speedLabel);
+  ui->mainToolBar->addWidget(speedSlider);
+  connect(speedSlider, SIGNAL(valueChanged(int)), this, SLOT(setSpeed(int)));
   frameRateSpin->setRange(1, 100);
   frameRateSpin->setValue(1);
   connect(frameRateSpin,
@@ -88,10 +96,26 @@ void SimCityWindow::drawMap()
 
 void SimCityWindow::updateMoveable()
 {
+  //TODO count fps
   MapScene* scene = dynamic_cast<MapScene*>(ui->view2D->scene());
   if(!scene)
     return;
   scene->showNewMovable(qtUnspaghetti_.getSnapshots());
+}
+
+void SimCityWindow::setSpeed(int speed)
+{
+  double endSpeed;
+  if(speed < 5)
+    endSpeed = 1/pow(2.0, 5.0-speed);
+  else if(speed < 99)
+    endSpeed = speed-4;
+  else
+    endSpeed = std::numeric_limits<double>::infinity();
+
+  QString text = QString("x") + QString::number(endSpeed);
+  speedCounter_->setText(text);
+  qtUnspaghetti_.setSimulationSpeed(endSpeed);
 }
 
 }//namespace View

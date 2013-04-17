@@ -35,6 +35,7 @@ public slots:
   void setFramerate(int frameRate);
   void drawMap();
   void updateMoveable();
+  void setSpeed(int speed);
 
 signals:
   void requestNewMapSnapshot();

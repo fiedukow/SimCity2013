@@ -349,6 +349,7 @@
    <addaction name="separator"/>
    <addaction name="actionMapScaleMinus"/>
    <addaction name="actionMapScalePlus"/>
+   <addaction name="separator"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionPlay">
