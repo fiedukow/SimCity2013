@@ -31,6 +31,7 @@ public:
   StaticBaseDriver(const char* connectionDetails = "",
                    bool persistent = true);
   ~StaticBaseDriver();
+  Sensors getSensors();
   StreetNodes getStreetNodes();
   MapPtr getMap();
 

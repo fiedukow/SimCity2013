@@ -27,6 +27,19 @@ StaticBaseDriver::~StaticBaseDriver()
   disconnect();
 }
 
+Sensors StaticBaseDriver::getSensors()
+{
+  ensureDBConnection();
+  Sensors result;
+  std::string query("SELECT sensorId, lon, lat, mos, range FROM Sensors");
+  pqxx::work t(*connection_);
+  pqxx::result sensors = t.exec(query);
+  for(const auto& sensor : sensors)
+    result.push_back(SensorPtr(new Sensor(sensor)));
+  disconnectIfNecessary();
+  return result;
+}
+
 StreetNodes StaticBaseDriver::getStreetNodes()
 {
   Common::globLog("NOT", "DBDri", "Reading nodes from DB...");
