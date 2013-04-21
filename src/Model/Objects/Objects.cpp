@@ -33,15 +33,13 @@ Car::Car(const MapPtr map,
 Car::~Car()
 {}
 
-void Car::timePassed(uint)
+void Car::timePassed(uint ms)
 {
-  if(!isRoadFinished())
+  if(!isRoadFinishedThisStep(ms))
     return;
 
   newStreet();
   newVelocity();
-
-  pos = getStartPosition();
 }
 
 void Car::newStreet()
@@ -58,11 +56,14 @@ void Car::newStreet(StreetNodePtr startNode)
 
   street_ = tmpStreet;
   direction_ = street_->first == startNode ? FS : SF;
+  pos = getStartPosition();
 }
 
 void Car::newVelocity(double min, double max)
 {
   double speed = ((double)rand()/(double)RAND_MAX)*(max-min)+min;
+  if(isQuick_)
+    speed *= 5.0;
   std::cout << "Velocity: " << speed << std::endl;
   double dx = (getStartPosition().x - getDestinationPosition().x);
   double dy = (getStartPosition().y - getDestinationPosition().y);
@@ -109,27 +110,26 @@ StreetNodePtr Car::getDesitinationNode() const
   return direction_ == FS ? street_->second : street_->first;
 }
 
-bool Car::isRoadFinished()
+bool Car::isRoadFinishedThisStep(uint ms)
 {
+  Physics::TimeDuration t(ms/1000.0);
+  Physics::Shift mv = v * t;
+  Physics::Position newPos = pos + mv;
   double currDist = pos.distance(getDestinationPosition());
-  if(lastDistance_ > currDist)
-  {
-    lastDistance_ = currDist;
-    return false;
-  }
+  double nextDist = newPos.distance(getDestinationPosition());
 
-  lastDistance_ = std::numeric_limits<double>::infinity();
+  if(nextDist < currDist)
+    return false;
+
   return true;
 }
-
-
 
 Sensor::Sensor(const MapPtr& map,
                const Physics::Position& pos,
                const Physics::Angle& fov,
                const double range)
   : Observer(map),
-    LiveObject(map, pos, Physics::Velocity(Physics::Vector3(0,0,0))),
+    LiveObject(map, pos, Physics::Velocity(Physics::Vector3(0, 0, 0))),
     SensorObserver(map),
     fov_(fov),
     range_(range),
@@ -169,7 +169,7 @@ Physics::Force Sensor::getCurrentForce() const
 bool Sensor::isInRange(Snapshot& object)
 {
   double dist = object.getPosition().distance(pos);
-  return (dist <= range_ || dist >= 0.01); //TODO avoid magic const
+  return (dist <= range_ && dist >= 0.01); //TODO avoid magic const
 }
 
 void Sensor::visit(CarSnapshot& car)

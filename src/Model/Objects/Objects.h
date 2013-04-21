@@ -40,7 +40,7 @@ public:
   StreetNodePtr getDesitinationNode() const;
   Physics::Position getStartPosition() const;
   Physics::Position getDestinationPosition() const;
-  bool isRoadFinished();
+  bool isRoadFinishedThisStep(uint ms);
 
 private:
   StreetPtr street_;
