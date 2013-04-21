@@ -7,4 +7,5 @@
 - Dodać mozliwośc wyznaczania trasy dla niektórych pojazdow/pieszych.
 + Rozsynchronizować kamery.
 - Rozwiązwiązac problem "nieskończonej" prędkości.
+- Liczenie czasu dla odczytów - uwzględnienie upływu czasu przy zrzucaniu odczytów z kamer do bazy.
 
