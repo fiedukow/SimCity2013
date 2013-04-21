@@ -52,6 +52,14 @@ Map::Map(const StreetNodes &vertexes, Streets &edges)
   normalizationVector[1] = minY;
 }
 
+Sensor::Sensor(pqxx::result::tuple tableRow)
+  : sensorId(tableRow["sensorId"].as<unsigned int>()),
+    lon(tableRow["lon"].as<double>()),
+    lat(tableRow["lat"].as<double>()),
+    mos(tableRow["mos"].as<double>()),
+    range(tableRow["range"].as<double>())
+{}
+
 Streets Map::streetsInVertex(StreetNodePtr vertex)
 {
   Streets result;

@@ -53,6 +53,20 @@ struct Map
 
 typedef std::shared_ptr<Map> MapPtr;
 
+struct Sensor
+{
+  Sensor(pqxx::result::tuple tableRow);
+
+  uint sensorId;
+  Longitude lon;
+  Latitude lat;
+  MetersOverSea mos;
+  double range;
+};
+
+typedef std::shared_ptr<Sensor> SensorPtr;
+typedef std::vector<SensorPtr> Sensors;
+
 }//namespace Model
 }//namespace SimCity
 
