@@ -7,12 +7,18 @@ namespace Model
 namespace Objects
 {
 
-CarSnapshot::CarSnapshot(const PlacedObject& object)
-  : Snapshot(object)
+CarSnapshot::CarSnapshot(const Car& object)
+  : Snapshot(object),
+    isMad_(object.isMad())
 {}
 
 CarSnapshot::~CarSnapshot()
 {}
+
+bool CarSnapshot::isMad() const
+{
+  return isMad_;
+}
 
 void CarSnapshot::accept(SnapshotVisitor& visitor)
 {

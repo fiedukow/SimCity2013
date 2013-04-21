@@ -7,7 +7,7 @@
 
 #include <3rd/dyndbdriver.h>
 
-#define SNAPSHOT_PERIOD 3000
+#define SNAPSHOT_PERIOD 1100
 //TODO ^^ avoid define please.
 
 namespace SimCity
@@ -101,6 +101,11 @@ Physics::Mass Car::getCurrentMass() const
 Physics::Force Car::getCurrentForce() const
 {
   return Physics::Force(Physics::Vector3(0.0, 0.0, 0.0));
+}
+
+bool Car::isMad() const
+{
+  return isQuick_;
 }
 
 StreetNodePtr Car::getStartNode() const

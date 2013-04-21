@@ -32,6 +32,9 @@ public:
   virtual Physics::Mass getCurrentMass() const;
   virtual Physics::Force getCurrentForce() const;
 
+  bool isMad() const;
+
+private:
   void newStreet();
   void newStreet(StreetNodePtr streetNode);
   void newVelocity(double min = 5.0, double max = 35.0);

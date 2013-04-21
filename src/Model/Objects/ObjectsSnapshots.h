@@ -15,10 +15,14 @@ class SnapshotVisitor;
 class CarSnapshot : public Snapshot
 {
 public:
-  CarSnapshot(const PlacedObject &object);
+  CarSnapshot(const Car &object);
   virtual ~CarSnapshot();
 
   virtual void accept(SnapshotVisitor& visitor);
+  bool isMad() const;
+
+private:
+  bool isMad_;
 };
 
 class SensorSnapshot : public Snapshot
