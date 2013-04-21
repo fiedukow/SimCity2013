@@ -16,18 +16,19 @@ namespace Objects
 
 Car::Car(const MapPtr map,
          const Physics::Position& pos,
-         const Physics::Velocity& v,
          const StreetPtr street,
          const Direction direction,
          const bool isQuick)
   : Observer(map),
-    LiveObject(map, pos, v),
+    LiveObject(map, pos, Physics::Velocity(Physics::Vector3(0, 0, 0))),
     CarObserver(map),
     street_(street),
     direction_(direction),
     lastDistance_(std::numeric_limits<double>::infinity()),
     isQuick_(isQuick)
-{}
+{
+  newVelocity();
+}
 
 Car::~Car()
 {}

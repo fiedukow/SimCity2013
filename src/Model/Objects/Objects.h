@@ -21,7 +21,6 @@ public:
 public:
   Car(const MapPtr map,
       const Physics::Position& pos,
-      const Physics::Velocity& v,
       const StreetPtr street,
       const Direction direction,
       const bool isQuick);

@@ -44,20 +44,11 @@ void ObjectManager::timePassed(uint ms)
                                : startStreet->first);
     Physics::Position startPos(Physics::GeoCoords(startNode->lon.get(),
                                                   startNode->lat.get()));
-    Physics::Position endPos(Physics::GeoCoords(endNode->lon.get(),
-                                                endNode->lat.get()));
 
     bool isQuick = (rand()%10 == 0);
 
-    double randTime = 5.0 + (rand()%100)/10.0;
-    if(isQuick)
-      randTime /= 3.0;
-
-    Physics::Velocity startV((endPos-startPos)/Physics::TimeDuration(randTime));
-
     LiveObjectPtr newObject(new Car(map,
                                     startPos,
-                                    startV,
                                     startStreet,
                                     startDirection,
                                     isQuick));
