@@ -19,7 +19,7 @@ void CarSnapshot::accept(SnapshotVisitor& visitor)
   visitor.visit(*this);
 }
 
-SensorSnapshot::SensorSnapshot(const Sensor& object)
+SensorSnapshot::SensorSnapshot(const RadiusSensor& object)
   : Snapshot(object),
     range_(object.getRange())
 {}

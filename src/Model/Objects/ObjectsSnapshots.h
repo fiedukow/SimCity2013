@@ -24,7 +24,7 @@ public:
 class SensorSnapshot : public Snapshot
 {
 public:
-  SensorSnapshot(const Sensor& object);
+  SensorSnapshot(const RadiusSensor& object);
   virtual ~SensorSnapshot();
 
   double getRange() const;

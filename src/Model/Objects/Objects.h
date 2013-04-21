@@ -49,15 +49,16 @@ private:
   bool isQuick_;
 };
 
-class Sensor : public LiveObject,
-               public SensorObserver
+class RadiusSensor : public LiveObject,
+                     public SensorObserver
 {
 public:
-  Sensor(const MapPtr& map,
-         const Physics::Position& pos,
-         const Physics::Angle& fov,
-         const double range);
-  virtual ~Sensor();
+  RadiusSensor(uint id,
+               const MapPtr& map,
+               const Physics::Position& pos,
+               const Physics::Angle& fov,
+               const double range);
+  virtual ~RadiusSensor();
 
   void timePassed(uint ms);
 
@@ -73,6 +74,7 @@ public:
   double getRange() const;
 
 private:
+  uint id_;
   Physics::Angle fov_;
   double range_;
   uint timeCounter_;

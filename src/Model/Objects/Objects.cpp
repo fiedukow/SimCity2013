@@ -3,6 +3,9 @@
 #include <Model/Objects/ObjectsSnapshots.h>
 #include <limits>
 #include <iostream>
+#include <ctime>
+
+#include <3rd/dyndbdriver.h>
 
 #define SNAPSHOT_PERIOD 3000
 //TODO ^^ avoid define please.
@@ -124,23 +127,25 @@ bool Car::isRoadFinishedThisStep(uint ms)
   return true;
 }
 
-Sensor::Sensor(const MapPtr& map,
-               const Physics::Position& pos,
-               const Physics::Angle& fov,
-               const double range)
+RadiusSensor::RadiusSensor(uint id,
+                           const MapPtr& map,
+                           const Physics::Position& pos,
+                           const Physics::Angle& fov,
+                           const double range)
   : Observer(map),
     LiveObject(map, pos, Physics::Velocity(Physics::Vector3(0, 0, 0))),
     SensorObserver(map),
+    id_(id),
     fov_(fov),
     range_(range),
     timeCounter_(rand()%SNAPSHOT_PERIOD)
 {
 }
 
-Sensor::~Sensor()
+RadiusSensor::~RadiusSensor()
 {}
 
-void Sensor::timePassed(uint ms)
+void RadiusSensor::timePassed(uint ms)
 {
   timeCounter_ += ms;
   if(timeCounter_ < SNAPSHOT_PERIOD)
@@ -151,42 +156,51 @@ void Sensor::timePassed(uint ms)
     snapshot->accept(*this);
 }
 
-SnapshotPtr Sensor::getSnapshot() const
+SnapshotPtr RadiusSensor::getSnapshot() const
 {
   return SnapshotPtr(new SensorSnapshot(*this));
 }
 
-Physics::Mass Sensor::getCurrentMass() const
+Physics::Mass RadiusSensor::getCurrentMass() const
 {
   return Physics::Mass(1.0);
 }
 
-Physics::Force Sensor::getCurrentForce() const
+Physics::Force RadiusSensor::getCurrentForce() const
 {
   return Physics::Force(Physics::Vector3(0, 0, 0));
 }
 
-bool Sensor::isInRange(Snapshot& object)
+bool RadiusSensor::isInRange(Snapshot& object)
 {
   double dist = object.getPosition().distance(pos);
   return (dist <= range_ && dist >= 0.01); //TODO avoid magic const
 }
 
-void Sensor::visit(CarSnapshot& car)
+DB::DynDBDriver dbDriver("./options.xml"); //FIXME sapoifasaaspofasjofpoaspof
+
+void RadiusSensor::visit(CarSnapshot& car)
 {
   if(!isInRange(car))
     return;
 
   Physics::GeoCoords geo(car.getPosition());
+  dbDriver.insertDR(DB::DynDBDriver::DR_row(id_,
+                                            -1,
+                                            geo.lon,
+                                            geo.lat,
+                                            geo.mos,
+                                            0,
+                                            time(NULL))); //TODO real time here
 
-  std::cout << "I see car in: "
+  std::cout << "I (id = " << id_ << ") see car in: "
             << geo.lon << ", "
             << geo.lat << ", "
             << geo.mos << "."
             << std::endl;
 }
 
-void Sensor::visit(SensorSnapshot& snapshot)
+void RadiusSensor::visit(SensorSnapshot& snapshot)
 {
   if(!isInRange(snapshot))
     return;
@@ -200,7 +214,7 @@ void Sensor::visit(SensorSnapshot& snapshot)
             << std::endl;
 }
 
-double Sensor::getRange() const
+double RadiusSensor::getRange() const
 {
   return range_;
 }
