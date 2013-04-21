@@ -16,7 +16,7 @@ TARGET = ../bin/SimCity2013
 TEMPLATE = app
 
 QMAKE_CXXFLAGS += -std=c++11 -DBOOST_ALL_NO_LIB -O0
-QMAKE_LFLAGS += -lOgreMain -lOIS -lpqxx -lboost_thread
+QMAKE_LFLAGS += -lOgreMain -lOIS -lpqxx -lboost_thread -lboost_chrono -lboost_program_options -lboost_serialization -lboost_system
 
 SOURCES += src/main.cpp\
            src/View/SimCityWindow.cpp \
@@ -50,7 +50,8 @@ SOURCES += src/main.cpp\
            src/Model/Objects/LiveObject.cpp \
            src/Model/Objects/Observers.cpp \
            src/View/GraphicsElements/Sensor.cpp \
-           src/Controller/Events/EventSetSimulationSpeed.cpp
+           src/Controller/Events/EventSetSimulationSpeed.cpp \
+    src/3rd/dyndbdriver.cpp
 
 HEADERS  += src/View/SimCityWindow.h \
             src/Model/World.h \
@@ -88,6 +89,7 @@ HEADERS  += src/View/SimCityWindow.h \
             src/Model/Objects/LiveObject.h \
             src/Model/Objects/Observers.h \
             src/View/GraphicsElements/Sensor.h \
-            src/Controller/Events/EventSetSimulationSpeed.h
+            src/Controller/Events/EventSetSimulationSpeed.h \
+    src/3rd/dyndbdriver.h
 
 FORMS    += src/View/SimCityWindow.ui
