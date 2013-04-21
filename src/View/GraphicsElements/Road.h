@@ -10,7 +10,7 @@ namespace View
 namespace GraphicsElements
 {
 
-class Road : public QGraphicsRectItem
+class Road : public QGraphicsLineItem
 {
 public:
   Road(const Model::StreetPtr& street,
