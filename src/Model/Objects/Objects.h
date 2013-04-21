@@ -33,8 +33,14 @@ public:
   virtual Physics::Mass getCurrentMass() const;
   virtual Physics::Force getCurrentForce() const;
 
+  void newStreet();
+  void newStreet(StreetNodePtr streetNode);
+  void newVelocity(double min = 5.0, double max = 35.0);
+
   StreetNodePtr getStartNode() const;
   StreetNodePtr getDesitinationNode() const;
+  Physics::Position getStartPosition() const;
+  Physics::Position getDestinationPosition() const;
   bool isRoadFinished();
 
 private:
@@ -59,6 +65,8 @@ public:
   virtual SnapshotPtr getSnapshot() const;
   virtual Physics::Mass getCurrentMass() const;
   virtual Physics::Force getCurrentForce() const;
+
+  bool isInRange(Snapshot& object);
 
   void visit(CarSnapshot& car);
   void visit(SensorSnapshot& snapshot);

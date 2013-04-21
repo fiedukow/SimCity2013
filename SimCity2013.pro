@@ -15,7 +15,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = ../bin/SimCity2013
 TEMPLATE = app
 
-QMAKE_CXXFLAGS += -std=c++11 -DBOOST_ALL_NO_LIB -O3
+QMAKE_CXXFLAGS += -std=c++11 -DBOOST_ALL_NO_LIB -O0
 QMAKE_LFLAGS += -lOgreMain -lOIS -lpqxx -lboost_thread
 
 SOURCES += src/main.cpp\
@@ -41,16 +41,16 @@ SOURCES += src/main.cpp\
            src/Controller/Events/EventStop.cpp \
            src/Controller/Events/EventStart.cpp \
            src/Controller/Events/EventPause.cpp \
-    src/Controller/Events/EventInterrput.cpp \
-    src/Controller/Events/EventNewMapRequest.cpp \
-    src/View/MapScene.cpp \
-    src/View/GraphicsElements/Road.cpp \
-    src/Controller/Events/EventNewSnapshotRequest.cpp \
-    src/View/GraphicsElements/Car.cpp \
-    src/Model/Objects/LiveObject.cpp \
-    src/Model/Objects/Observers.cpp \
-    src/View/GraphicsElements/Sensor.cpp \
-    src/Controller/Events/EventSetSimulationSpeed.cpp
+           src/Controller/Events/EventInterrput.cpp \
+           src/Controller/Events/EventNewMapRequest.cpp \
+           src/View/MapScene.cpp \
+           src/View/GraphicsElements/Road.cpp \
+           src/Controller/Events/EventNewSnapshotRequest.cpp \
+           src/View/GraphicsElements/Car.cpp \
+           src/Model/Objects/LiveObject.cpp \
+           src/Model/Objects/Observers.cpp \
+           src/View/GraphicsElements/Sensor.cpp \
+           src/Controller/Events/EventSetSimulationSpeed.cpp
 
 HEADERS  += src/View/SimCityWindow.h \
             src/Model/World.h \
@@ -79,15 +79,15 @@ HEADERS  += src/View/SimCityWindow.h \
             src/Controller/Events/EventStart.h \
             src/Controller/Events/EventPause.h \
             src/Controller/Events/AllEvents.h \
-    src/Controller/Events/EventInterrput.h \
-    src/Controller/Events/EventNewMapRequest.h \
-    src/View/MapScene.h \
-    src/View/GraphicsElements/Road.h \
-    src/Controller/Events/EventNewSnapshotRequest.h \
-    src/View/GraphicsElements/Car.h \
-    src/Model/Objects/LiveObject.h \
-    src/Model/Objects/Observers.h \
-    src/View/GraphicsElements/Sensor.h \
-    src/Controller/Events/EventSetSimulationSpeed.h
+            src/Controller/Events/EventInterrput.h \
+            src/Controller/Events/EventNewMapRequest.h \
+            src/View/MapScene.h \
+            src/View/GraphicsElements/Road.h \
+            src/Controller/Events/EventNewSnapshotRequest.h \
+            src/View/GraphicsElements/Car.h \
+            src/Model/Objects/LiveObject.h \
+            src/Model/Objects/Observers.h \
+            src/View/GraphicsElements/Sensor.h \
+            src/Controller/Events/EventSetSimulationSpeed.h
 
 FORMS    += src/View/SimCityWindow.ui

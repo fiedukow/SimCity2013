@@ -37,29 +37,50 @@ void Car::timePassed(uint)
   if(!isRoadFinished())
     return;
 
-  StreetNodePtr destNode = getDesitinationNode();
-  Streets toChoose = map_->streetsInVertex(destNode);
+  newStreet();
+  newVelocity();
+
+  pos = getStartPosition();
+}
+
+void Car::newStreet()
+{
+  newStreet(getDesitinationNode());
+}
+
+void Car::newStreet(StreetNodePtr startNode)
+{
+  Streets toChoose = map_->streetsInVertex(startNode);
   StreetPtr tmpStreet = toChoose[rand()%toChoose.size()];
   while(tmpStreet == street_ && toChoose.size() > 1)
     tmpStreet = toChoose[rand()%toChoose.size()];
 
   street_ = tmpStreet;
-  direction_ = street_->first == destNode ? FS : SF;
+  direction_ = street_->first == startNode ? FS : SF;
+}
 
-  StreetNodePtr startNode = getStartNode();
-  StreetNodePtr endNode = getDesitinationNode();
+void Car::newVelocity(double min, double max)
+{
+  double speed = ((double)rand()/(double)RAND_MAX)*(max-min)+min;
+  std::cout << "Velocity: " << speed << std::endl;
+  double dx = (getStartPosition().x - getDestinationPosition().x);
+  double dy = (getStartPosition().y - getDestinationPosition().y);
+  double d  = sqrt(pow(dx, 2) + pow(dy, 2));
+  double timeInSeconds = d/speed;
+  Physics::TimeDuration t(timeInSeconds);
+  v = Physics::Velocity((getDestinationPosition()-getStartPosition())/t);
+}
 
-  Physics::Position startPos(Physics::GeoCoords(startNode->lon.get(),
-                                                startNode->lat.get()));
-  Physics::Position endPos(Physics::GeoCoords(endNode->lon.get(),
-                                              endNode->lat.get()));
-  double randTime = 5.0 + (rand()%100)/10.0;
-  if(isQuick_)
-    randTime /= 3.0;
-  Physics::Velocity startV((endPos-startPos)/Physics::TimeDuration(randTime));
+Physics::Position Car::getStartPosition() const
+{
+  return Physics::Position(Physics::GeoCoords(getStartNode()->lon.get(),
+                                              getStartNode()->lat.get()));
+}
 
-  v = startV;
-  pos = startPos;
+Physics::Position Car::getDestinationPosition() const
+{
+  return Physics::Position(Physics::GeoCoords(getDesitinationNode()->lon.get(),
+                                              getDesitinationNode()->lat.get()));
 }
 
 SnapshotPtr Car::getSnapshot() const
@@ -89,9 +110,7 @@ StreetNodePtr Car::getDesitinationNode() const
 
 bool Car::isRoadFinished()
 {
-  Physics::Position endPos(Physics::GeoCoords(getDesitinationNode()->lon.get(),
-                                              getDesitinationNode()->lat.get()));
-  double currDist = pos.distance(endPos);
+  double currDist = pos.distance(getDestinationPosition());
   if(lastDistance_ > currDist)
   {
     lastDistance_ = currDist;
@@ -146,22 +165,18 @@ Physics::Force Sensor::getCurrentForce() const
   return Physics::Force(Physics::Vector3(0, 0, 0));
 }
 
+bool Sensor::isInRange(Snapshot& object)
+{
+  double dist = object.getPosition().distance(pos);
+  return (dist <= range_ || dist >= 0.01); //TODO avoid magic const
+}
 
 void Sensor::visit(CarSnapshot& car)
 {
-  double dist = car.getPosition().distance(pos);
-  if(dist > range_
-     || dist < 0.01) //TODO remove this magic const
+  if(!isInRange(car))
     return;
 
   Physics::GeoCoords geo(car.getPosition());
-  Physics::GeoCoords myGeo(pos);
-
-  std::cout << "My position is: "
-            << myGeo.lon << ", "
-            << myGeo.lat << ", "
-            << myGeo.mos << "."
-            << std::endl;
 
   std::cout << "I see car in: "
             << geo.lon << ", "
@@ -172,19 +187,10 @@ void Sensor::visit(CarSnapshot& car)
 
 void Sensor::visit(SensorSnapshot& snapshot)
 {
-  double dist = snapshot.getPosition().distance(pos);
-  if(snapshot.getPosition().distance(pos) > range_
-     || dist < 0.01) //TODO remove this magic const
+  if(!isInRange(snapshot))
     return;
 
   Physics::GeoCoords geo(snapshot.getPosition());
-  Physics::GeoCoords myGeo(pos);
-
-  std::cout << "My position is: "
-            << myGeo.lon << ", "
-            << myGeo.lat << ", "
-            << myGeo.mos << "."
-            << std::endl;
 
   std::cout << "I see camera in: "
             << geo.lon << ", "
