@@ -15,7 +15,11 @@ typedef std::list<LiveObjectPtr> LiveObjects;
 class ObjectManager : public SimulationPart
 {
 public:
-  ObjectManager(WorldPtr world, uint limit = 200);
+  ObjectManager(WorldPtr world,
+                const std::string& dbName,
+                const std::string& dbUser,
+                const std::string& dbPassword,
+                uint limit = 1);
   virtual ~ObjectManager();
   virtual void timePassed(uint ms);
 

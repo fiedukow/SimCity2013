@@ -4,21 +4,38 @@
 #include <Model/Objects/Objects.h>
 #include <memory>
 
+#include <Model/StaticBaseDriver.h>
+
 namespace SimCity
 {
 namespace Model
 {
 
-ObjectManager::ObjectManager(WorldPtr world, uint limit)
+ObjectManager::ObjectManager(WorldPtr world,
+                             const std::string& dbName,
+                             const std::string& dbUser,
+                             const std::string& dbPassword,
+                             uint limit)
   : world_(world),
     limit_(limit)
 {
+  StaticBaseDriver dbDriver(std::string("dbname=" + dbName +
+                                        " user=" + dbUser +
+                                        " password=" + dbPassword).c_str(),
+                            true);
+
+  Sensors sensors = dbDriver.getSensors();
   MapPtr map = world_->getMapSnapshot();
-  for(StreetNodePtr& node : map->vertexes)
+
+  for(SensorPtr sensor : sensors)
   {
-    Physics::Position pos(Physics::GeoCoords(node->lon.get(),
-                                             node->lat.get()));
-    LiveObjectPtr newSensor(new Sensor(map, pos, 360.0, 40.0));
+    Physics::Position pos(Physics::GeoCoords(sensor->lon.get(),
+                                             sensor->lat.get()));
+    LiveObjectPtr newSensor(new RadiusSensor(sensor->sensorId,
+                                             map,
+                                             pos,
+                                             360.0,
+                                             sensor->range));
     world_->addObserver(std::dynamic_pointer_cast<Observer>(newSensor));
     world_->addPlacedObject(std::dynamic_pointer_cast<PlacedObject>(newSensor));
   }
