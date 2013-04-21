@@ -18,7 +18,7 @@ ObjectManager::ObjectManager(WorldPtr world, uint limit)
   {
     Physics::Position pos(Physics::GeoCoords(node->lon.get(),
                                              node->lat.get()));
-    LiveObjectPtr newSensor(new Sensor(map, pos, 360.0, 100.0));
+    LiveObjectPtr newSensor(new Sensor(map, pos, 360.0, 40.0));
     world_->addObserver(std::dynamic_pointer_cast<Observer>(newSensor));
     world_->addPlacedObject(std::dynamic_pointer_cast<PlacedObject>(newSensor));
   }
@@ -39,9 +39,6 @@ void ObjectManager::timePassed(uint ms)
     StreetNodePtr startNode = (startDirection == Car::FS
                                ? startStreet->first
                                : startStreet->second);
-    StreetNodePtr endNode = (startDirection == Car::FS
-                               ? startStreet->second
-                               : startStreet->first);
     Physics::Position startPos(Physics::GeoCoords(startNode->lon.get(),
                                                   startNode->lat.get()));
 

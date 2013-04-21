@@ -15,7 +15,7 @@ typedef std::list<LiveObjectPtr> LiveObjects;
 class ObjectManager : public SimulationPart
 {
 public:
-  ObjectManager(WorldPtr world, uint limit = 2);
+  ObjectManager(WorldPtr world, uint limit = 200);
   virtual ~ObjectManager();
   virtual void timePassed(uint ms);
 
