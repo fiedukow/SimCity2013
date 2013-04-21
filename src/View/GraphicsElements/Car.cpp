@@ -27,7 +27,10 @@ Car::Car(const Model::Objects::CarSnapshot& obj,
   std::stringstream ss;
   ss << "X: " << x << " Y: " << y;
   Common::globLog("DBG", "VIEW", ss.str());
-  setBrush(QBrush(Qt::red));
+  if(obj.isMad())
+    setBrush(QBrush(Qt::red));
+  else
+    setBrush(QBrush(Qt::blue));
   double size = 20;
   setRect(0, 0, size, size); //TODO avoid magic const
   setPos(x-size/2,y-size/2);

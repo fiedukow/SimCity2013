@@ -218,10 +218,20 @@
                     <property name="margin">
                      <number>0</number>
                     </property>
+                    <item row="3" column="1">
+                     <widget class="QCheckBox" name="seeCarsCB">
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="checked">
+                       <bool>true</bool>
+                      </property>
+                     </widget>
+                    </item>
                     <item row="3" column="0">
                      <widget class="QLabel" name="label_8">
                       <property name="text">
-                       <string>&lt;i&gt;pedestrian&lt;/i&gt;</string>
+                       <string>&lt;i&gt;cars&lt;/i&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -269,35 +279,37 @@
                     <item row="4" column="0">
                      <widget class="QLabel" name="label_9">
                       <property name="text">
-                       <string>&lt;i&gt;sidewalk&lt;/i&gt;</string>
+                       <string>&lt;i&gt;pedestrians&lt;/i&gt;</string>
                       </property>
                      </widget>
                     </item>
                     <item row="1" column="1">
-                     <widget class="QCheckBox" name="checkBox">
+                     <widget class="QCheckBox" name="seeBuildingsCB">
                       <property name="text">
                        <string/>
+                      </property>
+                      <property name="checked">
+                       <bool>true</bool>
                       </property>
                      </widget>
                     </item>
                     <item row="2" column="1">
-                     <widget class="QCheckBox" name="checkBox_2">
+                     <widget class="QCheckBox" name="seeRoadsCB">
                       <property name="text">
                        <string/>
                       </property>
-                     </widget>
-                    </item>
-                    <item row="3" column="1">
-                     <widget class="QCheckBox" name="checkBox_3">
-                      <property name="text">
-                       <string/>
+                      <property name="checked">
+                       <bool>true</bool>
                       </property>
                      </widget>
                     </item>
                     <item row="4" column="1">
-                     <widget class="QCheckBox" name="checkBox_4">
+                     <widget class="QCheckBox" name="seePedestriansCB">
                       <property name="text">
                        <string/>
+                      </property>
+                      <property name="checked">
+                       <bool>true</bool>
                       </property>
                      </widget>
                     </item>
@@ -324,6 +336,33 @@
                     </item>
                     <item row="4" column="2">
                      <widget class="QCheckBox" name="checkBox_8">
+                      <property name="text">
+                       <string/>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="5" column="0">
+                     <widget class="QLabel" name="label_15">
+                      <property name="text">
+                       <string>sensors</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="5" column="1">
+                     <widget class="QCheckBox" name="seeSensorsCB">
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="checked">
+                       <bool>true</bool>
+                      </property>
+                      <property name="tristate">
+                       <bool>false</bool>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="5" column="2">
+                     <widget class="QCheckBox" name="checkBox_10">
                       <property name="text">
                        <string/>
                       </property>

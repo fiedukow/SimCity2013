@@ -23,18 +23,26 @@ public:
 
   void visit(CarSnapshot& car);
   void visit(SensorSnapshot& sensor);
+  void setVisibility();
 
 signals:
 
 public slots:
   void scalePlus();
   void scaleMinus();
+  void setMapVisible(bool visible);
+  void setCarsVisible(bool visible);
+  void setSensorsVisible(bool visible);
 
 private:
   QGraphicsItemGroup* mapSurface_;
-  QGraphicsRectItem* mapRect_;
   double* normVect_;
   QGraphicsItemGroup* moveableGroup_;
+  QGraphicsItemGroup* sensorsGroup_;
+
+  bool carsVisible_;
+  bool sensorsVisible_;
+  bool mapVisible_;
 };
 
 }//namespace View

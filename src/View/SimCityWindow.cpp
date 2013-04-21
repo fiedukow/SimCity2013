@@ -44,6 +44,7 @@ SimCityWindow::SimCityWindow(Controller::QtUnspaghetti& qtUnspaghetti,
           &qtUnspaghetti_, SLOT(requestNewMapSnapshot()));
   connect(&qtUnspaghetti_, SIGNAL(updateMap()),
           this, SLOT(drawMap()));
+
   QLabel* speedLabel = new QLabel("Simulation Speed: ", this);
   QSpinBox* frameRateSpin = new QSpinBox(this);
   QSlider* speedSlider = new QSlider(Qt::Horizontal, this);
@@ -89,6 +90,9 @@ void SimCityWindow::drawMap()
           SIGNAL(triggered()),
           scene,
           SLOT(scaleMinus()));
+  connect(ui->seeCarsCB, SIGNAL(toggled(bool)), scene, SLOT(setCarsVisible(bool)));
+  connect(ui->seeRoadsCB, SIGNAL(toggled(bool)), scene, SLOT(setMapVisible(bool)));
+  connect(ui->seeSensorsCB, SIGNAL(toggled(bool)), scene, SLOT(setSensorsVisible(bool)));
   ui->view2D->setRenderHints(QPainter::Antialiasing
                              | QPainter::SmoothPixmapTransform);
   ui->view2D->setScene(scene);

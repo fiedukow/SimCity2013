@@ -13,7 +13,11 @@ using namespace GraphicsElements;
 
 MapScene::MapScene(Model::MapPtr map, QObject *parent) :
   QGraphicsScene(parent),
-  moveableGroup_(NULL)
+  moveableGroup_(NULL),
+  sensorsGroup_(NULL),
+  carsVisible_(true),
+  sensorsVisible_(true),
+  mapVisible_(true)
 {
   mapSurface_ = new QGraphicsItemGroup();
   normVect_ = map->normalizationVector;
@@ -38,16 +42,33 @@ void MapScene::showNewMovable(Model::Objects::Snapshots snapshots)
     removeItem(moveableGroup_);
   delete moveableGroup_;
 
+  if(sensorsGroup_)
+    removeItem(sensorsGroup_);
+  delete sensorsGroup_;
+
   moveableGroup_ = new QGraphicsItemGroup();
+  sensorsGroup_ = new QGraphicsItemGroup();
 
   for(Model::Objects::SnapshotPtr& snapshot : snapshots)
     snapshot->accept(*this);
 
   moveableGroup_->setScale(mapSurface_->scale());
+  sensorsGroup_->setScale(mapSurface_->scale());
   addItem(moveableGroup_);
+  addItem(sensorsGroup_);
+  setVisibility();
   Common::globLog("INF", "VIEW", "END");
 }
 
+void MapScene::setVisibility()
+{
+  if(moveableGroup_)
+    moveableGroup_->setVisible(carsVisible_);
+  if(sensorsGroup_)
+    sensorsGroup_->setVisible(sensorsVisible_);
+  if(mapSurface_)
+    mapSurface_->setVisible(mapVisible_);
+}
 
 void MapScene::visit(CarSnapshot& car)
 {
@@ -56,7 +77,7 @@ void MapScene::visit(CarSnapshot& car)
 
 void MapScene::visit(SensorSnapshot& sensor)
 {
-  moveableGroup_->addToGroup(new Sensor(sensor, normVect_, moveableGroup_));
+  sensorsGroup_->addToGroup(new Sensor(sensor, normVect_, moveableGroup_));
 }
 
 void MapScene::scalePlus()
@@ -88,6 +109,24 @@ void MapScene::scaleMinus()
                0,
                mapSurface_->boundingRect().width()  * newScale,
                mapSurface_->boundingRect().height() * newScale);
+}
+
+void MapScene::setMapVisible(bool visible)
+{
+  mapVisible_ = visible;
+  setVisibility();
+}
+
+void MapScene::setCarsVisible(bool visible)
+{
+  carsVisible_ = visible;
+  setVisibility();
+}
+
+void MapScene::setSensorsVisible(bool visible)
+{
+  sensorsVisible_ = visible;
+  setVisibility();
 }
 
 }//namespace View
