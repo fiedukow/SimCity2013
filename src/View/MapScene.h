@@ -22,6 +22,7 @@ public:
   void showNewMovable(Model::Objects::Snapshots snapshot);
 
   void visit(CarSnapshot& car);
+  void visit(PedestrianSnapshot& pedestrian);
   void visit(SensorSnapshot& sensor);
   void setVisibility();
 
@@ -33,16 +34,19 @@ public slots:
   void setMapVisible(bool visible);
   void setCarsVisible(bool visible);
   void setSensorsVisible(bool visible);
+  void setPedestriansVisible(bool visible);
 
 private:
   QGraphicsItemGroup* mapSurface_;
   double* normVect_;
   QGraphicsItemGroup* moveableGroup_;
+  QGraphicsItemGroup* pedestrianGroup_;
   QGraphicsItemGroup* sensorsGroup_;
 
   bool carsVisible_;
   bool sensorsVisible_;
   bool mapVisible_;
+  bool pedestrianVisible_;
 };
 
 }//namespace View

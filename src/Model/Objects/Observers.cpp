@@ -12,20 +12,23 @@ namespace Model
 namespace Objects
 {
 
-CarObserver::CarObserver(const MapPtr& map)
+RoadUserObserver::RoadUserObserver(const MapPtr& map)
   : Observer(map)
 {}
 
-CarObserver::~CarObserver()
+RoadUserObserver::~RoadUserObserver()
 {}
 
-void CarObserver::visit(CarSnapshot&)
+void RoadUserObserver::visit(CarSnapshot&)
 {}
 
-void CarObserver::visit(SensorSnapshot&)
+void RoadUserObserver::visit(PedestrianSnapshot&)
 {}
 
-void CarObserver::accept(World& w)
+void RoadUserObserver::visit(SensorSnapshot&)
+{}
+
+void RoadUserObserver::accept(World& w)
 {
   w.visit(*this);
 }

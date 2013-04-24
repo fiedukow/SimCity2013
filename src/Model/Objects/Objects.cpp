@@ -7,7 +7,7 @@
 
 #include <3rd/dyndbdriver.h>
 
-#define SNAPSHOT_PERIOD 1100
+#define SNAPSHOT_PERIOD 3000
 //TODO ^^ avoid define please.
 
 namespace SimCity
@@ -17,26 +17,40 @@ namespace Model
 namespace Objects
 {
 
-Car::Car(const MapPtr map,
-         const Physics::Position& pos,
-         const StreetPtr street,
-         const Direction direction,
-         const bool isQuick)
+RoadUser::RoadUser(const MapPtr map)
+  :Observer(map),
+   LiveObject(map,
+              Physics::Position(0, 0, 0),
+              Physics::Velocity(Physics::Vector3(0, 0, 0))),
+   RoadUserObserver(map),
+   lastDistance_(std::numeric_limits<double>::infinity())
+{
+  street_ = map->edges[rand()%map->edges.size()];
+  direction_ = rand()%2 ? Car::FS : Car::SF;
+  pos = getStartPosition();
+}
+
+RoadUser::RoadUser(const MapPtr map,
+                   const Physics::Position& pos,
+                   const StreetPtr street,
+                   const Direction direction)
   : Observer(map),
     LiveObject(map, pos, Physics::Velocity(Physics::Vector3(0, 0, 0))),
-    CarObserver(map),
+    RoadUserObserver(map),
     street_(street),
     direction_(direction),
-    lastDistance_(std::numeric_limits<double>::infinity()),
-    isQuick_(isQuick)
+    lastDistance_(std::numeric_limits<double>::infinity())
+{}
+
+RoadUser::~RoadUser()
+{}
+
+void RoadUser::initialize()
 {
   newVelocity();
 }
 
-Car::~Car()
-{}
-
-void Car::timePassed(uint ms)
+void RoadUser::timePassed(uint ms)
 {
   if(!isRoadFinishedThisStep(ms))
     return;
@@ -45,12 +59,12 @@ void Car::timePassed(uint ms)
   newVelocity();
 }
 
-void Car::newStreet()
+void RoadUser::newStreet()
 {
   newStreet(getDesitinationNode());
 }
 
-void Car::newStreet(StreetNodePtr startNode)
+void RoadUser::newStreet(StreetNodePtr startNode)
 {
   Streets toChoose = map_->streetsInVertex(startNode);
   StreetPtr tmpStreet = toChoose[rand()%toChoose.size()];
@@ -62,11 +76,13 @@ void Car::newStreet(StreetNodePtr startNode)
   pos = getStartPosition();
 }
 
-void Car::newVelocity(double min, double max)
+void RoadUser::newVelocity()
 {
-  double speed = ((double)rand()/(double)RAND_MAX)*(max-min)+min;
-  if(isQuick_)
-    speed *= 5.0;
+  newVelocity(getNextSpeed());
+}
+
+void RoadUser::newVelocity(double speed)
+{
   std::cout << "Velocity: " << speed << std::endl;
   double dx = (getStartPosition().x - getDestinationPosition().x);
   double dy = (getStartPosition().y - getDestinationPosition().y);
@@ -76,17 +92,71 @@ void Car::newVelocity(double min, double max)
   v = Physics::Velocity((getDestinationPosition()-getStartPosition())/t);
 }
 
-Physics::Position Car::getStartPosition() const
+Physics::Position RoadUser::getStartPosition() const
 {
   return Physics::Position(Physics::GeoCoords(getStartNode()->lon.get(),
                                               getStartNode()->lat.get()));
 }
 
-Physics::Position Car::getDestinationPosition() const
+Physics::Position RoadUser::getDestinationPosition() const
 {
   return Physics::Position(Physics::GeoCoords(getDesitinationNode()->lon.get(),
                                               getDesitinationNode()->lat.get()));
 }
+
+StreetNodePtr RoadUser::getStartNode() const
+{
+  return direction_ == FS ? street_->first : street_->second;
+}
+
+StreetNodePtr RoadUser::getDesitinationNode() const
+{
+  return direction_ == FS ? street_->second : street_->first;
+}
+
+bool RoadUser::isRoadFinishedThisStep(uint ms)
+{
+  Physics::TimeDuration t(ms/1000.0);
+  Physics::Shift mv = v * t;
+  Physics::Position newPos = pos + mv;
+  double currDist = pos.distance(getDestinationPosition());
+  double nextDist = newPos.distance(getDestinationPosition());
+
+  if(nextDist < currDist)
+    return false;
+
+  return true;
+}
+
+/******************************************************************************/
+/******************************************************************************/
+
+double Car::minSpeed_ = 5.0;
+double Car::maxSpeed_ = 35.0;
+
+Car::Car(const MapPtr map,
+         const bool isQuick)
+  : Observer(map),
+    RoadUser(map),
+    isQuick_(isQuick)
+{
+  initialize();
+}
+
+Car::Car(const MapPtr map,
+         const Physics::Position& pos,
+         const StreetPtr street,
+         const Direction direction,
+         const bool isQuick)
+  : Observer(map),
+    RoadUser(map, pos, street, direction),
+    isQuick_(isQuick)
+{
+  initialize();
+}
+
+Car::~Car()
+{}
 
 SnapshotPtr Car::getSnapshot() const
 {
@@ -108,29 +178,78 @@ bool Car::isMad() const
   return isQuick_;
 }
 
-StreetNodePtr Car::getStartNode() const
+double Car::getNextSpeed() const
 {
-  return direction_ == FS ? street_->first : street_->second;
+  double speed = ((double)rand()/(double)RAND_MAX); //random between 0.0 and 1.0
+  speed *= (maxSpeed_ - minSpeed_);
+  speed += minSpeed_;
+  if(isQuick_)
+    speed *= 5.0;
+  return speed;
 }
 
-StreetNodePtr Car::getDesitinationNode() const
+/******************************************************************************/
+/******************************************************************************/
+
+double Pedestrian::minSpeed_ = 1.0;
+double Pedestrian::maxSpeed_ = 2.0;
+
+Pedestrian::Pedestrian(const MapPtr map,
+                       const bool isQuick)
+  : Observer(map),
+    RoadUser(map),
+    isQuick_(isQuick)
 {
-  return direction_ == FS ? street_->second : street_->first;
+  initialize();
 }
 
-bool Car::isRoadFinishedThisStep(uint ms)
+Pedestrian::Pedestrian(const MapPtr map,
+                       const Physics::Position& pos,
+                       const StreetPtr street,
+                       const Direction direction,
+                       const bool isQuick)
+  : Observer(map),
+    RoadUser(map, pos, street, direction),
+    isQuick_(isQuick)
 {
-  Physics::TimeDuration t(ms/1000.0);
-  Physics::Shift mv = v * t;
-  Physics::Position newPos = pos + mv;
-  double currDist = pos.distance(getDestinationPosition());
-  double nextDist = newPos.distance(getDestinationPosition());
-
-  if(nextDist < currDist)
-    return false;
-
-  return true;
+  initialize();
 }
+
+Pedestrian::~Pedestrian()
+{}
+
+SnapshotPtr Pedestrian::getSnapshot() const
+{
+  return SnapshotPtr(new PedestrianSnapshot(*this));
+}
+
+Physics::Mass Pedestrian::getCurrentMass() const
+{
+  return Physics::Mass(60.0);
+}
+
+Physics::Force Pedestrian::getCurrentForce() const
+{
+  return Physics::Force(Physics::Vector3(0.0, 0.0, 0.0));
+}
+
+bool Pedestrian::isMad() const
+{
+  return isQuick_;
+}
+
+double Pedestrian::getNextSpeed() const
+{
+  double speed = ((double)rand()/(double)RAND_MAX); //random between 0.0 and 1.0
+  speed *= (maxSpeed_ - minSpeed_);
+  speed += minSpeed_;
+  if(isQuick_)
+    speed *= 10.0;
+  return speed;
+}
+
+/******************************************************************************/
+/******************************************************************************/
 
 RadiusSensor::RadiusSensor(uint id,
                            const MapPtr& map,
@@ -199,6 +318,27 @@ void RadiusSensor::visit(CarSnapshot& car)
                                             time(NULL))); //TODO real time here
 
   std::cout << "I (id = " << id_ << ") see car in: "
+            << geo.lon << ", "
+            << geo.lat << ", "
+            << geo.mos << "."
+            << std::endl;
+}
+
+void RadiusSensor::visit(PedestrianSnapshot& pedestrian)
+{
+  if(!isInRange(pedestrian))
+    return;
+
+  Physics::GeoCoords geo(pedestrian.getPosition());
+  dbDriver.insertDR(DB::DynDBDriver::DR_row(id_,
+                                            -1,
+                                            geo.lon,
+                                            geo.lat,
+                                            geo.mos,
+                                            0,
+                                            time(NULL))); //TODO real time here
+
+  std::cout << "I (id = " << id_ << ") see pedestrian in: "
             << geo.lon << ", "
             << geo.lat << ", "
             << geo.mos << "."

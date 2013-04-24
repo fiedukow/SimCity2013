@@ -2,6 +2,7 @@
 #include <View/GraphicsElements/Road.h>
 #include <View/GraphicsElements/Car.h>
 #include <View/GraphicsElements/Sensor.h>
+#include <View/GraphicsElements/Pedestrian.h>
 #include <Common/GlobalLogger.h>
 #include <sstream>
 
@@ -14,10 +15,12 @@ using namespace GraphicsElements;
 MapScene::MapScene(Model::MapPtr map, QObject *parent) :
   QGraphicsScene(parent),
   moveableGroup_(NULL),
+  pedestrianGroup_(NULL),
   sensorsGroup_(NULL),
   carsVisible_(true),
   sensorsVisible_(true),
-  mapVisible_(true)
+  mapVisible_(true),
+  pedestrianVisible_(true)
 {
   mapSurface_ = new QGraphicsItemGroup();
   normVect_ = map->normalizationVector;
@@ -46,7 +49,12 @@ void MapScene::showNewMovable(Model::Objects::Snapshots snapshots)
     removeItem(sensorsGroup_);
   delete sensorsGroup_;
 
+  if(pedestrianGroup_)
+    removeItem(pedestrianGroup_);
+  delete pedestrianGroup_;
+
   moveableGroup_ = new QGraphicsItemGroup();
+  pedestrianGroup_ = new QGraphicsItemGroup();
   sensorsGroup_ = new QGraphicsItemGroup();
 
   for(Model::Objects::SnapshotPtr& snapshot : snapshots)
@@ -54,8 +62,10 @@ void MapScene::showNewMovable(Model::Objects::Snapshots snapshots)
 
   moveableGroup_->setScale(mapSurface_->scale());
   sensorsGroup_->setScale(mapSurface_->scale());
+  pedestrianGroup_->setScale(mapSurface_->scale());
   addItem(moveableGroup_);
   addItem(sensorsGroup_);
+  addItem(pedestrianGroup_);
   setVisibility();
   Common::globLog("INF", "VIEW", "END");
 }
@@ -64,6 +74,8 @@ void MapScene::setVisibility()
 {
   if(moveableGroup_)
     moveableGroup_->setVisible(carsVisible_);
+  if(pedestrianGroup_)
+    pedestrianGroup_->setVisible(pedestrianVisible_);
   if(sensorsGroup_)
     sensorsGroup_->setVisible(sensorsVisible_);
   if(mapSurface_)
@@ -72,12 +84,23 @@ void MapScene::setVisibility()
 
 void MapScene::visit(CarSnapshot& car)
 {
-  moveableGroup_->addToGroup(new Car(car, normVect_, moveableGroup_));
+  moveableGroup_->addToGroup(new Car(car,
+                                     normVect_,
+                                     moveableGroup_));
+}
+
+void MapScene::visit(PedestrianSnapshot& pedestrian)
+{
+  pedestrianGroup_->addToGroup(new Pedestrian(pedestrian,
+                                              normVect_,
+                                              pedestrianGroup_));
 }
 
 void MapScene::visit(SensorSnapshot& sensor)
 {
-  sensorsGroup_->addToGroup(new Sensor(sensor, normVect_, moveableGroup_));
+  sensorsGroup_->addToGroup(new Sensor(sensor,
+                                       normVect_,
+                                       sensorsGroup_));
 }
 
 void MapScene::scalePlus()
@@ -126,6 +149,12 @@ void MapScene::setCarsVisible(bool visible)
 void MapScene::setSensorsVisible(bool visible)
 {
   sensorsVisible_ = visible;
+  setVisibility();
+}
+
+void MapScene::setPedestriansVisible(bool visible)
+{
+  pedestrianVisible_ = visible;
   setVisibility();
 }
 

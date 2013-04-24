@@ -15,9 +15,11 @@ ObjectManager::ObjectManager(WorldPtr world,
                              const std::string& dbName,
                              const std::string& dbUser,
                              const std::string& dbPassword,
-                             uint limit)
+                             uint limit,
+                             uint pedestrianLimit)
   : world_(world),
-    limit_(limit)
+    limit_(limit),
+    pedestrianLimit_(pedestrianLimit)
 {
   StaticBaseDriver dbDriver(std::string("dbname=" + dbName +
                                         " user=" + dbUser +
@@ -49,27 +51,12 @@ void ObjectManager::timePassed(uint/*ms*/)
   MapPtr map = world_->getMapSnapshot();
   while(objects_.size() < limit_)
   {
-    std::stringstream ss;
-    ss << "Adding new object: ";
-    StreetPtr startStreet = map->edges[rand()%map->edges.size()];
-    Car::Direction startDirection = rand()%2 ? Car::FS : Car::SF;
-    StreetNodePtr startNode = (startDirection == Car::FS
-                               ? startStreet->first
-                               : startStreet->second);
-    Physics::Position startPos(Physics::GeoCoords(startNode->lon.get(),
-                                                  startNode->lat.get()));
-
     bool isQuick = (rand()%10 == 0);
+    LiveObjectPtr newObject(new Car(map, isQuick));
 
-    LiveObjectPtr newObject(new Car(map,
-                                    startPos,
-                                    startStreet,
-                                    startDirection,
-                                    isQuick));
     objects_.push_back(newObject);
     world_->addObserver(std::dynamic_pointer_cast<Observer>(newObject));
     world_->addPlacedObject(std::dynamic_pointer_cast<PlacedObject>(newObject));
-    Common::globLog("NOT", "ObjMgr", ss.str());
   }
 
   while(objects_.size() > limit_)
@@ -79,12 +66,34 @@ void ObjectManager::timePassed(uint/*ms*/)
     objects_.pop_front();
   }
 
+  while(pedestrians_.size() < pedestrianLimit_)
+  {
+    bool isQuick = (rand()%10 == 0);
+    LiveObjectPtr newObject(new Pedestrian(map, isQuick));
+
+    pedestrians_.push_back(newObject);
+    world_->addObserver(std::dynamic_pointer_cast<Observer>(newObject));
+    world_->addPlacedObject(std::dynamic_pointer_cast<PlacedObject>(newObject));
+  }
+
+  while(pedestrians_.size() > limit_)
+  {
+    world_->removeObserver(pedestrians_.front());
+    world_->removePlacedObject(pedestrians_.front());
+    pedestrians_.pop_front();
+  }
+
   return;
 }
 
 void ObjectManager::setCarLimit(uint limit)
 {
   limit_ = limit;
+}
+
+void ObjectManager::setPedestrianLimit(uint limit)
+{
+  pedestrianLimit_ = limit;
 }
 
 }//namespace SimCity

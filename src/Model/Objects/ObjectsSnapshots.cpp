@@ -25,6 +25,30 @@ void CarSnapshot::accept(SnapshotVisitor& visitor)
   visitor.visit(*this);
 }
 
+/******************************************************************************/
+/******************************************************************************/
+
+PedestrianSnapshot::PedestrianSnapshot(const Pedestrian& object)
+  : Snapshot(object),
+    isMad_(object.isMad())
+{}
+
+PedestrianSnapshot::~PedestrianSnapshot()
+{}
+
+bool PedestrianSnapshot::isMad() const
+{
+  return isMad_;
+}
+
+void PedestrianSnapshot::accept(SnapshotVisitor& visitor)
+{
+  visitor.visit(*this);
+}
+
+/******************************************************************************/
+/******************************************************************************/
+
 SensorSnapshot::SensorSnapshot(const RadiusSensor& object)
   : Snapshot(object),
     range_(object.getRange())

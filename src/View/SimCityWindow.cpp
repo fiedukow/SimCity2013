@@ -97,6 +97,7 @@ void SimCityWindow::drawMap()
   connect(ui->seeCarsCB, SIGNAL(toggled(bool)), scene, SLOT(setCarsVisible(bool)));
   connect(ui->seeRoadsCB, SIGNAL(toggled(bool)), scene, SLOT(setMapVisible(bool)));
   connect(ui->seeSensorsCB, SIGNAL(toggled(bool)), scene, SLOT(setSensorsVisible(bool)));
+  connect(ui->seePedestriansCB, SIGNAL(toggled(bool)), scene, SLOT(setPedestriansVisible(bool)));
   ui->view2D->setRenderHints(QPainter::Antialiasing
                              | QPainter::SmoothPixmapTransform);
   ui->view2D->setScene(scene);

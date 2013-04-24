@@ -25,6 +25,19 @@ private:
   bool isMad_;
 };
 
+class PedestrianSnapshot : public Snapshot
+{
+public:
+  PedestrianSnapshot(const Pedestrian &object);
+  virtual ~PedestrianSnapshot();
+
+  virtual void accept(SnapshotVisitor& visitor);
+  bool isMad() const;
+
+private:
+  bool isMad_;
+};
+
 class SensorSnapshot : public Snapshot
 {
 public:

@@ -1,11 +1,13 @@
 - Widok nie powinien dostawac dostępu do modelowej mapy - zerwanie niezależności i możliwość
   rozjechania się modelu z powodu błędu w widoku.
 - Rozwiązać problem końca drogi - nie powinny zdarzac się wyjazdy poza mapę.
-- Wczytywanie sensorów z bazy z uwzględnieniem zasięgu.
++ Wczytywanie sensorów z bazy z uwzględnieniem zasięgu.
 - Zaimplementować FOV w sensorach.
 + Rozwiązać problem pojawiający się przy zwolnionym tępie.
 - Dodać mozliwośc wyznaczania trasy dla niektórych pojazdow/pieszych.
 + Rozsynchronizować kamery.
 - Rozwiązwiązac problem "nieskończonej" prędkości.
 - Liczenie czasu dla odczytów - uwzględnienie upływu czasu przy zrzucaniu odczytów z kamer do bazy.
+- Oczyszczenie static db drivera z odniesien do loggera.
+- Poprawić loggera.
 

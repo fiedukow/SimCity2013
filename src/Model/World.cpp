@@ -73,7 +73,7 @@ void World::updateObjectSnapshots()
     snapshot_.push_back(placedObject->getSnapshot());
 }
 
-void World::visit(CarObserver& car)
+void World::visit(RoadUserObserver& car)
 {
   car.provideObjects(snapshot_);
 }

@@ -37,6 +37,7 @@ private:
 
 class CarSnapshot;
 class SensorSnapshot;
+class PedestrianSnapshot;
 
 class SnapshotVisitor
 {
@@ -44,6 +45,7 @@ public:
   virtual ~SnapshotVisitor();
 
   virtual void visit(CarSnapshot& car) = 0;
+  virtual void visit(PedestrianSnapshot& pedestrian) = 0;
   virtual void visit(SensorSnapshot& sensor) = 0;
 };
 

@@ -36,7 +36,7 @@ public:
 
   void updateObjectSnapshots();
 
-  void visit(CarObserver& car);
+  void visit(RoadUserObserver& car);
   void visit(SensorObserver& sensor);
 
   void addPlacedObject(PlacedObjectPtr obj);

@@ -9,13 +9,14 @@ namespace Model
 namespace Objects
 {
 
-class CarObserver : virtual public Observer
+class RoadUserObserver : virtual public Observer
 {
 public:
-  CarObserver(const MapPtr& map);
-  virtual ~CarObserver();
+  RoadUserObserver(const MapPtr& map);
+  virtual ~RoadUserObserver();
 
   void visit(CarSnapshot& car);
+  void visit(PedestrianSnapshot& pedestrian);
   void visit(SensorSnapshot& snapshot);
 
   void accept(World &w);

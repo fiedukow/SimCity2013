@@ -19,15 +19,20 @@ public:
                 const std::string& dbName,
                 const std::string& dbUser,
                 const std::string& dbPassword,
-                uint limit = 10);
+                uint limit = 10,
+                uint pedestrianLimit = 10);
   virtual ~ObjectManager();
+
   virtual void timePassed(uint ms);
   void setCarLimit(uint limit);
+  void setPedestrianLimit(uint limit);
 
 private:
   WorldPtr world_;
   uint limit_;
+  uint pedestrianLimit_;
   LiveObjects objects_;
+  LiveObjects pedestrians_;
 };
 
 typedef std::shared_ptr<ObjectManager> ObjectManagerPtr;
