@@ -65,6 +65,7 @@ void Model::stop()
   thread_->join();
   delete thread_;
   thread_ = NULL;
+  threadRunning_ = false;
 }
 
 void Model::pause()
