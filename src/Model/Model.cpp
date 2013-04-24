@@ -3,21 +3,26 @@
 #include <Common/GlobalLogger.h>
 #include <Model/Exceptions.h>
 #include <Model/World.h>
+#include <Model/ObjectManager.h>
 
 namespace SimCity
 {
 namespace Model
 {
 
-Model::Model(const WorldPtr world)
+Model::Model()
   : minTimerDelay_(32),
     simulationSpeed_(1.00),
     pollingPeriod_(0),
     stopThreads_(false),
     paused_(false),
     threadRunning_(false),
-    world_(world),
-    thread_(NULL)
+    world_(NULL),
+    thread_(NULL),
+    dbName_("simcity"),
+    dbUser_("simcity"),
+    dbPassword_("simcity"),
+    objectsLimit_(10)
 {
 }
 
@@ -44,6 +49,7 @@ void Model::start()
 
   if(!thread_)
   {
+    newSimulation();
     thread_ = new boost::thread(boost::ref(*this));
     stopThreads_ = false;
   }
@@ -75,13 +81,22 @@ void Model::setSimulationSpeed(double speed)
   simulationSpeed_ = speed;
 }
 
+void Model::setCarLimit(uint limit)
+{
+  objectManager_->setCarLimit(limit);
+}
+
 MapPtr Model::getMapSnapshot()
 {
+  if(world_.get() == NULL)
+    return NULL;
   return world_->getMapSnapshot();
 }
 
 Objects::Snapshots Model::getObjectSnapshots()
 {
+  if(world_.get() == NULL)
+    return Objects::Snapshots();
   return world_->getObjectSnapshots();
 }
 
@@ -128,6 +143,19 @@ void Model::addSimulationPart(SimulationPartPtr newSimPart)
     throw GeneralException("Trying to add simulation part while simulation has"
                            " already started.");
   simParts_.push_back(newSimPart);
+}
+
+
+void Model::newSimulation()
+{
+  world_ = WorldPtr(new World(dbName_, dbUser_, dbPassword_));
+  objectManager_ = ObjectManagerPtr(new ObjectManager(world_,
+                                                      dbName_,
+                                                      dbUser_,
+                                                      dbPassword_,
+                                                      objectsLimit_));
+  addSimulationPart(std::dynamic_pointer_cast<SimulationPart>(world_));
+  addSimulationPart(std::dynamic_pointer_cast<SimulationPart>(objectManager_));
 }
 
 }//namespace SimCity

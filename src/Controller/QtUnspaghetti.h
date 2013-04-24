@@ -31,6 +31,7 @@ public slots:
   void requestNewMapSnapshot();
   void requestSnapshot();
   void setSimulationSpeed(double speed);
+  void setCarLimit(QString);
 
 signals:
   void updateMap();

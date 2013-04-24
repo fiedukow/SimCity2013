@@ -51,7 +51,8 @@ SOURCES += src/main.cpp\
            src/Model/Objects/Observers.cpp \
            src/View/GraphicsElements/Sensor.cpp \
            src/Controller/Events/EventSetSimulationSpeed.cpp \
-    src/3rd/dyndbdriver.cpp
+    src/3rd/dyndbdriver.cpp \
+    src/Controller/Events/EventSetCarLimit.cpp
 
 HEADERS  += src/View/SimCityWindow.h \
             src/Model/World.h \
@@ -90,6 +91,7 @@ HEADERS  += src/View/SimCityWindow.h \
             src/Model/Objects/Observers.h \
             src/View/GraphicsElements/Sensor.h \
             src/Controller/Events/EventSetSimulationSpeed.h \
-    src/3rd/dyndbdriver.h
+    src/3rd/dyndbdriver.h \
+    src/Controller/Events/EventSetCarLimit.h
 
 FORMS    += src/View/SimCityWindow.ui

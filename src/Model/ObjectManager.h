@@ -19,15 +19,18 @@ public:
                 const std::string& dbName,
                 const std::string& dbUser,
                 const std::string& dbPassword,
-                uint limit = 1);
+                uint limit = 10);
   virtual ~ObjectManager();
   virtual void timePassed(uint ms);
+  void setCarLimit(uint limit);
 
 private:
   WorldPtr world_;
   uint limit_;
   LiveObjects objects_;
 };
+
+typedef std::shared_ptr<ObjectManager> ObjectManagerPtr;
 
 }//namespace SimCity
 }//namespace Model

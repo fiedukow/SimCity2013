@@ -75,6 +75,11 @@ void Controller::visit(EventSetSimulationSpeed& event)
   model_.setSimulationSpeed(event.getSpeed());
 }
 
+void Controller::visit(EventSetCarLimit& event)
+{
+  model_.setCarLimit(event.getLimit());
+}
+
 void Controller::startThread()
 {
   if(thread_)

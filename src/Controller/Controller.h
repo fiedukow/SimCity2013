@@ -34,6 +34,7 @@ public:
   void visit(EventNewMapRequest&);
   void visit(EventNewSnapshotRequest&);
   void visit(EventSetSimulationSpeed&);
+  void visit(EventSetCarLimit&);
 
 private:
   void startThread();

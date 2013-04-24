@@ -21,14 +21,16 @@ namespace Model
 {
 
 class World;
+class ObjectManager;
 typedef std::list<SimulationPartPtr> SimParts;
 typedef std::list<Common::NewStateObserver*> ObserversList;
 typedef std::shared_ptr<World> WorldPtr;
+typedef std::shared_ptr<ObjectManager> ObjectManagerPtr;
 
 class Model
 {
 public:
-  Model(const WorldPtr world);
+  Model();
 
   /**
    * @brief registerNewStateObserver - allows to add new observer of model state
@@ -72,6 +74,8 @@ public:
    */
   void setSimulationSpeed(double speed);
 
+  void setCarLimit(uint limit);
+
   /**
    * @brief getMapSnapshot - gets current map snapshot as shared pointer
    * @returns MapPtr -shared pointer to current map state.
@@ -105,6 +109,12 @@ protected:
    * @brief notifyNewStateObservers - calls notify on all registred observers
    */
   void notifyNewStateObservers();
+
+private:
+  /**
+   * @brief newSimulation - creates new world and object manager
+   */
+  void newSimulation();
 
 private:
   /**
@@ -178,6 +188,13 @@ private:
    * @see pause()
    */
   boost::mutex pauseMutex_;
+
+  ObjectManagerPtr objectManager_;
+
+  std::string dbName_;
+  std::string dbUser_;
+  std::string dbPassword_;
+  uint objectsLimit_;
 };
 
 }//namespace SimCity

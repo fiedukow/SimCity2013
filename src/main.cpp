@@ -19,17 +19,10 @@ int main(int argc, char *argv[])
   Model::WorldPtr world(new Model::World("simcity",
                                          "simcity",
                                          "simcity"));
-  Model::Model model(world);
+  Model::Model model;
   Controller::Events::EventQueue eq;
   Controller::QtUnspaghetti qtUn(eq);
   Controller::Controller controller(qtUn, eq, model);
-
-  model.addSimulationPart(std::dynamic_pointer_cast<Model::SimulationPart>(world));
-  model.addSimulationPart(Model::SimulationPartPtr(
-                            new Model::ObjectManager(world,
-                                                     "simcity",
-                                                     "simcity",
-                                                     "simcity")));
 
   View::SimCityWindow w(qtUn);
   w.show();

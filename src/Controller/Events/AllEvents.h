@@ -8,6 +8,7 @@
 #include "EventNewMapRequest.h"
 #include "EventNewSnapshotRequest.h"
 #include "EventSetSimulationSpeed.h"
+#include "EventSetCarLimit.h"
 
 using namespace SimCity::Controller::Events;
 

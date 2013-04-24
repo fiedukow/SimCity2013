@@ -44,7 +44,7 @@ ObjectManager::ObjectManager(WorldPtr world,
 ObjectManager::~ObjectManager()
 {}
 
-void ObjectManager::timePassed(uint ms)
+void ObjectManager::timePassed(uint/*ms*/)
 {
   MapPtr map = world_->getMapSnapshot();
   while(objects_.size() < limit_)
@@ -71,10 +71,21 @@ void ObjectManager::timePassed(uint ms)
     world_->addPlacedObject(std::dynamic_pointer_cast<PlacedObject>(newObject));
     Common::globLog("NOT", "ObjMgr", ss.str());
   }
+
+  while(objects_.size() > limit_)
+  {
+    world_->removeObserver(objects_.front());
+    world_->removePlacedObject(objects_.front());
+    objects_.pop_front();
+  }
+
   return;
 }
 
-
+void ObjectManager::setCarLimit(uint limit)
+{
+  limit_ = limit;
+}
 
 }//namespace SimCity
 }//namespace Model

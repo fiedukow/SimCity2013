@@ -44,6 +44,10 @@ SimCityWindow::SimCityWindow(Controller::QtUnspaghetti& qtUnspaghetti,
           &qtUnspaghetti_, SLOT(requestNewMapSnapshot()));
   connect(&qtUnspaghetti_, SIGNAL(updateMap()),
           this, SLOT(drawMap()));
+  connect(ui->carLimit,
+          SIGNAL(textChanged(QString)),
+          &qtUnspaghetti_,
+          SLOT(setCarLimit(QString)));
 
   QLabel* speedLabel = new QLabel("Simulation Speed: ", this);
   QSpinBox* frameRateSpin = new QSpinBox(this);

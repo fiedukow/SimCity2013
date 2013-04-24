@@ -58,8 +58,19 @@ void QtUnspaghetti::setSimulationSpeed(double speed)
   eventQueue_.push(EventBasePtr(new EventSetSimulationSpeed(speed)));
 }
 
+void QtUnspaghetti::setCarLimit(QString limit)
+{
+  eventQueue_.push(EventBasePtr(new EventSetCarLimit(limit.toInt())));
+}
+
 void QtUnspaghetti::emitUpdateMap(const Model::MapPtr map)
 {
+  if(map.get() == NULL)
+  {
+    requestNewMapSnapshot();
+    return;
+  }
+
   oneWayLock_.lock();
   currentMapPtr_ = map;
   oneWayLock_.unlock();
