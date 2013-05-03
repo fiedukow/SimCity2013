@@ -5,8 +5,6 @@
 #-------------------------------------------------
 
 QT       += core gui opengl
-INCLUDEPATH += /usr/local/include/OGRE
-INCLUDEPATH += /usr/include/ois
 INCLUDEPATH += /usr/include/postgresql
 INCLUDEPATH += src
 
@@ -16,7 +14,7 @@ TARGET = ../bin/SimCity2013
 TEMPLATE = app
 
 QMAKE_CXXFLAGS += -std=c++11 -DBOOST_ALL_NO_LIB -O0
-QMAKE_LFLAGS += -lOgreMain -lOIS -lpqxx -lboost_thread -lboost_chrono -lboost_program_options -lboost_serialization -lboost_system
+QMAKE_LFLAGS += -lpqxx -lboost_thread -lboost_chrono -lboost_program_options -lboost_serialization -lboost_system
 
 SOURCES += src/main.cpp\
            src/View/SimCityWindow.cpp \
