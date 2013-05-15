@@ -1,15 +1,16 @@
-(-) Widok nie powinien dostawac dostępu do modelowej mapy - zerwanie niezależności i możliwość
-  rozjechania się modelu z powodu błędu w widoku.
-(-) Rozwiązać problem końca drogi - nie powinny zdarzac się wyjazdy poza mapę.
-+ Wczytywanie sensorów z bazy z uwzględnieniem zasięgu.
-(-) Zaimplementować FOV w sensorach.
-+ Rozwiązać problem pojawiający się przy zwolnionym tępie.
-(-) Dodać mozliwośc wyznaczania trasy dla niektórych pojazdow/pieszych.
-+ Rozsynchronizować kamery.
-(-) Rozwiązwiązac problem "nieskończonej" prędkości.
-- Liczenie czasu dla odczytów - uwzględnienie upływu czasu przy zrzucaniu odczytów z kamer do bazy.
-+ Dodać do widoku ustawianie ilości pedestrianów i aktywować opcje które mają być aktywne.
-+ Dynamiczna konfiguracja bazy
-+ Static driver na pqxx 4
-+ Poprawić loggera.
+Programistyczne:
+  -> Widok nie powinien dostawac dostępu do modelowej mapy - zerwanie niezależności i możliwość rozjechania się modelu z powodu błędu w widoku.
+  -> Usunąć obrzydliwą zmienną globalną do połączeń z bazą dynamiczną.
+
+Funkcjonalne:
+  -> Rozwiązać problem końca drogi - nie powinny się zdarzać wyjazdy poza mapę (choć na pewno będą istniały wtedy przekłamania - wynika ze specyfiki czasu dyskretnego).
+  -> Zaimplementoować FOV w sensorach (a nie tylko dookólne).
+  -> Dodać możliwość wyznaczania trasy dla niektórych pieszych lub samochodów.
+  -> Rozwiązać problem nieskończonej prędkości, przyjać jakąś stałą dla jednego obrotu pętli.
+  -> Dodać zaszumienie w kamerach (błędy odczytu pozycji).
+
+Udogodnienia:
+  -> Zmiana parametrów bazy statycznej w trakcie pracy aplikacji.
+  -> Czyszczenie bazy dynamicznej z poziomu interfejsu.
+  -> Zapis i odczyt stanu symulacji z pliku / do pliku.
 
