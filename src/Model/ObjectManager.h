@@ -22,7 +22,7 @@ public:
                 const std::string& dbUser,
                 const std::string& dbPassword,
                 uint limit = 10,
-                uint pedestrianLimit = 1);
+                uint pedestrianLimit = 10);
   virtual ~ObjectManager();
 
   virtual void timePassed(uint ms);
