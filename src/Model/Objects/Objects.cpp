@@ -252,7 +252,8 @@ double Pedestrian::getNextSpeed() const
 /******************************************************************************/
 
 RadiusSensor::RadiusSensor(uint id,
-                           const MapPtr& map,
+                           const MapPtr map,
+                           const TimerPtr timer,
                            const Physics::Position& pos,
                            const Physics::Angle& fov,
                            const double range)
@@ -260,6 +261,7 @@ RadiusSensor::RadiusSensor(uint id,
     LiveObject(map, pos, Physics::Velocity(Physics::Vector3(0, 0, 0))),
     SensorObserver(map),
     id_(id),
+    timer_(timer),
     fov_(fov),
     range_(range),
     timeCounter_(rand()%SNAPSHOT_PERIOD)
@@ -315,7 +317,7 @@ void RadiusSensor::visit(CarSnapshot& car)
                                             geo.lat,
                                             geo.mos,
                                             0,
-                                            time(NULL))); //TODO real time here
+                                            timer_->getDBTime()));
 
   std::cout << "I (id = " << id_ << ") see car in: "
             << geo.lon << ", "
@@ -336,7 +338,7 @@ void RadiusSensor::visit(PedestrianSnapshot& pedestrian)
                                             geo.lat,
                                             geo.mos,
                                             0,
-                                            time(NULL))); //TODO real time here
+                                            timer_->getDBTime()));
 
   std::cout << "I (id = " << id_ << ") see pedestrian in: "
             << geo.lon << ", "

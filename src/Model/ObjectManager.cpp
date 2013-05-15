@@ -12,12 +12,14 @@ namespace Model
 {
 
 ObjectManager::ObjectManager(WorldPtr world,
+                             TimerPtr timer,
                              const std::string& dbName,
                              const std::string& dbUser,
                              const std::string& dbPassword,
                              uint limit,
                              uint pedestrianLimit)
   : world_(world),
+    timer_(timer),
     limit_(limit),
     pedestrianLimit_(pedestrianLimit)
 {
@@ -35,6 +37,7 @@ ObjectManager::ObjectManager(WorldPtr world,
                                              sensor->lat.get()));
     LiveObjectPtr newSensor(new RadiusSensor(sensor->sensorId,
                                              map,
+                                             timer_,
                                              pos,
                                              360.0,
                                              sensor->range));

@@ -4,6 +4,7 @@
 #include <Model/Exceptions.h>
 #include <Model/World.h>
 #include <Model/ObjectManager.h>
+#include <Model/Timer.h>
 
 namespace SimCity
 {
@@ -164,12 +165,15 @@ void Model::newSimulation()
 {
   try
   {
+    TimerPtr timer(new Timer(time(NULL)));
     world_ = WorldPtr(new World(dbName_, dbUser_, dbPassword_));
     objectManager_ = ObjectManagerPtr(new ObjectManager(world_,
+                                                        timer,
                                                         dbName_,
                                                         dbUser_,
                                                         dbPassword_,
                                                         objectsLimit_));
+    addSimulationPart(std::dynamic_pointer_cast<SimulationPart>(timer));
     addSimulationPart(std::dynamic_pointer_cast<SimulationPart>(world_));
     addSimulationPart(std::dynamic_pointer_cast<SimulationPart>(objectManager_));
   }

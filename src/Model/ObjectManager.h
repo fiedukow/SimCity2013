@@ -2,6 +2,7 @@
 #define OBJECTMANAGER_H
 #include <Model/SimulationPart.h>
 #include <Model/Model.h>
+#include <Model/Timer.h>
 #include <list>
 #include <Model/Objects/LiveObject.h>
 
@@ -16,6 +17,7 @@ class ObjectManager : public SimulationPart
 {
 public:
   ObjectManager(WorldPtr world,
+                TimerPtr timer,
                 const std::string& dbName,
                 const std::string& dbUser,
                 const std::string& dbPassword,
@@ -29,6 +31,7 @@ public:
 
 private:
   WorldPtr world_;
+  TimerPtr timer_;
   uint limit_;
   uint pedestrianLimit_;
   LiveObjects objects_;

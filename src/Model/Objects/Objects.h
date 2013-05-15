@@ -3,6 +3,7 @@
 #include <Model/Objects/LiveObject.h>
 #include <Model/Objects/ObjectSnapshot.h>
 #include <Model/Objects/Observers.h>
+#include <Model/Timer.h>
 
 namespace SimCity
 {
@@ -118,7 +119,8 @@ class RadiusSensor : public LiveObject,
 {
 public:
   RadiusSensor(uint id,
-               const MapPtr& map,
+               const MapPtr map,
+               const TimerPtr timer,
                const Physics::Position& pos,
                const Physics::Angle& fov,
                const double range);
@@ -140,6 +142,7 @@ public:
 
 private:
   uint id_;
+  TimerPtr timer_;
   Physics::Angle fov_;
   double range_;
   uint timeCounter_;
