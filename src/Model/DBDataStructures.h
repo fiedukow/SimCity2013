@@ -32,7 +32,7 @@ typedef std::vector<StreetNodePtr> StreetNodes;
 struct Street
 {
   Street(pqxx::result::tuple tableRow,
-         const StreetNodes& vertexes); //TODO use std::set here
+         const StreetNodes& vertexes);
 
   StreetNodePtr first;
   StreetNodePtr second;

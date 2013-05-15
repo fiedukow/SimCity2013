@@ -36,9 +36,7 @@ void Controller::operator()()
 }
 
 void Controller::notifyNewState()
-{
-  //FIXME implement this
-}
+{}
 
 void Controller::visit(EventStop&)
 {

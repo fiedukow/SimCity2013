@@ -30,7 +30,6 @@ Physics::Velocity PlacedObject::getVelocity() const
 
 void PlacedObject::dtMove(const Physics::TimeDuration& dt)
 {
-  //FIXME Only World should be able to call this.
   dtUpdatePosition(dt);
   dtUpdateVelocity(dt);
 }

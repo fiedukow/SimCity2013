@@ -22,8 +22,8 @@ Sensor::Sensor(const Model::Objects::SensorSnapshot& obj,
   : QGraphicsEllipseItem(parent)
 {
   Model::Physics::Position pos = obj.getPosition();
-  double x = pos.x - (normalization[0] * 111322.22222222222);
-  double y = pos.y - (normalization[1] * 111132.94444444445);
+  double x = pos.x - (normalization[0] * 111322.22222222222); //TODO avoid
+  double y = pos.y - (normalization[1] * 111132.94444444445); //TODO avoid
 
   std::stringstream ss;
   ss << "X: " << x << " Y: " << y;

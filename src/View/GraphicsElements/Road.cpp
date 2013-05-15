@@ -20,10 +20,10 @@ Road::Road(const Model::StreetPtr& street,
   : QGraphicsLineItem(parent)
 {
   //TODO find better solution for converting etc
-  double x[2] = { (street->first->lon.get()  - normalization[0]) * 111322.22222222222,
-                  (street->second->lon.get() - normalization[0]) * 111322.22222222222 };
-  double y[2] = { (street->first->lat.get()  - normalization[1]) * 111132.94444444445,
-                  (street->second->lat.get() - normalization[1]) * 111132.94444444445 };
+  double x[2] = { (street->first->lon.get()  - normalization[0]) * 111322.22222222222, //TODO avoid
+                  (street->second->lon.get() - normalization[0]) * 111322.22222222222 }; //TODO avoid
+  double y[2] = { (street->first->lat.get()  - normalization[1]) * 111132.94444444445, //TODO avoid
+                  (street->second->lat.get() - normalization[1]) * 111132.94444444445 }; //TODO avoid
   setLine(x[0], y[0], x[1], y[1]);
   setPen(QPen(Qt::gray));
 }

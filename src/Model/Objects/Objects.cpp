@@ -303,7 +303,7 @@ bool RadiusSensor::isInRange(Snapshot& object)
   return (dist <= range_ && dist >= 0.01); //TODO avoid magic const
 }
 
-DB::DynDBDriver dbDriver("./options.xml"); //FIXME sapoifasaaspofasjofpoaspof
+DB::DynDBDriver dbDriver("./options.xml"); //FIXME Avoid global variable
 
 void RadiusSensor::visit(CarSnapshot& car)
 {
