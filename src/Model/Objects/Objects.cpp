@@ -323,6 +323,7 @@ void RadiusSensor::visit(CarSnapshot& car)
             << geo.lon << ", "
             << geo.lat << ", "
             << geo.mos << "."
+            << " Time: " << timer_->getDBTime()
             << std::endl;
 }
 
@@ -344,6 +345,7 @@ void RadiusSensor::visit(PedestrianSnapshot& pedestrian)
             << geo.lon << ", "
             << geo.lat << ", "
             << geo.mos << "."
+            << " Time: " << timer_->getDBTime()
             << std::endl;
 }
 
@@ -358,6 +360,7 @@ void RadiusSensor::visit(SensorSnapshot& snapshot)
             << geo.lon << ", "
             << geo.lat << ", "
             << geo.mos << "."
+            << " Time: " << timer_->getDBTime()
             << std::endl;
 }
 
