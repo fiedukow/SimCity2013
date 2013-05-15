@@ -21,6 +21,10 @@ void GlobalLogger::log(const std::string& type,
             << " [" << type << "] "
             << module << ": "
             << text << std::endl;
+#else
+  (void) type;
+  (void) module;
+  (void) text;
 #endif
 }
 
