@@ -76,7 +76,7 @@ void ObjectManager::timePassed(uint/*ms*/)
     world_->addPlacedObject(std::dynamic_pointer_cast<PlacedObject>(newObject));
   }
 
-  while(pedestrians_.size() > limit_)
+  while(pedestrians_.size() > pedestrianLimit_)
   {
     world_->removeObserver(pedestrians_.front());
     world_->removePlacedObject(pedestrians_.front());
