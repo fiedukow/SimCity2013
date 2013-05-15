@@ -53,7 +53,8 @@ SOURCES += src/main.cpp\
            src/3rd/DynDbDriver/common.cpp \
            src/3rd/DynDbDriver/logger.cpp \
            src/Controller/Events/EventSetCarLimit.cpp \
-           src/View/GraphicsElements/Pedestrian.cpp
+           src/View/GraphicsElements/Pedestrian.cpp \
+    src/Controller/Events/EventSetPedestrianLimit.cpp
 
 HEADERS  += src/View/SimCityWindow.h \
             src/Model/World.h \
@@ -96,6 +97,7 @@ HEADERS  += src/View/SimCityWindow.h \
             src/3rd/DynDbDriver/common.h \
             src/3rd/DynDbDriver/logger.h \
             src/Controller/Events/EventSetCarLimit.h \
-            src/View/GraphicsElements/Pedestrian.h
+            src/View/GraphicsElements/Pedestrian.h \
+    src/Controller/Events/EventSetPedestrianLimit.h
 
 FORMS    += src/View/SimCityWindow.ui

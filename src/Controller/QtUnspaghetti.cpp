@@ -63,6 +63,11 @@ void QtUnspaghetti::setCarLimit(QString limit)
   eventQueue_.push(EventBasePtr(new EventSetCarLimit(limit.toInt())));
 }
 
+void QtUnspaghetti::setPedestrianLimit(QString limit)
+{
+  eventQueue_.push(EventBasePtr(new EventSetPedestrianLimit(limit.toInt())));
+}
+
 void QtUnspaghetti::emitUpdateMap(const Model::MapPtr map)
 {
   if(map.get() == NULL)

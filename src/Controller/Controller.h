@@ -35,6 +35,7 @@ public:
   void visit(EventNewSnapshotRequest&);
   void visit(EventSetSimulationSpeed&);
   void visit(EventSetCarLimit&);
+  void visit(EventSetPedestrianLimit& event);
 
 private:
   void startThread();

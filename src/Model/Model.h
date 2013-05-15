@@ -80,6 +80,7 @@ public:
   void setSimulationSpeed(double speed);
 
   void setCarLimit(uint limit);
+  void setPedestrianLimit(uint limit);
 
   /**
    * @brief getMapSnapshot - gets current map snapshot as shared pointer

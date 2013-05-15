@@ -80,6 +80,11 @@ void Controller::visit(EventSetCarLimit& event)
   model_.setCarLimit(event.getLimit());
 }
 
+void Controller::visit(EventSetPedestrianLimit& event)
+{
+  model_.setPedestrianLimit(event.getLimit());
+}
+
 void Controller::startThread()
 {
   if(thread_)

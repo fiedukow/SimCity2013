@@ -87,9 +87,17 @@ void Model::setSimulationSpeed(double speed)
 void Model::setCarLimit(uint limit)
 {
   if(objectManager_.get() == NULL)
-    return; //TODO it should be saved for feature usages
-            // or passed from view when starting;
+    return; //TODO it should be saved for future usages
+
   objectManager_->setCarLimit(limit);
+}
+
+void Model::setPedestrianLimit(uint limit)
+{
+  if(objectManager_.get() == NULL)
+    return; //TODO it should be saved for future usages
+
+  objectManager_->setPedestrianLimit(limit);
 }
 
 MapPtr Model::getMapSnapshot()

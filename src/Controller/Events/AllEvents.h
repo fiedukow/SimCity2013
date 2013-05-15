@@ -9,6 +9,7 @@
 #include "EventNewSnapshotRequest.h"
 #include "EventSetSimulationSpeed.h"
 #include "EventSetCarLimit.h"
+#include "EventSetPedestrianLimit.h"
 
 using namespace SimCity::Controller::Events;
 

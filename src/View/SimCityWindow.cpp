@@ -48,6 +48,10 @@ SimCityWindow::SimCityWindow(Controller::QtUnspaghetti& qtUnspaghetti,
           SIGNAL(textChanged(QString)),
           &qtUnspaghetti_,
           SLOT(setCarLimit(QString)));
+  connect(ui->pedestrianLimit,
+          SIGNAL(textChanged(QString)),
+          &qtUnspaghetti_,
+          SLOT(setPedestrianLimit(QString)));
 
   QLabel* speedLabel = new QLabel("Simulation Speed: ", this);
   QSpinBox* frameRateSpin = new QSpinBox(this);
