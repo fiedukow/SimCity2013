@@ -3,3 +3,6 @@ release/*
 debug/*
 bin/*
 media/*
+html/*
+latex/*
+resources/*
