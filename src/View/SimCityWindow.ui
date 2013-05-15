@@ -102,83 +102,27 @@
                     <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
                    </property>
                    <item row="0" column="0">
-                    <widget class="QLabel" name="label_10">
-                     <property name="text">
-                      <string>DBHost</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QLineEdit" name="lineEdit">
-                     <property name="text">
-                      <string>simcity</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="label_11">
-                     <property name="text">
-                      <string>DBName</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QLineEdit" name="lineEdit_2">
-                     <property name="text">
-                      <string>simcity</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="0">
-                    <widget class="QLabel" name="label_12">
-                     <property name="text">
-                      <string>DBUser</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="1">
-                    <widget class="QLineEdit" name="lineEdit_3">
-                     <property name="text">
-                      <string>simcity</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="0">
-                    <widget class="QLabel" name="label_13">
-                     <property name="text">
-                      <string>DBPort</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="1">
-                    <widget class="QLineEdit" name="lineEdit_4">
-                     <property name="text">
-                      <string>5342</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="4" column="0">
                     <widget class="QLabel" name="label_14">
                      <property name="text">
                       <string>Cars</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="4" column="1">
+                   <item row="0" column="1">
                     <widget class="QLineEdit" name="carLimit">
                      <property name="text">
                       <string>10</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="5" column="0">
+                   <item row="1" column="0">
                     <widget class="QLabel" name="label_16">
                      <property name="text">
                       <string>Pedestrians</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="5" column="1">
+                   <item row="1" column="1">
                     <widget class="QLineEdit" name="lineEdit_5">
                      <property name="text">
                       <string>1</string>
@@ -283,13 +227,6 @@
                       </property>
                      </widget>
                     </item>
-                    <item row="0" column="2">
-                     <widget class="QLabel" name="label_5">
-                      <property name="text">
-                       <string>High</string>
-                      </property>
-                     </widget>
-                    </item>
                     <item row="4" column="0">
                      <widget class="QLabel" name="label_9">
                       <property name="text">
@@ -327,34 +264,6 @@
                       </property>
                      </widget>
                     </item>
-                    <item row="1" column="2">
-                     <widget class="QCheckBox" name="checkBox_5">
-                      <property name="text">
-                       <string/>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="2" column="2">
-                     <widget class="QCheckBox" name="checkBox_6">
-                      <property name="text">
-                       <string/>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="3" column="2">
-                     <widget class="QCheckBox" name="checkBox_7">
-                      <property name="text">
-                       <string/>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="4" column="2">
-                     <widget class="QCheckBox" name="checkBox_8">
-                      <property name="text">
-                       <string/>
-                      </property>
-                     </widget>
-                    </item>
                     <item row="5" column="0">
                      <widget class="QLabel" name="label_15">
                       <property name="text">
@@ -375,13 +284,6 @@
                       </property>
                      </widget>
                     </item>
-                    <item row="5" column="2">
-                     <widget class="QCheckBox" name="checkBox_10">
-                      <property name="text">
-                       <string/>
-                      </property>
-                     </widget>
-                    </item>
                    </layout>
                   </widget>
                  </item>
@@ -391,9 +293,6 @@
                     <enum>Qt::Horizontal</enum>
                    </property>
                   </widget>
-                 </item>
-                 <item>
-                  <widget class="QComboBox" name="comboBox"/>
                  </item>
                  <item>
                   <spacer name="verticalSpacer_2">
@@ -414,7 +313,6 @@
                 <zorder>line</zorder>
                 <zorder>widget</zorder>
                 <zorder>line_3</zorder>
-                <zorder>comboBox</zorder>
                </widget>
               </item>
              </layout>
@@ -435,24 +333,15 @@
      <x>0</x>
      <y>0</y>
      <width>851</width>
-     <height>23</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
     <property name="title">
      <string>&amp;File</string>
     </property>
-    <addaction name="actionLoad_State"/>
-    <addaction name="actionSa_ve_state"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
-   </widget>
-   <widget class="QMenu" name="menu_Database">
-    <property name="title">
-     <string>&amp;Database</string>
-    </property>
-    <addaction name="actionLoadCity"/>
-    <addaction name="actionConfigure_Dynamic"/>
    </widget>
    <widget class="QMenu" name="menuSimulation">
     <property name="title">
@@ -463,7 +352,6 @@
     <addaction name="actionStop"/>
    </widget>
    <addaction name="menu_File"/>
-   <addaction name="menu_Database"/>
    <addaction name="menuSimulation"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -489,6 +377,9 @@
    <property name="toolTip">
     <string>Start simulation.</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
   </action>
   <action name="actionPause">
    <property name="text">
@@ -496,6 +387,9 @@
    </property>
    <property name="toolTip">
     <string>Pause simulation.</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+U</string>
    </property>
   </action>
   <action name="actionStop">
@@ -505,13 +399,8 @@
    <property name="toolTip">
     <string>Stop simulation.</string>
    </property>
-  </action>
-  <action name="actionLoadCity">
-   <property name="text">
-    <string>Configure s&amp;tatic database</string>
-   </property>
-   <property name="toolTip">
-    <string>Set information about static database.</string>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="actionExit">
@@ -523,27 +412,6 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
-   </property>
-  </action>
-  <action name="actionConfigure_Dynamic">
-   <property name="text">
-    <string>Configure &amp;dynamic database</string>
-   </property>
-   <property name="toolTip">
-    <string>Set information about dynamic database.</string>
-   </property>
-  </action>
-  <action name="actionLoad_State">
-   <property name="text">
-    <string>&amp;Load State</string>
-   </property>
-   <property name="toolTip">
-    <string>Load saved state of simulation.</string>
-   </property>
-  </action>
-  <action name="actionSa_ve_state">
-   <property name="text">
-    <string>&amp;Save state</string>
    </property>
   </action>
   <action name="actionMapScaleMinus">
