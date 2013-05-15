@@ -8,7 +8,6 @@
 + Rozsynchronizować kamery.
 (-) Rozwiązwiązac problem "nieskończonej" prędkości.
 - Liczenie czasu dla odczytów - uwzględnienie upływu czasu przy zrzucaniu odczytów z kamer do bazy.
-- Oczyszczenie static db drivera z odniesien do loggera.
 - Dodać do widoku ustawianie ilości pedestrianów i aktywować opcje które mają być aktywne.
 - Dynamiczna konfiguracja bazy
 + Static driver na pqxx 4

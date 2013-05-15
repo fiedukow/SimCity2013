@@ -101,6 +101,9 @@ void StaticBaseDriver::connect()
   }
   catch(std::exception& e)
   {
+    if(persistent_)
+      throw GeneralException("Unable to connect to database using provided data.");
+
     std::stringstream ss;
     ss << "Unable to connect to DB due to the exception:" << std::endl
        << e.what();

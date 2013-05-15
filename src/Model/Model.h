@@ -30,7 +30,12 @@ typedef std::shared_ptr<ObjectManager> ObjectManagerPtr;
 class Model
 {
 public:
-  Model();
+  /**
+   * @brief Model
+   */
+  Model(const std::string& dbName,
+        const std::string& dbUserName,
+        const std::string& dbPassword);
 
   /**
    * @brief registerNewStateObserver - allows to add new observer of model state

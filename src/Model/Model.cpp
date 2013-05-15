@@ -10,7 +10,9 @@ namespace SimCity
 namespace Model
 {
 
-Model::Model()
+Model::Model(const std::string& dbName,
+             const std::string& dbUserName,
+             const std::string& dbPassword)
   : minTimerDelay_(32),
     simulationSpeed_(1.00),
     pollingPeriod_(0),
@@ -19,9 +21,9 @@ Model::Model()
     threadRunning_(false),
     world_(NULL),
     thread_(NULL),
-    dbName_("simcity"),
-    dbUser_("simcity"),
-    dbPassword_("simcity"),
+    dbName_(dbName),
+    dbUser_(dbUserName),
+    dbPassword_(dbPassword),
     objectsLimit_(10)
 {
 }
@@ -152,14 +154,28 @@ void Model::addSimulationPart(SimulationPartPtr newSimPart)
 
 void Model::newSimulation()
 {
-  world_ = WorldPtr(new World(dbName_, dbUser_, dbPassword_));
-  objectManager_ = ObjectManagerPtr(new ObjectManager(world_,
-                                                      dbName_,
-                                                      dbUser_,
-                                                      dbPassword_,
-                                                      objectsLimit_));
-  addSimulationPart(std::dynamic_pointer_cast<SimulationPart>(world_));
-  addSimulationPart(std::dynamic_pointer_cast<SimulationPart>(objectManager_));
+  try
+  {
+    world_ = WorldPtr(new World(dbName_, dbUser_, dbPassword_));
+    objectManager_ = ObjectManagerPtr(new ObjectManager(world_,
+                                                        dbName_,
+                                                        dbUser_,
+                                                        dbPassword_,
+                                                        objectsLimit_));
+    addSimulationPart(std::dynamic_pointer_cast<SimulationPart>(world_));
+    addSimulationPart(std::dynamic_pointer_cast<SimulationPart>(objectManager_));
+  }
+  catch(GeneralException& e)
+  {
+    std::cout << "An unhandable problem occured while running application"
+              << std::endl;
+    std::cout << "Application will be killed as there is nothing we can do."
+              << std::endl;
+    std::cout << "Here are some details: " << std::endl;
+    std::cout << e.what();
+    std::cout << "\nHTH." << std::endl;
+    exit(1);
+  }
 }
 
 }//namespace SimCity
