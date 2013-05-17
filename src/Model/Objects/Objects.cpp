@@ -316,7 +316,6 @@ void RadiusSensor::visit(CarSnapshot& car)
                                             geo.lon,
                                             geo.lat,
                                             geo.mos,
-                                            0,
                                             timer_->getDBTime()));
 
   std::cout << "I (id = " << id_ << ") see car in: "
@@ -338,7 +337,6 @@ void RadiusSensor::visit(PedestrianSnapshot& pedestrian)
                                             geo.lon,
                                             geo.lat,
                                             geo.mos,
-                                            0,
                                             timer_->getDBTime()));
 
   std::cout << "I (id = " << id_ << ") see pedestrian in: "
