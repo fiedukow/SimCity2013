@@ -29,10 +29,12 @@ public:
 
   Physics::Position getPosition() const;
   Physics::Velocity getVelocity() const;
+  unsigned int getId() const;
 
 private:
   Physics::Position pos;
   Physics::Velocity v;
+  PlacedObject* id;
 };
 
 class CarSnapshot;

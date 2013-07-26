@@ -317,6 +317,7 @@ void RadiusSensor::visit(CarSnapshot& car)
                                             geo.lat,
                                             geo.mos,
                                             timer_->getDBTime()));
+  //PUT YOUR DB CODE HERE - ID IS UNDER car.getId();
 
   std::cout << "I (id = " << id_ << ") see car in: "
             << geo.lon << ", "
@@ -338,6 +339,7 @@ void RadiusSensor::visit(PedestrianSnapshot& pedestrian)
                                             geo.lat,
                                             geo.mos,
                                             timer_->getDBTime()));
+  //PUT YOUR DB CODE HERE - ID IS UNDER pedestrian.getId();
 
   std::cout << "I (id = " << id_ << ") see pedestrian in: "
             << geo.lon << ", "

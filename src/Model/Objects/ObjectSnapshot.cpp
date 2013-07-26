@@ -10,7 +10,8 @@ namespace Objects
 
 Snapshot::Snapshot(const PlacedObject &base)
   : pos(base.getPosition()),
-    v(base.getVelocity())
+    v(base.getVelocity()),
+    id(&base)
 {}
 
 Physics::Position Snapshot::getPosition() const
@@ -20,6 +21,10 @@ Physics::Position Snapshot::getPosition() const
 Physics::Velocity Snapshot::getVelocity() const
 {
   return v;
+}
+unsigned int Snapshot::getId() const
+{
+  return static_cast<unsigned int>(id);
 }
 
 Snapshot::~Snapshot()
